@@ -12,9 +12,8 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from rasa_core.actions.action import Action
 from rasa_core.events import Restarted, SlotSet
-from istac_chatbot.custom_stopwords import stopwords_custom
-from istac_chatbot.variables import indicators, indicators_check, locations_check, hombres_indicadores, \
-    mujeres_indicadores
+from custom_stopwords import stopwords_custom
+from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
 
 URL = "https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/"
 COLOR = True

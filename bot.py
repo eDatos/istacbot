@@ -24,8 +24,8 @@ from rasa_nlu import config
 from rasa_nlu.model import Trainer
 from rasa_nlu.training_data import load_data
 
-from istac_chatbot.custom_stopwords import stopwords_custom
-from istac_chatbot.policy import RestaurantPolicy
+from custom_stopwords import stopwords_custom
+from policy import RestaurantPolicy
 
 logger = logging.getLogger(__name__)
 stemmer = SnowballStemmer("spanish")
