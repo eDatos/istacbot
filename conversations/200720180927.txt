@@ -1,0 +1,209 @@
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\Scripts\python.exe W:/ARTE/2018-machine_learning/chatbot-ISTAC/01-Proyecto/04-git/ISTAC-ChatBot/istac_chatbot/bot.py run
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+2018-07-20 09:20:13 INFO     rasa_nlu.components  - Added 'nlp_spacy' to component cache. Key 'nlp_spacy-es'.
+Using TensorFlow backend.
+2018-07-20 09:20:13.256967: I T:\src\github\tensorflow\tensorflow\core\platform\cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\pykwalify\core.py:99: UnsafeLoaderWarning:
+The default 'Loader' for 'load(stream)' without further arguments can be unsafe.
+Use 'load(stream, Loader=ruamel.yaml.Loader)' explicitly if that is OK.
+Alternatively include the following in your code:
+
+  import warnings
+  warnings.simplefilter('ignore', ruamel.yaml.error.UnsafeLoaderWarning)
+
+In most other cases you should consider using 'safe_load(stream)'
+  data = yaml.load(stream)
+Bot loaded. Type a message and press enter:
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+en nada
+que te interesaria saber?
+nada
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+jodido
+que te interesaria saber?
+que la fuerza te acompañe
+Adios :)
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+clear
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+reset
+Cual indindicador andas buscando?
+poblacion
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+poblacion
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+poblacion
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+dame la poblacion
+location_slot: None, date_slot: None, indicator_slot: Poblacion
+No hay información para la fecha indicada. Prueba con otra.
+dame la poblacion tenerife 2018
+location_slot: tenerife, date_slot: 2018, indicator_slot: Poblacion
+No hay información para la fecha indicada. Prueba con otra.
+poblacion tenerife 2017
+location_slot: tenerife, date_slot: 2017, indicator_slot: Poblacion
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/POBLACION/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017]
+Población en Tenerife durante 2017: 894636 (personas)
+
+
+Te gustaria conocer el/la Población en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Población de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Tu indicador es el unico que coincide con el tema Poblacion
+canarias
+location_slot: canarias, date_slot: 2017, indicator_slot: Poblacion
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/POBLACION/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2017]
+Población en Canarias durante 2017: 2108121 (personas)
+
+
+Te gustaria conocer el/la Población en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Población de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2017? (Introduce otro indicador)
+Tu indicador es el unico que coincide con el tema Poblacion
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+jajajaja
+Fue un placer :-)
+gracias
+Fue un placer :-)
+gracias
+Fue un placer :-)
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+jeje
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+ayudame
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+que informacion tienes
+Adios :)
+no no
+Fue un placer :-)
+quiero seguir preguntando
+location_slot: None, date_slot: None, indicator_slot: None
+adios
+Fue un placer :-)
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+paro tenerife
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+
+
+phttps://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2018Q1]
+Tasa de paro en Tenerife durante 2018: 19.91%
+
+
+Te gustaria conocer el/la Tasa de paro en 2018 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2018? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+2017
+location_slot: tenerife, date_slot: 2017, indicator_slot: Tasa de paro
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+adios
+Fue un placer :-)
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+2018
+que te interesaria saber?
+paro
+location_slot: None, date_slot: 2018, indicator_slot: Tasa de paro
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2018Q1]
+Tasa de paro en Canarias durante 2018: 20.62%
+
+
+Te gustaria conocer el/la Tasa de paro en 2018 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2018? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+tas empleo
+location_slot: None, date_slot: 2018, indicator_slot: Tasa de paro
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2018Q1]
+Tasa de paro en Canarias durante 2018: 20.62%
+
+
+Te gustaria conocer el/la Tasa de paro en 2018 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2018? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+tasa empleo
+location_slot: None, date_slot: 2018, indicator_slot: Tasa de paro
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2018Q1]
+Tasa de paro en Canarias durante 2018: 20.62%
+
+
+Te gustaria conocer el/la Tasa de paro en 2018 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2018? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+Tasa de empleo
+location_slot: Tasa de empleo, date_slot: 2018, indicator_slot: Tasa de paro
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+Lanzarote - Suroeste
+Gran Canaria Norte - Oeste
+La Palma - Valle de Aridane
+Gran Canaria - Área Metropolitana
+Lanzarote - Este
+Gran Canaria Norte - Noroeste
+Lanzarote - Norte
+La Gomera - Norte
+Tenerife Sur - Valle de Güímar
+Tenerife Norte - Acentejo
+Comunidades autónomas:
+Canarias
+Islas:
+Tenerife
+La Palma
+Lanzarote
+La Gomera
+El Hierro
+Gran Canaria
+Fuerteventura

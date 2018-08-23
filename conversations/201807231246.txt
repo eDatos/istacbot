@@ -1,0 +1,159 @@
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\Scripts\python.exe W:/ARTE/2018-machine_learning/chatbot-ISTAC/01-Proyecto/04-git/ISTAC-ChatBot/istac_chatbot/bot.py run
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+2018-07-23 12:21:00 INFO     rasa_nlu.components  - Added 'nlp_spacy' to component cache. Key 'nlp_spacy-es'.
+Using TensorFlow backend.
+2018-07-23 12:21:01.194212: I T:\src\github\tensorflow\tensorflow\core\platform\cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\pykwalify\core.py:99: UnsafeLoaderWarning: 
+The default 'Loader' for 'load(stream)' without further arguments can be unsafe.
+Use 'load(stream, Loader=ruamel.yaml.Loader)' explicitly if that is OK.
+Alternatively include the following in your code:
+
+  import warnings
+  warnings.simplefilter('ignore', ruamel.yaml.error.UnsafeLoaderWarning)
+
+In most other cases you should consider using 'safe_load(stream)'
+  data = yaml.load(stream)
+Bot loaded. Type a message and press enter: 
+adios
+Adiós :)
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+opciones
+Qué te interesaráa saber?
+paro
+location_slot: None, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Canarias durante 2017: 25.68%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+tenerife
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+Tenerifess
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+registrado
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+ss
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+seguridad social
+location_slot: tenerife, date_slot: None, indicator_slot: seguridad social
+2017
+El indicador seguridad social no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Afiliaciones a la Seguridad Social
+Empresas inscritas en la Seguridad Social
+Afiliaciones a la Seguridad Social. Hombres
+Afiliaciones a la Seguridad Social. Mujeres
+Afiliaciones a la Seguridad Social. Industria
+Afiliaciones a la Seguridad Social. Servicios
+Afiliaciones a la Seguridad Social. Agricultura
+Afiliaciones a la Seguridad Social. Construcción
+Energía eléctrica. Disponible
+Empresas inscritas en la Seguridad Social. Industria
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015
+Afiliaciones a la Seguridad Social. Hombres
+location_slot: tenerife, date_slot: None, indicator_slot: afiliaciones a la seguridad social. hombres
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/AFILIACIONES_HOMBRES/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Afiliaciones a la Seguridad Social. Hombres en Tenerife durante 2017: 168704 (puestos de trabajo)
+
+
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social. Hombres en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social. Hombres de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+TIME: 2001
+location_slot: tenerife, date_slot: 2001, indicator_slot: afiliaciones a la seguridad social. hombres
+2001
+No hay información para la fecha indicada. Prueba con otra.
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Capanarias durante el 2015
+tasa
+location_slot: tenerife, date_slot: 2001, indicator_slot: afiliaciones a la seguridad social. hombres
+2001
+No hay información para la fecha indicada. Prueba con otra.
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015
+tasa
+location_slot: tenerife, date_slot: 2001, indicator_slot: afiliaciones a la seguridad social. hombres
+2001
+No hay información para la fecha indicada. Prueba con otra.
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015
+tasa 2017
+location_slot: tenerife, date_slot: 2017, indicator_slot: afiliaciones a la seguridad social. hombres
+2017

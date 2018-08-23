@@ -1,0 +1,439 @@
+%[Saludo]
+    Hola
+    Hey
+    Buenas
+    Buenos dias
+    Buenas tardes
+    Buenas noches
+    ¿Qué tal?
+    Qué tal?
+    Alo
+    Alooo
+    Holaaa!!
+
+%[Despedida]
+    Muchas gracias
+    Gracias
+    Adios
+    Hasta luego
+    A mas ver
+    Que la fuerza te acompañe
+    Con dios
+
+%[Ayuda]
+    Qué puedo hacer
+    Ayuda
+    Ayúdame
+    Comandos
+    Qué puedo preguntar
+    Cómo funcionas
+    listar
+    listame
+    Enseñame
+    Empezar
+    empieza
+    quiero ayuda
+
+
+%[inform](10000)
+    @[var_What] ~[endphrase?]
+    ~[prep?] @[var_Loc] ~[endphrase?]
+    ~[prep_date?] @[var_Date] ~[endphrase?]
+
+    @[var_Loc] @[var_What] ~[prep_date?] @[var_Date]
+    @[var_Loc] ~[prep_date?] @[var_Date] @[var_What]
+    @[var_Date] ~[prep?] @[var_Loc] @[var_What]
+    @[var_Date] @[var_What] ~[prep?] @[var_Loc]
+
+    ~[prephrase?] @[var_What] ~[prep?] @[var_Loc] ~[prep_date?] @[var_Date] ~[endphrase?]
+    ~[prephrase?] @[var_What] ~[prep_date] @[var_Date] ~[prep] @[var_Loc] ~[endphrase?]
+    ~[prephrase?] @[var_What] ~[prep?] @[var_Loc] ~[endphrase?]
+    ~[prephrase?] @[var_What] ~[prep_date?] @[var_Date] ~[endphrase?]
+
+~[prephrase]
+    Quiero
+    Quiero saber
+    Quisiera saber
+    Me gustaría saber
+    Me gustaría conocer
+    Estoy buscando
+    Me interesa saber
+    Por favor dame
+    Por favor dime
+
+~[endphrase]
+    por favor
+
+~[prep]
+    en
+    de
+    del
+
+~[prep_date]
+    en
+    de
+    del
+    durante
+    durante el
+
+@[var_What]
+    ~[Superficie]
+    ~[Poblacion]
+    ~[Nacimientos]
+    ~[Defunciones]
+    ~[Matrimonios Entre conyuges de diferente sexo]
+    ~[Migraciones Saldo migratorio]
+    ~[Alumnado no universitario Educacion primaria]
+    ~[Alumnado no universitario Educacion secundaria obligatoria ESO]
+    ~[Alumnado no universitario Educacion infantil]
+    ~[Policia local Efectivos]
+    ~[PIB a precios corrientes]
+    ~[indice de precios de consumo IPC General]
+    ~[Sociedades mercantiles Creadas]
+    ~[Empresas inscritas en la seguridad social]
+    ~[Afiliaciones a la seguridad social]
+    ~[Tasa de empleo]
+    ~[Tasa de paro]
+    ~[Paro registrado]
+    ~[Empleo registrado]
+    ~[Superficie cultivada]
+    ~[Energia electrica Disponible]
+    ~[indice de precios industriales IPRI]
+    ~[indice de produccion industrial IPI]
+    ~[Venta mayor de cemento]
+    ~[Comercio exterior Tasa de cobertura]
+    ~[Pernoctaciones en alojamientos turisticos]
+    ~[Plazas ofertadas por alojamientos turisticos]
+    ~[Viajeros entrados en alojamientos turisticos]
+    ~[Alojamientos turisiticos abiertos]
+    ~[Tasa de ocupacion por plazas]
+    ~[Matriculacion de vehiculos]
+    ~[Parque de vehiculos]
+    ~[Trafico aereo comercial Movimiento de mercancias]
+    ~[Hipotecas constituidas]
+    ~[Hipotecas canceladas]
+    ~[Empleo registrado Cabildos]
+    ~[Empleo registrado Ayuntamientos]
+    ~[IRPF Base imponible por declarante]
+    ~[IBI Cuota liquida Urbanos]
+    ~[IBI Cuota liquida Rusticos]
+    ~[Presupuesto liquidado Gastos por habitante Ayuntamientos]
+    ~[Presupuesto liquidado Ingresos por habitante Ayuntamientos]
+    ~[Presupuesto liquidado Gastos por habitante Cabildos]
+    ~[Presupuesto liquidado Ingresos por habitante Cabildos]
+
+~[Superficie]
+    la superficie
+    el terreno
+    la extension territorial
+    el area
+
+~[Poblacion]
+    la poblacion
+    los habitantes
+    el numero de habitantes
+    el padron
+
+~[Nacimientos]
+    los nacimientos
+    la natalidad
+
+~[Defunciones]
+    las defunciones
+    las muertes
+
+~[Matrimonios Entre conyuges de diferente sexo]
+    los matrimonios
+
+~[Migraciones Saldo migratorio]
+    las migraciones
+    la migracion
+
+~[Alumnado no universitario Educacion primaria]
+    la educacion primaria
+    los alumnos primaria
+
+~[Alumnado no universitario Educacion secundaria obligatoria ESO]
+    la educacion secundaria obligatoria
+    los alumnos ESO
+    ESO
+    la ESO
+
+~[Alumnado no universitario Educacion infantil]
+    la educacion infantil
+    los alumnos educacion infantil
+
+~[Policia local Efectivos]
+    la policia local
+    la policia
+
+~[PIB a precios corrientes]
+    PIB
+    el PIB
+    el producto interno bruto
+
+~[indice de precios de consumo IPC General]
+    el IPC
+    IPC
+    el indice de precios de consumo
+
+~[Sociedades mercantiles Creadas]
+    las sociedades mercantiles
+    las sociedades
+
+~[Empresas inscritas en la seguridad social]
+    las empresas inscritas en la seguridad social
+    las empresas seguridad social
+
+~[Afiliaciones a la seguridad social]
+    las afiliaciones a la seguridad social
+    las altas en la seguridad social
+    las altas seguridad social
+    los inscritos en la seguridad social
+    los inscritos seguridad social
+
+~[Tasa de empleo]
+    la tasa de empleo
+    el empleo
+
+~[Tasa de paro]
+    el paro
+    paro
+    el desempleo
+    la tasa de paro
+
+~[Paro registrado]
+    el paro registrado
+    las personas en paro
+    las personas desempleadas
+    los desempleados
+
+~[Empleo registrado]
+    el empleo registrado
+    las personas con trabajo
+    los empleados
+    las personas con empleo
+
+~[Superficie cultivada]
+    la superficie cultivada
+    el terreno cultivado
+    el area cultivada
+
+~[Energia electrica Disponible]
+    la energia electrica
+
+~[indice de precios industriales IPRI]
+    el indice de precios industriales
+    IPRI
+    los precios industriales
+
+~[indice de produccion industrial IPI]
+    el indice de produccion industrial
+    IPI
+    la produccion industrial
+
+~[Venta mayor de cemento]
+    el cemento
+    la venta de cemento
+
+~[Comercio exterior Tasa de cobertura]
+    el comercio exterior
+
+~[Pernoctaciones en alojamientos turisticos]
+    las noches en hoteles
+
+~[Plazas ofertadas por alojamientos turisticos]
+    las plazas ofertadas en alojamientos turisticos
+    las habitaciones disponibles en alojamientos turisticos
+
+~[Viajeros entrados en alojamientos turisticos]
+    los visitantes en alojamientos turisticos
+    las personas hospedadas en alojamientos turisticos
+    los
+    visitantes en hoteles
+
+~[Alojamientos turisiticos abiertos]
+    los alojamientos abiertos
+    los hoteles abiertos
+    hoteles
+
+~[Tasa de ocupacion por plazas]
+    la ocupacion alojamientos turisticos
+    la ocupacion hotelera
+    la tasa de ocupacion hotelera
+
+~[Matriculacion de vehiculos]
+    los vehiculos matriculados
+    los coches matriculados
+
+~[Parque de vehiculos]
+    los vehiculos en circulacion
+    los coches en circulacion
+
+~[Trafico aereo comercial Movimiento de mercancias]
+    el trafico aereo comercial
+    el transporte de mercancias
+    el movimiento de mercancias
+
+~[Hipotecas constituidas]
+    las hipotecas
+    los hipotecados
+
+~[Hipotecas canceladas]
+    las hipotecas canceladas
+
+~[Empleo registrado Cabildos]
+    el empleo por cabildos
+
+~[Empleo registrado Ayuntamientos]
+    el empleo por ayuntamientos
+
+~[IRPF Base imponible por declarante]
+    el IRPF
+
+~[IBI Cuota liquida Urbanos]
+    el IBI
+    el IBI urbanos
+    el impuesto sobre los bienes inmuebles
+
+~[IBI Cuota liquida Rusticos]
+    el IBI rusticos
+
+~[Presupuesto liquidado Gastos por habitante Ayuntamientos]
+    los gastos por habitante ayuntamientos
+
+~[Presupuesto liquidado Ingresos por habitante Ayuntamientos]
+    los ingresos por habitante ayuntamientos
+
+~[Presupuesto liquidado Gastos por habitante Cabildos]
+    los gastos por habitante cabildos
+
+~[Presupuesto liquidado Ingresos por habitante Cabildos]
+    los ingresos por habitante cabildos
+
+@[var_Date]
+    hoy
+    este trimestre
+    este año
+    este mes
+    Enero
+    Febrero
+    Marzo
+    Abril
+    Mayo
+    Junio
+    Julio
+    Agosto
+    Septiembre
+    Octubre
+    Noviembre
+    Diciembre
+    2018
+    2017
+    1996
+
+
+@[var_Loc]
+    35000
+    38000
+    38201
+    España
+    Tenerife
+    Canarias
+    Las Palmas
+    Fuerteventura
+    Antigua
+    Betancuria
+    La Oliva
+    Puerto del Rosario
+    Pajara
+    Tuineje
+    Gran Canaria
+    Arucas
+    Las Palmas de Gran Canaria
+    Santa Brigida
+    Telde
+    Firgas
+    Teror
+    Valsequillo de Gran Canaria
+    Valleseco
+    Vega de San Mateo
+    Agaete
+    Galdar
+    Moya
+    Santa Maria de Guia de Gran Canaria
+    Artenara
+    La Aldea de San Nicolas
+    Tejeda
+    Mogan
+    San Bartolome de Tirajana
+    Agüimes
+    Ingenio
+    Santa Lucia de Tirajana
+    Lanzarote
+    Arrecife
+    San Bartolome
+    Tias
+    Haria
+    Teguise
+    Tinajo
+    Yaiza
+    Santa Cruz de Tenerife
+    El Hierro
+    Frontera
+    Valverde
+    El Pinar de El Hierro
+    La Gomera
+    Agulo
+    Hermigua
+    Vallehermoso
+    Alajero
+    San Sebastian
+    Valle Gran Rey
+    La Palma
+    Breña Alta
+    Breña Baja
+    Santa Cruz de La Palma
+    Villa de Mazo
+    Barlovento
+    Puntallana
+    San Andres y Sauces
+    Garafia
+    Puntagorda
+    Tijarafe
+    Fuencaliente de La Palma
+    Los Llanos de Aridane
+    El Paso
+    Tazacorte
+    Tenerife
+    San Cristobal de La Laguna
+    El Rosario
+    Santa Cruz de Tenerife
+    Tegueste
+    La Matanza de Acentejo
+    Santa ursula
+    El Sauzal
+    Tacoronte
+    La Victoria de Acentejo
+    Buenavista del Norte
+    Garachico
+    Los Silos
+    El Tanque
+    La Guancha
+    Icod de los Vinos
+    San Juan de la Rambla
+    La Orotava
+    Puerto de la Cruz
+    Los Realejos
+    Arico
+    Fasnia
+    Granadilla de Abona
+    San Miguel de Abona
+    Vilaflor de Chasna
+    Adeje
+    Arona
+    Guia de Isora
+    Santiago del Teide
+    Arafo
+    Candelaria
+    Güimar

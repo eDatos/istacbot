@@ -1,0 +1,533 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import difflib
+import re
+import requests
+import unidecode
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+from rasa_core.actions.action import Action
+from rasa_core.events import Restarted, SlotSet
+from istac_chatbot.custom_stopwords import stopwords_custom
+from istac_chatbot.variables import indicators, indicators_check, locations_check, hombres_indicadores, \
+    mujeres_indicadores
+
+URL = "https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/"
+COLOR = True
+DEFAULT_LOCATION = "Canarias"
+
+indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
+stemmer = SnowballStemmer("spanish")
+spanish_stopwords = stopwords.words('spanish')
+remove_punctuation_marks = re.compile(r"\w+")
+spanish_stopwords = stopwords.words('spanish')
+for stopword in stopwords_custom: spanish_stopwords.append(stopword)
+
+
+class ActionShow(Action):
+    previous_date = None
+    previous_indicator = None
+    previous_location = None
+    possible_location = None
+    debug = True
+
+    location_confidence = {'confidence': -1, 'value': DEFAULT_LOCATION}
+    date_confidence = {'confidence': -1, 'value': ''}
+    indicator_confidence = {'confidence': -1, 'value': ''}
+
+    previuos_location_confidence = {'confidence': -1, 'value': ''}
+    previous_date_confidence = {'confidence': -1, 'value': ''}
+    previous_indicator_confidence = {'confidence': -1, 'value': ''}
+
+    actions_ignore = ["action_hombres", "action_mujeres", "action_yes"]
+
+    def name(self):
+        return 'action_show'
+
+    def run(self, dispatcher, tracker, domain):
+        print('holaaa')
+        if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None == None and next(
+            tracker.get_latest_entity_values("var_Loc"), None) == None
+                and next(tracker.get_latest_entity_values("var_Date"), None) == None):
+
+            self.dont_understand_message(dispatcher)
+            return []
+
+        if (tracker.get_slot("var_What") != "listen_consulta_hombres" and tracker.get_slot(
+                "var_What") != "listen_consulta_mujeres"):
+            # Save all previous confidences
+            self.previous_location_confidence = self.location_confidence.copy()
+            self.previous_date_confidence = self.date_confidence.copy()
+            self.previous_indicator_confidence = self.indicator_confidence.copy()
+
+            # Reset all confidences
+            self.location_confidence = {'confidence': -1, 'value': ''}
+            self.date_confidence = {'confidence': -1, 'value': ''}
+            self.indicator_confidence = {'confidence': -1, 'value': ''}
+
+            if (self.debug):
+                print("previous_location_slot: " + str(self.previous_location) + ", previous_date_slot: " + str(
+                    self.previous_date) + ", previous_indicator_slot: " + str(self.previous_indicator))
+
+            ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+            date_slot = None
+            location_slot = tracker.get_slot("var_Loc")
+            if tracker.get_slot("var_Date") is not None:
+                date_slot = ansi_escape.sub('', tracker.get_slot("var_Date"))
+
+            indicator_slot = tracker.get_slot("var_What")
+
+            if (self.debug):
+                print("location_slot: " + repr(location_slot) + ", date_slot: " + repr(
+                    date_slot) + ", indicator_slot: " + str(indicator_slot))
+
+            self.previous_date = date_slot
+            self.previous_location = location_slot
+            self.previous_indicator = indicator_slot
+
+            # Localización por defecto: Canarias
+            if (location_slot == None):
+                location_slot = DEFAULT_LOCATION
+
+            self.calculate_confidence_location(location_slot)
+            self.calculate_confidence_indicator(indicator_slot)
+
+            # if (location_slot is not None and self.location_confidence['value'] != self.previous_location_confidence['value']):
+            #     location_slot, indicator_slot = self.check_and_reasign_location(location_slot, indicator_slot)
+            # elif (indicator_slot is not None):
+            #     location_slot, indicator_slot = self.check_and_reasign_indicator(location_slot, indicator_slot)
+
+            # if (self.location_confidence['confidence'] < 0.7 ):
+            #     location_slot = DEFAULT_LOCATION
+            #     self.location_confidence['confidence'] = 1
+            #     self.location_confidence['value'] = DEFAULT_LOCATION
+
+            if (self.debug):
+                print("location_slot: " + repr(location_slot) + ", date_slot: " + str(
+                    date_slot) + ", indicator_slot: " + str(indicator_slot))
+
+            if self.location_confidence['confidence'] > 0.7 and self.indicator_confidence[
+                'confidence'] > 0.7 and indicator_slot != None and location_slot != None:
+                indicator = self.indicator_confidence["value"]
+                response_indicator = requests.get(URL + indicators[indicator]).json()
+                if (self.location_confidence['confidence'] > 0.9 and self.indicator_confidence[
+                    'confidence'] > 0.9 and response_indicator != None):
+                    return self.show_information(dispatcher, date_slot, location_slot, indicator, response_indicator)
+                else:
+                    date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
+                    dispatcher.utter_button_message(
+                        "No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:".format(
+                            self.indicator_confidence["value"],
+                            self.location_confidence["value"],
+                            date
+                        ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
+                    return [SlotSet("var_What", self.indicator_confidence["value"]),
+                            SlotSet("var_Loc", self.location_confidence["value"]),
+                            SlotSet("var_Date", date_slot)]
+            else:
+                self.dont_understand_message(dispatcher)
+                return [SlotSet("var_What", None), SlotSet("var_Loc", None),
+                        SlotSet("var_Date", date_slot)]
+        return [SlotSet("var_What", None)]
+
+    def getDate(self, date, indicator, response_indicator, dispatcher):
+        time = response_indicator['dimension']['TIME']
+        date_list = [str(t['code']) for t in time['representation']]
+
+        if date is None or date == 'None':
+            return time['representation'][0]['code']
+        else:
+            found = False
+            if (time['granularity'][0]['code'] == "YEARLY"):
+                found = self.check_in_list(date, date_list)
+            elif (time['granularity'][0]['code'] == "MONTHLY"):
+                for mes in reversed(range(1, 13)):
+                    found = self.check_in_list(date + 'M' + str(mes).zfill(2), date_list)
+                    if (found):
+                        return found
+            elif (time['granularity'][0]['code'] == "QUARTERLY"):
+                for quarter in reversed(range(1, 5)):
+                    found = self.check_in_list(str(date) + 'Q' + str(quarter), date_list)
+                    if (found):
+                        return found
+
+            if not found:
+                dispatcher.utter_message(
+                    ("Lo siento, he buscado y parece que no hay información para la fecha indicada (el dato más reciente que tengo es de {}). Prueba con otra fecha").format(
+                        time['representation'][0]['code'])
+                )
+            return found
+
+    def check_in_list(self, value, var_list):
+        if value in var_list:
+            return str(value)
+        return False
+
+    def getGeographical(self, loc_slot, response_indicator, dispatcher):
+        max_similarity = 0
+        geographical_code = ""
+        geographical_name = ""
+        geographical_names = {}
+        for element in response_indicator['dimension']['GEOGRAPHICAL']['representation']:
+            difference = difflib.SequenceMatcher(None, self.stemming(loc_slot),
+                                                 self.stemming(
+                                                     self.get_geographical_name(element['title']['es']))).ratio()
+            if element['granularityCode'] not in geographical_names:
+                geographical_names[element['granularityCode']] = {}
+            geographical_names[element['granularityCode']][
+                self.get_geographical_name(element['title']['es'])] = difference
+
+            if max_similarity < difference:
+                geographical_code = element['code']
+                geographical_name = self.get_geographical_name(element['title']['es'])
+                max_similarity = difference
+
+        if max_similarity > 0.7:
+            return geographical_code, geographical_name
+        else:
+
+            location, similarity = self.get_most_similar_location(loc_slot)
+            if (similarity < 0.90):
+                dispatcher.utter_message(
+                    "Si te refieres a {}, no he encontrado información. Prueba con otro lugar:".format(
+                        location
+                    ))
+            else:
+                # dispatcher.utter_message('\n')
+                dispatcher.utter_message("Lo siento, no he econtrado información del lugar que buscas. Prueba con:")
+
+            res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
+            # dispatcher.utter_message("\n")
+            for granularity in res_granularities:
+                geographical_names_sorted = sorted(geographical_names[granularity['code']],
+                                                   key=geographical_names[granularity['code']].get, reverse=True)
+                buttons = []
+                for i in range(min(len(geographical_names_sorted), 5)):
+                    buttons.append({"title": geographical_names_sorted[i], "payload": geographical_names_sorted[i]})
+
+                dispatcher.utter_button_message(granularity['title']['es'] + ":", buttons,
+                                                button_type="vertical")
+        return None, None
+
+    def get_similar_indicators(self, indicator_slot, dispatcher):
+        indicators_difference = {}
+        for indicator in indicators:
+            indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                                       self.stemming(indicator)).ratio()
+        indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
+        buttons = []
+        for i in range(min(len(indicators_sorted), 5)):
+            print(indicators_sorted[i])
+            buttons.append({"title": str(indicators_sorted[i]), "payload": indicators_sorted[i]})
+
+        dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
+                                        button_type="custom")
+
+    def get_geographical_name(self, nombre):
+        result = re.match('(\w+)\s+\((\w+)\)', nombre)
+        if (result):
+            return result[2] + " " + result[1]
+        else:
+            return nombre
+
+    def stemming(self, text):
+        tokens = word_tokenize(text)
+        filtered_words = [stemmer.stem(word) for word in tokens if
+                          word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
+        frase = ''
+        for word in filtered_words:
+            frase = frase + word + ' '
+        return frase.lower()
+
+    def stopwords_clean(self, text):
+        text = text.lower()
+        tokens = word_tokenize(text)
+        filtered_words = [word for word in tokens if
+                          word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
+        spanish_stopwords_stemmed = [stemmer.stem(stopword) for stopword in spanish_stopwords]
+        spanish_stopwords_stemmed.remove('par')
+        # spanish_stopwords_stemmed.remove('si')
+        filtered_words_stemmed = [word for word in filtered_words if
+                                  stemmer.stem(word) not in spanish_stopwords_stemmed]
+        frase = ''
+        for word in filtered_words_stemmed:
+            frase = frase + word + ' '
+        print(frase)
+        return frase
+
+    def get_indicator(self, indicator_slot, dispatcher):
+        indicators_difference = {}
+        indicators_sorted = None
+        for indicator in indicators:
+            indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                                       self.stemming(indicator)).ratio()
+            indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
+
+        if indicators_difference[indicators_sorted[0]] > 0.7:
+            return indicators_sorted[0]
+        else:
+
+            dispatcher.utter_message(
+                "El indicador estadístico que has introducido no está en nuestra base de datos.")
+
+            self.get_similar_indicators(indicator_slot, dispatcher)
+
+    def get_most_similar_location(self, location_slot):
+        max_location = {"value": '', "ratio": 0}
+        for location in locations_check:
+            difference = difflib.SequenceMatcher(None, self.stemming(location_slot),
+                                                 self.stemming(location)).ratio()
+            if (difference > max_location["ratio"]):
+                max_location["ratio"] = difference
+                max_location["value"] = location
+
+        if (self.debug):
+            print(max_location["value"], max_location["ratio"])
+        return max_location["value"], max_location["ratio"]
+
+    def check_and_reasign_location(self, location_slot, indicator_slot):
+
+        max_indicator = {"value": '', "ratio": 0}
+        for indicator in indicators_check.keys():
+            difference = difflib.SequenceMatcher(None, self.stemming(location_slot),
+                                                 self.stemming(indicator)).ratio()
+            if (difference > max_indicator["ratio"]):
+                max_indicator["ratio"] = difference
+                max_indicator["value"] = indicators_check[indicator]
+
+        if (max_indicator["ratio"] > self.location_confidence["confidence"] and max_indicator["ratio"] > 0.7):
+            indicator_slot = max_indicator["value"]
+            location_slot = self.previous_location
+            self.location_confidence = self.previous_location_confidence.copy()  # Nos quedamos con la confianza de la anterior localizacion
+
+        # print(str(max_indicator["ratio"]) + " " + str(self.location_confidence["confidence"]))
+        # print(str(max_indicator["value"]) + " " + str(self.location_confidence["value"]))
+        return location_slot, indicator_slot
+
+    def check_and_reasign_indicator(self, location_slot, indicator_slot):
+
+        max_indicator = {"value": '', "ratio": 0}
+        for indicator in indicators_check.keys():
+            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                 self.stemming(indicator)).ratio()
+            if (difference > max_indicator["ratio"]):
+                max_indicator["ratio"] = difference
+                max_indicator["value"] = indicators_check[indicator]
+
+        max_location = {"value": '', "ratio": 0}
+        for location in locations_check:
+            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                 self.stemming(location)).ratio()
+            if (difference > max_location["ratio"]):
+                max_location["ratio"] = difference
+                max_location["value"] = location
+
+        if (max_location["ratio"] > max_indicator["ratio"]):
+            location_slot = max_location["value"]
+            indicator_slot = self.previous_indicator_confidence['value']
+            if (self.debug):
+                print(indicator_slot + " " + self.previous_indicator)
+            self.indicator_confidence = self.previous_indicator_confidence.copy()
+
+        # print(str(max_indicator["ratio"]) + " " + str(max_location["ratio"]))
+        return location_slot, indicator_slot
+
+    def dont_understand_message(self, dispatcher):
+        dispatcher.utter_message(
+            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante el 2015".format(
+            ))
+
+    def calculate_confidence_location(self, location_slot):
+        if location_slot is not None:
+            for location in locations_check:
+                difference = difflib.SequenceMatcher(None, self.stemming(location_slot.lower()),
+                                                     self.stemming(location.lower())).ratio()
+                if (difference > self.location_confidence["confidence"]):
+                    self.location_confidence["confidence"] = difference
+                    self.location_confidence["value"] = location
+
+    def calculate_confidence_indicator(self, indicator_slot):
+        if indicator_slot is not None:
+
+            for indicator in indicators_check.keys():
+                difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                     self.stemming(indicator)).ratio()
+                if (difference > self.indicator_confidence["confidence"]):
+                    self.indicator_confidence["confidence"] = difference
+                    self.indicator_confidence["value"] = indicators_check[indicator]
+
+            for indicator in indicators:
+                difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+                                                     self.stemming(indicator)).ratio()
+                if (difference > self.indicator_confidence["confidence"]):
+                    self.indicator_confidence["confidence"] = difference
+                    self.indicator_confidence["value"] = indicator
+        if (self.debug):
+            print(str(self.indicator_confidence["confidence"]))
+            print(str(self.indicator_confidence["value"]))
+
+    def show_information(self, dispatcher, date_slot, location_slot, indicator, response_indicator):
+        date = None
+        if (indicator):
+            if (location_slot != None):
+                geographic_location_code, geographic_location_name = self.getGeographical(location_slot,
+                                                                                          response_indicator,
+                                                                                          dispatcher)
+            if (geographic_location_code is None):
+                location_slot = None
+            else:
+                date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
+                if (not date):
+                    return [SlotSet("var_Date", None)]
+        if (geographic_location_code and date and indicator):  # If all params where found.
+            dispatcher.utter_message("Aquí tienes la información:")
+
+            DBDate = date
+            # dispatcher.utter_message("\n")
+
+            # Requests to ISTAC API https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/
+            response_all = requests.get(URL + indicators[
+                indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
+
+            # print(URL + indicators[indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]")
+
+            if (response_all['observation'] and response_all['observation'][0]):
+                res_data = str(response_all['observation'][0])
+                res_unit = response_indicator['dimension']['MEASURE']['representation'][0]['quantity']['unit']['es']
+
+                res_unitSymbol = {"start": "", "end": "", "description": ""}
+
+                if ('unitSymbol' in [str(keys) for keys in
+                                     response_indicator['dimension']['MEASURE']['representation'][0][
+                                         'quantity'].keys()]):
+                    unitSymbol = response_indicator['dimension']['MEASURE']['representation'][0]['quantity'][
+                        'unitSymbol']
+                    res_unitSymbolPosition = \
+                        response_indicator['dimension']['MEASURE']['representation'][0]['quantity'][
+                            'unitSymbolPosition']
+                    if (res_unitSymbolPosition == "START"):
+                        res_unitSymbol["start"] = unitSymbol
+                    else:
+                        res_unitSymbol["end"] = unitSymbol
+                else:
+                    res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
+
+                dispatcher.utter_message("<b>{} en {} en el {}: {}{}{}{}</b>".format(
+                    indicator,
+                    geographic_location_name,
+                    date,
+                    res_unitSymbol["start"],
+                    res_data,
+                    res_unitSymbol["end"],
+                    res_unitSymbol["description"]
+                ))
+
+                # dispatcher.utter_message("\n")
+                # dispatcher.utter_message("Te dejo otros indicadores que pueden ser de tu interés:")
+                self.get_similar_indicators(indicator, dispatcher)
+
+                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o localidad :)")
+
+        return [SlotSet("var_What", self.indicator_confidence["value"]),
+                SlotSet("var_Loc", self.location_confidence["value"]),
+                SlotSet("var_Date", date_slot)]
+
+
+class ActionAskHowCanHelp(Action):
+    def name(self):
+        return 'action_ask_howcanhelp'
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en que te puedo ayudar?")
+        return [Restarted()]
+
+
+class ActionYes(Action):
+    def name(self):
+        return 'action_yes'
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message("Perfecto!")
+        return []
+
+
+class ActionNo(Action):
+    def name(self):
+        return 'action_no'
+
+    def run(self, dispatcher, tracker, domain):
+        # dispatcher.utter_message("\n")
+        dispatcher.utter_message(
+            "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)")
+        return [Restarted()]
+
+
+class ActionMujeres(Action):
+    def name(self):
+        return 'action_mujeres'
+
+    def run(self, dispatcher, tracker, domain):
+
+        if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
+                                                             tracker.get_slot("var_What")):
+
+            return [SlotSet("var_What",
+                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
+                                1] + " Mujeres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]
+        elif (tracker.get_slot("var_What") == None):
+            buttons = []
+            for indicador in mujeres_indicadores:
+                buttons.append({"title": indicador, "payload": indicador})
+
+            dispatcher.utter_button_message(
+                "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: ",
+                buttons,
+                button_type="vertical")
+
+            return [SlotSet("var_What", "listen_consulta_mujeres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]
+        else:
+            return [SlotSet("var_What", tracker.get_slot("var_Loc") + " Mujeres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]
+
+
+class ActionHombres(Action):
+    def name(self):
+        return 'action_hombres'
+
+    def run(self, dispatcher, tracker, domain):
+
+        if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
+                                                             tracker.get_slot("var_What")):
+
+            return [SlotSet("var_What",
+                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
+                                1] + " Hombres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]
+        elif(tracker.get_slot("var_What") == None):
+
+            buttons = []
+            for indicador in hombres_indicadores:
+                buttons.append({"title": indicador, "payload": indicador})
+
+            dispatcher.utter_button_message(
+                "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: ",
+                buttons,
+                button_type="vertical")
+
+            return [SlotSet("var_What", "listen_consulta_hombres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]
+        else:
+            return [SlotSet("var_What", tracker.get_slot("var_Loc") + " Hombres"),
+                    SlotSet("var_Loc", tracker.get_slot("var_Loc")),
+                    SlotSet("var_Date", tracker.get_slot("var_Date"))]

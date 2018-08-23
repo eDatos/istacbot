@@ -1,0 +1,761 @@
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\Scripts\python.exe W:/ARTE/2018-machine_learning/chatbot-ISTAC/01-Proyecto/04-git/ISTAC-ChatBot/istac_chatbot/bot.py run
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\h5py\__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+2018-07-23 13:31:08 INFO     rasa_nlu.components  - Added 'nlp_spacy' to component cache. Key 'nlp_spacy-es'.
+Using TensorFlow backend.
+2018-07-23 13:31:08.870256: I T:\src\github\tensorflow\tensorflow\core\platform\cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+W:\ARTE\2018-machine_learning\chatbot-ISTAC\02-recursos\01-python\chatbot-istac\lib\site-packages\pykwalify\core.py:99: UnsafeLoaderWarning: 
+The default 'Loader' for 'load(stream)' without further arguments can be unsafe.
+Use 'load(stream, Loader=ruamel.yaml.Loader)' explicitly if that is OK.
+Alternatively include the following in your code:
+
+  import warnings
+  warnings.simplefilter('ignore', ruamel.yaml.error.UnsafeLoaderWarning)
+
+In most other cases you should consider using 'safe_load(stream)'
+  data = yaml.load(stream)
+Bot loaded. Type a message and press enter: 
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+qué tal?
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+jajaja
+Qué indicador andas buscando?
+el paro
+location_slot: None, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Canarias durante 2017: 25.68%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+tasa de paro
+location_slot: None, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Canarias durante 2017: 25.68%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+La Laguna
+location_slot: San Cristobal de La Laguna, date_slot: None, indicator_slot: Tasa de paro
+2017
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+Tenerife Norte - Valle de La Orotava
+La Palma - Valle de Aridane
+Gran Canaria Sur - Sur
+Gran Canaria - Área Metropolitana
+Gran Canaria Norte - Centro Norte
+Tenerife Sur - Valle de Güímar
+Tenerife Sur - Abona
+Gran Canaria Norte - Oeste
+Gran Canaria Sur - Sureste
+Gran Canaria Norte - Noroeste
+Comunidades autónomas:
+Canarias
+Islas:
+Gran Canaria
+La Palma
+Lanzarote
+Tenerife
+La Gomera
+El Hierro
+Fuerteventura
+Tenerife
+location_slot: tenerife, date_slot: None, indicator_slot: Tasa de paro
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2017Q1]
+Tasa de paro en Tenerife durante 2017: 23.76%
+
+
+Te gustaria conocer el/la Tasa de paro en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+2012
+location_slot: tenerife, date_slot: 2012, indicator_slot: Tasa de paro
+2012
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2012Q1]
+Tasa de paro en Tenerife durante 2012: 30.15%
+
+
+Te gustaria conocer el/la Tasa de paro en 2012 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2012? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+2011
+location_slot: tenerife, date_slot: 2011, indicator_slot: Tasa de paro
+2011
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2011Q1]
+Tasa de paro en Tenerife durante 2011: 25.69%
+
+
+Te gustaria conocer el/la Tasa de paro en 2011 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2011? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+2013
+location_slot: tenerife, date_slot: 2013, indicator_slot: Tasa de paro
+2013
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2013Q1]
+Tasa de paro en Tenerife durante 2013: 32.58%
+
+
+Te gustaria conocer el/la Tasa de paro en 2013 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2013? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+y en La Palma?
+location_slot: la palma?, date_slot: 2013, indicator_slot: Tasa de paro
+2013
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES707],MEASURE[ABSOLUTE],TIME[2013Q1]
+Tasa de paro en La Palma durante 2013: 34.63%
+
+
+Te gustaria conocer el/la Tasa de paro en 2013 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de La Palma en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de La Palma en 2013? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+en la palma en 2014
+location_slot: la palma, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES707],MEASURE[ABSOLUTE],TIME[2014Q1]
+Tasa de paro en La Palma durante 2014: 34.44%
+
+
+Te gustaria conocer el/la Tasa de paro en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de La Palma en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de La Palma en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+dime las afiliaciones a la ss en el hierro en 2013
+location_slot: el hierro, date_slot: 2013, indicator_slot: las afiliaciones a la ss
+2013
+El indicador las afiliaciones a la ss no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Afiliaciones a la Seguridad Social
+Afiliaciones a la Seguridad Social. Hombres
+Afiliaciones a la Seguridad Social. Mujeres
+Afiliaciones a la Seguridad Social. Industria
+Afiliaciones a la Seguridad Social. Servicios
+Afiliaciones a la Seguridad Social. Construcción
+Afiliaciones a la Seguridad Social. Empleos autónomos
+Afiliaciones a la Seguridad Social. Empleos asalariados
+Afiliaciones a la Seguridad Social. Agricultura
+Migraciones. Saldo migratorio
+saldo migratirio de la isla de fuerteventura en 2012
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: saldo migratirio
+2012
+El indicador saldo migratirio no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Migraciones. Saldo migratorio
+Migraciones. Saldo migratorio. Hombres
+Migraciones. Saldo migratorio. Mujeres
+Tasa de actividad
+Gasto medio por turista
+Gasto turístico
+Visados de obra. Viviendas
+Cabezas de ganado. Caprino
+Empleo registrado. Comercio
+Gasto medio por turista y día
+migraciones saldo migratorio
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: migraciones saldo migratorio
+2012
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/MIGRACIONES_SALDO/data?representation=GEOGRAPHICAL[ES704],MEASURE[ABSOLUTE],TIME[2012]
+Migraciones. Saldo migratorio en Fuerteventura durante 2012: nº2155
+
+
+Te gustaria conocer el/la Migraciones. Saldo migratorio en 2012 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Migraciones. Saldo migratorio de Fuerteventura en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Fuerteventura en 2012? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+que indicadores hay?
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: migraciones saldo migratorio
+2012
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/MIGRACIONES_SALDO/data?representation=GEOGRAPHICAL[ES704],MEASURE[ABSOLUTE],TIME[2012]
+Migraciones. Saldo migratorio en Fuerteventura durante 2012: nº2155
+
+
+Te gustaria conocer el/la Migraciones. Saldo migratorio en 2012 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Migraciones. Saldo migratorio de Fuerteventura en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Fuerteventura en 2012? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+opciones
+Ejemplo de uso: 'Dame el paro de Canarias durante el 2015'
+indicadores
+Qué indicador andas buscando?
+cuáles hay?
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: migraciones saldo migratorio
+2012
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/MIGRACIONES_SALDO/data?representation=GEOGRAPHICAL[ES704],MEASURE[ABSOLUTE],TIME[2012]
+Migraciones. Saldo migratorio en Fuerteventura durante 2012: nº2155
+
+
+Te gustaria conocer el/la Migraciones. Saldo migratorio en 2012 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Migraciones. Saldo migratorio de Fuerteventura en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Fuerteventura en 2012? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+adiós
+Ejemplo de uso: 'Dame el paro de Canarias durante el 2015'
+hasta luego lucas
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: hasta luego lucas
+2012
+El indicador hasta luego lucas no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Tasa de actividad
+Tasa de empleo
+Tasa de empleo. Hombres
+Gasto turístico
+Tasa de paro. Hombres
+Tasa de paro
+Tasa de empleo. Mujeres
+Paro registrado. Mujeres
+Afiliaciones a la Seguridad Social. Agricultura
+Tasa de paro. Mujeres
+hasta luego
+Que la fuerza te acompañe, joven padawan ;)
+holaa
+location_slot: fuerteventura, date_slot: 2012, indicator_slot: hasta luego lucas
+2012
+El indicador hasta luego lucas no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Tasa de actividad
+Tasa de empleo
+Tasa de empleo. Hombres
+Gasto turístico
+Tasa de paro. Hombres
+Tasa de paro
+Tasa de empleo. Mujeres
+Paro registrado. Mujeres
+Afiliaciones a la Seguridad Social. Agricultura
+Tasa de paro. Mujeres
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+Hola Frodote
+Qué te interesaráa saber?
+nada
+location_slot: hola frodote, date_slot: None, indicator_slot: None
+2017
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015
+litros de cerveza
+location_slot: litros de cerveza, date_slot: None, indicator_slot: None
+2017
+Lo siento, no te endiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015
+cuantos muertos en carretera en 2014
+location_slot: carretera, date_slot: 2014, indicator_slot: cuantos muertos
+2014
+El indicador cuantos muertos no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Nacimientos. Mujeres
+Nacimientos. Hombres
+Alojamientos turísticos abiertos
+Pernoctaciones en alojamientos turísticos
+Gasto medio por turista
+Superficie cultivada. Cultivos herbáceos
+Gasto turístico
+Matriculación de vehículos. Turismos
+Población ocupada. Mujeres
+Nacimientos
+muertos en canarias
+location_slot: canarias, date_slot: 2014, indicator_slot: Defunciones
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/DEFUNCIONES/data?representation=GEOGRAPHICAL[ES70],MEASURE[ABSOLUTE],TIME[2014]
+Defunciones en Canarias durante 2014: 14331 (personas)
+
+
+Te gustaria conocer el/la Defunciones en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Defunciones de Canarias en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Canarias en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+fiambres en canarias
+location_slot: canarias, date_slot: 2014, indicator_slot: fiambres
+2014
+El indicador fiambres no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Defunciones. Hombres
+Población. Hombres
+Paro registrado. Hombres
+Nacimientos. Hombres
+Población parada. Hombres
+Población activa. Hombres
+Nacimientos
+Defunciones
+Tasa de paro. Hombres
+Tasa de actividad. Hombres
+chasina en canrias
+location_slot: canrias, date_slot: 2014, indicator_slot: chasina
+2014
+El indicador chasina no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Población
+Hipotecas canceladas
+Población activa
+Hipotecas constituidas
+Tasa de actividad
+Población inactiva
+Tasa de paro
+Población extranjera
+Tasa de empleo
+Población. Edad media
+¿Qué paro había en Gran Canaria en el año 1999?
+location_slot: el año, date_slot: 1999, indicator_slot: chasina
+1999
+El indicador chasina no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Población
+Hipotecas canceladas
+Población activa
+Hipotecas constituidas
+Tasa de actividad
+Población inactiva
+Tasa de paro
+Población extranjera
+Tasa de empleo
+Población. Edad media
+¿Qué paro había en Gran Canaria en 1999?
+location_slot: gran canaria, date_slot: 1999, indicator_slot: chasina
+1999
+El indicador chasina no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Población
+Hipotecas canceladas
+Población activa
+Hipotecas constituidas
+Tasa de actividad
+Población inactiva
+Tasa de paro
+Población extranjera
+Tasa de empleo
+Población. Edad media
+Hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+¿Qué paro había en Gran Canaria en el año 1999?
+Qué te interesaráa saber?
+que paro había en gran canaria en 1999
+location_slot: gran canaria, date_slot: 1999, indicator_slot: que paro había
+1999
+El indicador que paro había no está en nuestra base de datos. ¿Te referías a alguno de los siguientes?
+Tasa de paro
+Tasa de paro. Hombres
+Tasa de paro. Mujeres
+Población parada
+Tasa de ocupación por plazas
+Parque de vehículos por cada 1.000 habitantes
+Coste laboral. Por hora efectiva de trabajo
+Paro registrado
+Gasto medio por turista y día
+Presupuesto liquidado. Ingresos por habitante. Cabildos
+paro en gran canaria en 1999
+location_slot: gran canaria, date_slot: 1999, indicator_slot: Tasa de paro
+1999
+No hay información para la fecha indicada. Prueba con otra.
+paro en gran canaria en 2002
+location_slot: gran canaria, date_slot: 2002, indicator_slot: Tasa de paro
+2002
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES705],MEASURE[ABSOLUTE],TIME[2002Q1]
+Tasa de paro en Gran Canaria durante 2002: 10.35%
+
+
+Te gustaria conocer el/la Tasa de paro en 2002 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Gran Canaria en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Gran Canaria en 2002? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+paro en gran canaria en el 2014
+location_slot: gran canaria, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES705],MEASURE[ABSOLUTE],TIME[2014Q1]
+Tasa de paro en Gran Canaria durante 2014: 32.19%
+
+
+Te gustaria conocer el/la Tasa de paro en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Gran Canaria en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Gran Canaria en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+paro en gran canaria en el 14
+location_slot: el 14, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+La Gomera - Sur
+Lanzarote - Este
+Lanzarote - Norte
+La Gomera - Norte
+Tenerife Sur - Valle de Güímar
+Fuerteventura - Sur
+Lanzarote - Suroeste
+Tenerife Sur - Abona
+Fuerteventura - Norte
+Tenerife Norte - Icod
+Comunidades autónomas:
+Canarias
+Islas:
+El Hierro
+Tenerife
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+Fuerteventura
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+paro en tenerife en 2014
+location_slot: tenerife, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2014Q1]
+Tasa de paro en Tenerife durante 2014: 33.04%
+
+
+Te gustaria conocer el/la Tasa de paro en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+paro en tenerife en el 14
+En qué periodo?
+2014
+location_slot: el 14, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+La Gomera - Sur
+Lanzarote - Este
+Lanzarote - Norte
+La Gomera - Norte
+Tenerife Sur - Valle de Güímar
+Fuerteventura - Sur
+Lanzarote - Suroeste
+Tenerife Sur - Abona
+Fuerteventura - Norte
+Tenerife Norte - Icod
+Comunidades autónomas:
+Canarias
+Islas:
+El Hierro
+Tenerife
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+Fuerteventura
+comarcas
+location_slot: el 14, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+La Gomera - Sur
+Lanzarote - Este
+Lanzarote - Norte
+La Gomera - Norte
+Tenerife Sur - Valle de Güímar
+Fuerteventura - Sur
+Lanzarote - Suroeste
+Tenerife Sur - Abona
+Fuerteventura - Norte
+Tenerife Norte - Icod
+Comunidades autónomas:
+Canarias
+Islas:
+El Hierro
+Tenerife
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+Fuerteventura
+paro en tenerife en 2014
+location_slot: tenerife, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/TASA_PARO/data?representation=GEOGRAPHICAL[ES709],MEASURE[ABSOLUTE],TIME[2014Q1]
+Tasa de paro en Tenerife durante 2014: 33.04%
+
+
+Te gustaria conocer el/la Tasa de paro en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Tasa de paro de Tenerife en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Tenerife en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Afiliaciones a la Seguridad Social
+Tasa de empleo
+Paro registrado
+Empleo registrado
+paro en el sauzal en 2014
+location_slot: el sauzal, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+Tenerife Norte - Daute
+Tenerife Sur - Valle de Güímar
+La Gomera - Sur
+Lanzarote - Este
+Lanzarote - Norte
+La Palma - Noreste
+Fuerteventura - Sur
+La Palma - Noroeste
+Tenerife - Área Metropolitana
+Lanzarote - Suroeste
+Comunidades autónomas:
+Canarias
+Islas:
+La Palma
+Lanzarote
+Gran Canaria
+La Gomera
+El Hierro
+Fuerteventura
+Tenerife
+y en la laguna?
+location_slot: San Cristobal de La Laguna, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+Tenerife Norte - Valle de La Orotava
+La Palma - Valle de Aridane
+Gran Canaria Sur - Sur
+Gran Canaria - Área Metropolitana
+Gran Canaria Norte - Centro Norte
+Tenerife Sur - Valle de Güímar
+Tenerife Sur - Abona
+Gran Canaria Norte - Oeste
+Gran Canaria Sur - Sureste
+Gran Canaria Norte - Noroeste
+Comunidades autónomas:
+Canarias
+Islas:
+Gran Canaria
+La Palma
+Lanzarote
+Tenerife
+La Gomera
+El Hierro
+Fuerteventura
+y en Alcalá
+location_slot: alcalá, date_slot: 2014, indicator_slot: Tasa de paro
+2014
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+La Palma - Capitalina
+La Palma - Noreste
+La Palma - Valle de Aridane
+La Palma - Noroeste
+La Gomera - Sur
+Lanzarote - Este
+Lanzarote - Norte
+La Gomera - Norte
+Tenerife - Área Metropolitana
+Tenerife Sur - Valle de Güímar
+Comunidades autónomas:
+Canarias
+Islas:
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+El Hierro
+Fuerteventura
+Tenerife
+afiliaciones a la seguridad social
+location_slot: alcalá, date_slot: 2014, indicator_slot: Afiliaciones a la seguridad social
+2014
+No hay información del lugar que buscas. Prueba con:
+Comunidades autónomas:
+Canarias
+Islas:
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+El Hierro
+Fuerteventura
+Tenerife
+Municipios:
+La Oliva
+Valleseco
+Betancuria
+Breña Alta
+Candelaria
+La Guancha
+Puntallana
+Haría
+Yaiza
+Arucas
+guia de isora
+location_slot: guia de isora, date_slot: 2014, indicator_slot: Afiliaciones a la seguridad social
+2014
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/AFILIACIONES/data?representation=GEOGRAPHICAL[38019],MEASURE[ABSOLUTE],TIME[2014Q1]
+Afiliaciones a la Seguridad Social en Guía de Isora durante 2014: 5119 (puestos de trabajo)
+
+
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social en 2014 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social de Guía de Isora en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Guía de Isora en 2014? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
+dime el paro registrado en jinamar
+location_slot: jinamar, date_slot: 2014, indicator_slot: Paro registrado
+2014
+No hay información del lugar que buscas. Prueba con:
+Comunidades autónomas:
+Canarias
+Islas:
+La Palma
+Lanzarote
+La Gomera
+Gran Canaria
+El Hierro
+Fuerteventura
+Tenerife
+Municipios:
+Güímar
+Pájara
+Tinajo
+Artenara
+Tijarafe
+Tazacorte
+Candelaria
+Puntagorda
+Arona
+Haría
+hola
+Hola! Soy ISTAC-Bot, en que te puedo ayudar?
+guía de isora
+Qué te interesaráa saber?
+paro
+location_slot: guía de isora, date_slot: None, indicator_slot: Tasa de paro
+2017
+No hay información del lugar que buscas. Prueba con:
+Comarcas:
+La Gomera - Norte
+La Gomera - Sur
+Fuerteventura - Norte
+La Palma - Valle de Aridane
+Lanzarote - Norte
+Tenerife Sur - Valle de Güímar
+La Palma - Noreste
+Fuerteventura - Sur
+La Palma - Noroeste
+La Palma - Capitalina
+Comunidades autónomas:
+Canarias
+Islas:
+La Gomera
+Fuerteventura
+La Palma
+El Hierro
+Tenerife
+Lanzarote
+Gran Canaria
+afiliaciones a la seguridad social
+location_slot: guía de isora, date_slot: None, indicator_slot: Afiliaciones a la seguridad social
+2017
+
+
+https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/AFILIACIONES/data?representation=GEOGRAPHICAL[38019],MEASURE[ABSOLUTE],TIME[2017Q1]
+Afiliaciones a la Seguridad Social en Guía de Isora durante 2017: 5795 (puestos de trabajo)
+
+
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social en 2017 de otra localidad? (Introduce otra poblacion)
+Te gustaria conocer el/la Afiliaciones a la Seguridad Social de Guía de Isora en otra fecha? (Introduce otra fecha)
+Te gustaria conocer otra informacion de Guía de Isora en 2017? (Introduce otro indicador)
+Te doy otros indicadores que te podrian interesar que coinciden con el tema Administracion publica:
+Tasa de empleo
+Tasa de paro
+Paro registrado
+Empleo registrado
