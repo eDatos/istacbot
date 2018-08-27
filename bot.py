@@ -23,6 +23,7 @@ from rasa_core.policies.memoization import MemoizationPolicy
 from rasa_nlu import config
 from rasa_nlu.model import Trainer
 from rasa_nlu.training_data import load_data
+import credentials
 
 from custom_stopwords import stopwords_custom
 from policy import RestaurantPolicy
@@ -34,8 +35,6 @@ for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 spanish_stopwords.remove('eso')
 spanish_stopwords.remove('no')
 spanish_stopwords.remove("sí")
-
-
 
 remove_punctuation_marks = re.compile(r"\w+")
 
@@ -108,9 +107,9 @@ def runTelegram(serve_forever=True):
     agent = Agent.load("models/dialogue_2018080101458", interpreter=interpreter)
 
     input_channel = TelegramInput(
-        access_token="693869496:AAHZmycCx4sfOzCCqg2yRumRHJsAwJTgF24",  # you get this when setting up a bot
-        verify="Testing4162Bot",  # this is your bots username
-        webhook_url=""  # the url your bot should listen for messages
+        access_token=credentials.access_token,  # you get this when setting up a bot
+        verify=credentials.verify,  # this is your bots username
+        webhook_url=credentials.webhook_url  # the url your bot should listen for messages
     )
 
     agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=stopwords_clean_lambda)
