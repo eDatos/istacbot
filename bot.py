@@ -154,7 +154,6 @@ if __name__ == '__main__':
         help="what the bot should do - e.g. run or train?")
     task = parser.parse_args().task
 
-    # decide what to do based on first parameter of the script
     if task == "train-nlu":
         train_nlu()
     elif task == "train-dialogue":

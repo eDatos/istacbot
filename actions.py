@@ -218,6 +218,8 @@ class ActionShow(Action):
             indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                                        self.stemming(indicator)).ratio()
         indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
+        if len(indicators_sorted) > 0:
+            indicators_sorted.pop(0)
         buttons = []
         for i in range(min(len(indicators_sorted), 5)):
             print(indicators_sorted[i])
@@ -337,7 +339,7 @@ class ActionShow(Action):
 
     def dont_understand_message(self, dispatcher):
         dispatcher.utter_message(
-            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante el 2015".format(
+            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015".format(
             ))
 
     def calculate_confidence_location(self, location_slot):
@@ -415,7 +417,7 @@ class ActionShow(Action):
                 else:
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
 
-                dispatcher.utter_message("<b>{} en {} en el {}: {}{}{}{}</b>".format(
+                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}</b>".format(
                     indicator,
                     geographic_location_name,
                     date,
@@ -425,11 +427,9 @@ class ActionShow(Action):
                     res_unitSymbol["description"]
                 ))
 
-                # dispatcher.utter_message("\n")
-                # dispatcher.utter_message("Te dejo otros indicadores que pueden ser de tu interés:")
+                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o lugar :)")
                 self.get_similar_indicators(indicator, dispatcher)
 
-                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o localidad :)")
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
@@ -441,7 +441,7 @@ class ActionAskHowCanHelp(Action):
         return 'action_ask_howcanhelp'
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en que te puedo ayudar?")
+        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en qué te puedo ayudar?")
         return [Restarted()]
 
 
@@ -459,7 +459,6 @@ class ActionNo(Action):
         return 'action_no'
 
     def run(self, dispatcher, tracker, domain):
-        # dispatcher.utter_message("\n")
         dispatcher.utter_message(
             "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)")
         return [Restarted()]
