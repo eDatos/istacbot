@@ -14,10 +14,14 @@ from rasa_core.actions.action import Action
 from rasa_core.events import Restarted, SlotSet
 from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
+import properties
+import locale
 
-URL = "https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/"
-COLOR = True
-DEFAULT_LOCATION = "Canarias"
+URL = properties.url
+COLOR = properties.color
+DEFAULT_LOCATION = properties.default_location
+NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
+locale.setlocale(locale.LC_ALL, properties.locale)
 
 indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
@@ -48,7 +52,6 @@ class ActionShow(Action):
         return 'action_show'
 
     def run(self, dispatcher, tracker, domain):
-        print('holaaa')
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
                 and next(tracker.get_latest_entity_values("var_Date"), None) == None):
@@ -58,6 +61,7 @@ class ActionShow(Action):
 
         if (tracker.get_slot("var_What") != "listen_consulta_hombres" and tracker.get_slot(
                 "var_What") != "listen_consulta_mujeres"):
+
             # Save all previous confidences
             self.previous_location_confidence = self.location_confidence.copy()
             self.previous_date_confidence = self.date_confidence.copy()
@@ -95,16 +99,6 @@ class ActionShow(Action):
             self.calculate_confidence_location(location_slot)
             self.calculate_confidence_indicator(indicator_slot)
 
-            # if (location_slot is not None and self.location_confidence['value'] != self.previous_location_confidence['value']):
-            #     location_slot, indicator_slot = self.check_and_reasign_location(location_slot, indicator_slot)
-            # elif (indicator_slot is not None):
-            #     location_slot, indicator_slot = self.check_and_reasign_indicator(location_slot, indicator_slot)
-
-            # if (self.location_confidence['confidence'] < 0.7 ):
-            #     location_slot = DEFAULT_LOCATION
-            #     self.location_confidence['confidence'] = 1
-            #     self.location_confidence['value'] = DEFAULT_LOCATION
-
             if (self.debug):
                 print("location_slot: " + repr(location_slot) + ", date_slot: " + str(
                     date_slot) + ", indicator_slot: " + str(indicator_slot))
@@ -122,7 +116,7 @@ class ActionShow(Action):
                         "No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:".format(
                             self.indicator_confidence["value"],
                             self.location_confidence["value"],
-                            date
+                            self.translate_date(date, response_indicator)
                         ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
                     return [SlotSet("var_What", self.indicator_confidence["value"]),
                             SlotSet("var_Loc", self.location_confidence["value"]),
@@ -157,7 +151,7 @@ class ActionShow(Action):
             if not found:
                 dispatcher.utter_message(
                     ("Lo siento, he buscado y parece que no hay información para la fecha indicada (el dato más reciente que tengo es de {}). Prueba con otra fecha").format(
-                        time['representation'][0]['code'])
+                        time['representation'][0]['title']['es'])
                 )
             return found
 
@@ -196,11 +190,9 @@ class ActionShow(Action):
                         location
                     ))
             else:
-                # dispatcher.utter_message('\n')
                 dispatcher.utter_message("Lo siento, no he econtrado información del lugar que buscas. Prueba con:")
 
             res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
-            # dispatcher.utter_message("\n")
             for granularity in res_granularities:
                 geographical_names_sorted = sorted(geographical_names[granularity['code']],
                                                    key=geographical_names[granularity['code']].get, reverse=True)
@@ -218,12 +210,15 @@ class ActionShow(Action):
             indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                                        self.stemming(indicator)).ratio()
         indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
+        if len(indicators_sorted) > 0:
+            indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
         buttons = []
-        for i in range(min(len(indicators_sorted), 5)):
+        for i in range(min(len(indicators_sorted), NUMBER_SIMILAR_INDICATORS)):
             print(indicators_sorted[i])
             buttons.append({"title": str(indicators_sorted[i]), "payload": indicators_sorted[i]})
 
-        dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
+        if len(buttons) > 0:
+            dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
                                         button_type="custom")
 
     def get_geographical_name(self, nombre):
@@ -249,7 +244,6 @@ class ActionShow(Action):
                           word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
         spanish_stopwords_stemmed = [stemmer.stem(stopword) for stopword in spanish_stopwords]
         spanish_stopwords_stemmed.remove('par')
-        # spanish_stopwords_stemmed.remove('si')
         filtered_words_stemmed = [word for word in filtered_words if
                                   stemmer.stem(word) not in spanish_stopwords_stemmed]
         frase = ''
@@ -288,57 +282,9 @@ class ActionShow(Action):
             print(max_location["value"], max_location["ratio"])
         return max_location["value"], max_location["ratio"]
 
-    def check_and_reasign_location(self, location_slot, indicator_slot):
-
-        max_indicator = {"value": '', "ratio": 0}
-        for indicator in indicators_check.keys():
-            difference = difflib.SequenceMatcher(None, self.stemming(location_slot),
-                                                 self.stemming(indicator)).ratio()
-            if (difference > max_indicator["ratio"]):
-                max_indicator["ratio"] = difference
-                max_indicator["value"] = indicators_check[indicator]
-
-        if (max_indicator["ratio"] > self.location_confidence["confidence"] and max_indicator["ratio"] > 0.7):
-            indicator_slot = max_indicator["value"]
-            location_slot = self.previous_location
-            self.location_confidence = self.previous_location_confidence.copy()  # Nos quedamos con la confianza de la anterior localizacion
-
-        # print(str(max_indicator["ratio"]) + " " + str(self.location_confidence["confidence"]))
-        # print(str(max_indicator["value"]) + " " + str(self.location_confidence["value"]))
-        return location_slot, indicator_slot
-
-    def check_and_reasign_indicator(self, location_slot, indicator_slot):
-
-        max_indicator = {"value": '', "ratio": 0}
-        for indicator in indicators_check.keys():
-            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
-                                                 self.stemming(indicator)).ratio()
-            if (difference > max_indicator["ratio"]):
-                max_indicator["ratio"] = difference
-                max_indicator["value"] = indicators_check[indicator]
-
-        max_location = {"value": '', "ratio": 0}
-        for location in locations_check:
-            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
-                                                 self.stemming(location)).ratio()
-            if (difference > max_location["ratio"]):
-                max_location["ratio"] = difference
-                max_location["value"] = location
-
-        if (max_location["ratio"] > max_indicator["ratio"]):
-            location_slot = max_location["value"]
-            indicator_slot = self.previous_indicator_confidence['value']
-            if (self.debug):
-                print(indicator_slot + " " + self.previous_indicator)
-            self.indicator_confidence = self.previous_indicator_confidence.copy()
-
-        # print(str(max_indicator["ratio"]) + " " + str(max_location["ratio"]))
-        return location_slot, indicator_slot
-
     def dont_understand_message(self, dispatcher):
         dispatcher.utter_message(
-            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante el 2015".format(
-            ))
+            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015")
 
     def calculate_confidence_location(self, location_slot):
         if location_slot is not None:
@@ -386,13 +332,10 @@ class ActionShow(Action):
             dispatcher.utter_message("Aquí tienes la información:")
 
             DBDate = date
-            # dispatcher.utter_message("\n")
 
             # Requests to ISTAC API https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/
             response_all = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
-
-            # print(URL + indicators[indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]")
 
             if (response_all['observation'] and response_all['observation'][0]):
                 res_data = str(response_all['observation'][0])
@@ -415,33 +358,59 @@ class ActionShow(Action):
                 else:
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
 
-                dispatcher.utter_message("<b>{} en {} en el {}: {}{}{}{}</b>".format(
+                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}</b>".format(
                     indicator,
                     geographic_location_name,
-                    date,
+                    self.translate_date(date, response_indicator),
                     res_unitSymbol["start"],
-                    res_data,
+                    self.format_number(res_data),
                     res_unitSymbol["end"],
                     res_unitSymbol["description"]
                 ))
 
-                # dispatcher.utter_message("\n")
-                # dispatcher.utter_message("Te dejo otros indicadores que pueden ser de tu interés:")
+                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o lugar ({}) :)".format(
+                    self.get_location_granularities(response_indicator)
+                ))
                 self.get_similar_indicators(indicator, dispatcher)
 
-                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o localidad :)")
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
                 SlotSet("var_Date", date_slot)]
 
+    def format_number(self, number):
+        formatted_number = locale.format('%.2f', float(number), 1)
+        formatted_number = re.sub(',00$', '', formatted_number)
+        return formatted_number
+
+    def translate_date(self, date, response_indicator):
+        for date_indicator in response_indicator['dimension']['TIME']['representation']:
+            if (date == date_indicator['code']):
+                return date_indicator['title']['es'].lower()
+
+    def get_location_granularities(self, response_indicator):
+        res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
+        granularities = []
+        location_granularities = ''
+
+        for granularity in res_granularities:
+            if granularity not in granularities:
+                granularities.append(granularity['title']['es'].lower())
+
+        for i in range(0, len(granularities)):
+            if ((i + 1) < len(granularities)):
+                location_granularities = location_granularities + granularities[i] + ', '
+            else:
+                location_granularities = location_granularities + granularities[i]
+
+        return location_granularities
 
 class ActionAskHowCanHelp(Action):
     def name(self):
         return 'action_ask_howcanhelp'
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en que te puedo ayudar?")
+        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en qué te puedo ayudar?")
         return [Restarted()]
 
 
@@ -459,7 +428,6 @@ class ActionNo(Action):
         return 'action_no'
 
     def run(self, dispatcher, tracker, domain):
-        # dispatcher.utter_message("\n")
         dispatcher.utter_message(
             "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)")
         return [Restarted()]

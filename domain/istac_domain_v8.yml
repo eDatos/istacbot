@@ -29,9 +29,9 @@ templates:
     - "Fue un placer :-)"
     - "Que la fuerza te acompañe, joven padawan ;)"
   utter_help:
-    - text : "Ejemplo de uso: 'Dame el paro de Canarias durante el 2015'"
+    - text : "Ejemplo de uso: 'Dame el paro de Canarias durante 2015'"
   utter_default:
-    - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante el 2015"
+    - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante 2015"
 
 actions:
   - utter_greet
