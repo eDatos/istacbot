@@ -15,11 +15,13 @@ from rasa_core.events import Restarted, SlotSet
 from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
 import properties
+import locale
 
 URL = properties.url
 COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
 NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
+locale.setlocale(locale.LC_ALL, properties.locale)
 
 indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
@@ -114,7 +116,7 @@ class ActionShow(Action):
                         "No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:".format(
                             self.indicator_confidence["value"],
                             self.location_confidence["value"],
-                            date
+                            self.translate_date(date, response_indicator)
                         ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
                     return [SlotSet("var_What", self.indicator_confidence["value"]),
                             SlotSet("var_Loc", self.location_confidence["value"]),
@@ -149,7 +151,7 @@ class ActionShow(Action):
             if not found:
                 dispatcher.utter_message(
                     ("Lo siento, he buscado y parece que no hay información para la fecha indicada (el dato más reciente que tengo es de {}). Prueba con otra fecha").format(
-                        time['representation'][0]['code'])
+                        time['representation'][0]['title']['es'])
                 )
             return found
 
@@ -326,8 +328,7 @@ class ActionShow(Action):
 
     def dont_understand_message(self, dispatcher):
         dispatcher.utter_message(
-            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015".format(
-            ))
+            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015")
 
     def calculate_confidence_location(self, location_slot):
         if location_slot is not None:
@@ -404,7 +405,7 @@ class ActionShow(Action):
                 dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}</b>".format(
                     indicator,
                     geographic_location_name,
-                    date,
+                    self.translate_date(date, response_indicator),
                     res_unitSymbol["start"],
                     self.format_number(res_data),
                     res_unitSymbol["end"],
@@ -420,10 +421,14 @@ class ActionShow(Action):
                 SlotSet("var_Date", date_slot)]
 
     def format_number(self, number):
-        number = float(number)
-        if (number % 1 == 0):
-            return "{:,}".format(int(number)).replace(".", ";").replace(",", ".").replace(";", ",")
-        return "{:,}".format(number).replace(".", ";").replace(",", ".").replace(";", ",")
+        formatted_number = locale.format('%.2f', float(number), 1)
+        formatted_number = re.sub(',00$', '', formatted_number)
+        return formatted_number
+
+    def translate_date(self, date, response_indicator):
+        for date_indicator in response_indicator['dimension']['TIME']['representation']:
+            if (date == date_indicator['code']):
+                return date_indicator['title']['es'].lower()
 
 class ActionAskHowCanHelp(Action):
     def name(self):
