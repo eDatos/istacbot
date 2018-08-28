@@ -14,10 +14,12 @@ from rasa_core.actions.action import Action
 from rasa_core.events import Restarted, SlotSet
 from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
+import properties
 
-URL = "https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/"
-COLOR = True
-DEFAULT_LOCATION = "Canarias"
+URL = properties.url
+COLOR = properties.color
+DEFAULT_LOCATION = properties.default_location
+NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
 
 indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
@@ -48,7 +50,6 @@ class ActionShow(Action):
         return 'action_show'
 
     def run(self, dispatcher, tracker, domain):
-        print('holaaa')
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
                 and next(tracker.get_latest_entity_values("var_Date"), None) == None):
@@ -58,6 +59,7 @@ class ActionShow(Action):
 
         if (tracker.get_slot("var_What") != "listen_consulta_hombres" and tracker.get_slot(
                 "var_What") != "listen_consulta_mujeres"):
+
             # Save all previous confidences
             self.previous_location_confidence = self.location_confidence.copy()
             self.previous_date_confidence = self.date_confidence.copy()
@@ -94,16 +96,6 @@ class ActionShow(Action):
 
             self.calculate_confidence_location(location_slot)
             self.calculate_confidence_indicator(indicator_slot)
-
-            # if (location_slot is not None and self.location_confidence['value'] != self.previous_location_confidence['value']):
-            #     location_slot, indicator_slot = self.check_and_reasign_location(location_slot, indicator_slot)
-            # elif (indicator_slot is not None):
-            #     location_slot, indicator_slot = self.check_and_reasign_indicator(location_slot, indicator_slot)
-
-            # if (self.location_confidence['confidence'] < 0.7 ):
-            #     location_slot = DEFAULT_LOCATION
-            #     self.location_confidence['confidence'] = 1
-            #     self.location_confidence['value'] = DEFAULT_LOCATION
 
             if (self.debug):
                 print("location_slot: " + repr(location_slot) + ", date_slot: " + str(
@@ -196,11 +188,9 @@ class ActionShow(Action):
                         location
                     ))
             else:
-                # dispatcher.utter_message('\n')
                 dispatcher.utter_message("Lo siento, no he econtrado información del lugar que buscas. Prueba con:")
 
             res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
-            # dispatcher.utter_message("\n")
             for granularity in res_granularities:
                 geographical_names_sorted = sorted(geographical_names[granularity['code']],
                                                    key=geographical_names[granularity['code']].get, reverse=True)
@@ -219,13 +209,14 @@ class ActionShow(Action):
                                                                        self.stemming(indicator)).ratio()
         indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
         if len(indicators_sorted) > 0:
-            indicators_sorted.pop(0)
+            indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
         buttons = []
-        for i in range(min(len(indicators_sorted), 5)):
+        for i in range(min(len(indicators_sorted), NUMBER_SIMILAR_INDICATORS)):
             print(indicators_sorted[i])
             buttons.append({"title": str(indicators_sorted[i]), "payload": indicators_sorted[i]})
 
-        dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
+        if len(buttons) > 0:
+            dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
                                         button_type="custom")
 
     def get_geographical_name(self, nombre):
@@ -251,7 +242,6 @@ class ActionShow(Action):
                           word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
         spanish_stopwords_stemmed = [stemmer.stem(stopword) for stopword in spanish_stopwords]
         spanish_stopwords_stemmed.remove('par')
-        # spanish_stopwords_stemmed.remove('si')
         filtered_words_stemmed = [word for word in filtered_words if
                                   stemmer.stem(word) not in spanish_stopwords_stemmed]
         frase = ''
@@ -305,8 +295,6 @@ class ActionShow(Action):
             location_slot = self.previous_location
             self.location_confidence = self.previous_location_confidence.copy()  # Nos quedamos con la confianza de la anterior localizacion
 
-        # print(str(max_indicator["ratio"]) + " " + str(self.location_confidence["confidence"]))
-        # print(str(max_indicator["value"]) + " " + str(self.location_confidence["value"]))
         return location_slot, indicator_slot
 
     def check_and_reasign_indicator(self, location_slot, indicator_slot):
@@ -334,7 +322,6 @@ class ActionShow(Action):
                 print(indicator_slot + " " + self.previous_indicator)
             self.indicator_confidence = self.previous_indicator_confidence.copy()
 
-        # print(str(max_indicator["ratio"]) + " " + str(max_location["ratio"]))
         return location_slot, indicator_slot
 
     def dont_understand_message(self, dispatcher):
@@ -388,13 +375,10 @@ class ActionShow(Action):
             dispatcher.utter_message("Aquí tienes la información:")
 
             DBDate = date
-            # dispatcher.utter_message("\n")
 
             # Requests to ISTAC API https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/
             response_all = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
-
-            # print(URL + indicators[indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]")
 
             if (response_all['observation'] and response_all['observation'][0]):
                 res_data = str(response_all['observation'][0])
@@ -422,7 +406,7 @@ class ActionShow(Action):
                     geographic_location_name,
                     date,
                     res_unitSymbol["start"],
-                    res_data,
+                    self.format_number(res_data),
                     res_unitSymbol["end"],
                     res_unitSymbol["description"]
                 ))
@@ -435,6 +419,11 @@ class ActionShow(Action):
                 SlotSet("var_Loc", self.location_confidence["value"]),
                 SlotSet("var_Date", date_slot)]
 
+    def format_number(self, number):
+        number = float(number)
+        if (number % 1 == 0):
+            return "{:,}".format(int(number)).replace(".", ";").replace(",", ".").replace(";", ",")
+        return "{:,}".format(number).replace(".", ";").replace(",", ".").replace(";", ",")
 
 class ActionAskHowCanHelp(Action):
     def name(self):
