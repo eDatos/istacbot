@@ -282,50 +282,6 @@ class ActionShow(Action):
             print(max_location["value"], max_location["ratio"])
         return max_location["value"], max_location["ratio"]
 
-    def check_and_reasign_location(self, location_slot, indicator_slot):
-
-        max_indicator = {"value": '', "ratio": 0}
-        for indicator in indicators_check.keys():
-            difference = difflib.SequenceMatcher(None, self.stemming(location_slot),
-                                                 self.stemming(indicator)).ratio()
-            if (difference > max_indicator["ratio"]):
-                max_indicator["ratio"] = difference
-                max_indicator["value"] = indicators_check[indicator]
-
-        if (max_indicator["ratio"] > self.location_confidence["confidence"] and max_indicator["ratio"] > 0.7):
-            indicator_slot = max_indicator["value"]
-            location_slot = self.previous_location
-            self.location_confidence = self.previous_location_confidence.copy()  # Nos quedamos con la confianza de la anterior localizacion
-
-        return location_slot, indicator_slot
-
-    def check_and_reasign_indicator(self, location_slot, indicator_slot):
-
-        max_indicator = {"value": '', "ratio": 0}
-        for indicator in indicators_check.keys():
-            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
-                                                 self.stemming(indicator)).ratio()
-            if (difference > max_indicator["ratio"]):
-                max_indicator["ratio"] = difference
-                max_indicator["value"] = indicators_check[indicator]
-
-        max_location = {"value": '', "ratio": 0}
-        for location in locations_check:
-            difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
-                                                 self.stemming(location)).ratio()
-            if (difference > max_location["ratio"]):
-                max_location["ratio"] = difference
-                max_location["value"] = location
-
-        if (max_location["ratio"] > max_indicator["ratio"]):
-            location_slot = max_location["value"]
-            indicator_slot = self.previous_indicator_confidence['value']
-            if (self.debug):
-                print(indicator_slot + " " + self.previous_indicator)
-            self.indicator_confidence = self.previous_indicator_confidence.copy()
-
-        return location_slot, indicator_slot
-
     def dont_understand_message(self, dispatcher):
         dispatcher.utter_message(
             "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015")
@@ -412,7 +368,9 @@ class ActionShow(Action):
                     res_unitSymbol["description"]
                 ))
 
-                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o lugar :)")
+                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o lugar ({}) :)".format(
+                    self.get_location_granularities(response_indicator)
+                ))
                 self.get_similar_indicators(indicator, dispatcher)
 
 
@@ -429,6 +387,23 @@ class ActionShow(Action):
         for date_indicator in response_indicator['dimension']['TIME']['representation']:
             if (date == date_indicator['code']):
                 return date_indicator['title']['es'].lower()
+
+    def get_location_granularities(self, response_indicator):
+        res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
+        granularities = []
+        location_granularities = ''
+
+        for granularity in res_granularities:
+            if granularity not in granularities:
+                granularities.append(granularity['title']['es'].lower())
+
+        for i in range(0, len(granularities)):
+            if ((i + 1) < len(granularities)):
+                location_granularities = location_granularities + granularities[i] + ', '
+            else:
+                location_granularities = location_granularities + granularities[i]
+
+        return location_granularities
 
 class ActionAskHowCanHelp(Action):
     def name(self):
