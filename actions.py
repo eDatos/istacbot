@@ -28,7 +28,6 @@ indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
 spanish_stopwords = stopwords.words('spanish')
 remove_punctuation_marks = re.compile(r"\w+")
-spanish_stopwords = stopwords.words('spanish')
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
 
@@ -76,6 +75,8 @@ class ActionShow(Action):
             if (self.debug):
                 print("previous_location_slot: " + str(self.previous_location) + ", previous_date_slot: " + str(
                     self.previous_date) + ", previous_indicator_slot: " + str(self.previous_indicator))
+            dispatcher.utter_message(messages.log_header + "previous_location_slot: " + str(self.previous_location) + ", previous_date_slot: " + str(
+                    self.previous_date) + ", previous_indicator_slot: " + str(self.previous_indicator))
 
             ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
             date_slot = None
@@ -102,6 +103,9 @@ class ActionShow(Action):
 
             if (self.debug):
                 print("location_slot: " + repr(location_slot) + ", date_slot: " + str(
+                    date_slot) + ", indicator_slot: " + str(indicator_slot))
+
+            dispatcher.utter_message(messages.log_header + "location_slot: " + repr(location_slot) + ", date_slot: " + str(
                     date_slot) + ", indicator_slot: " + str(indicator_slot))
 
             if self.location_confidence['confidence'] > 0.7 and self.indicator_confidence[

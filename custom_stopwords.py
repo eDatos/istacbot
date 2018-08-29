@@ -5,4 +5,4 @@ stopwords_custom = {'digas', 'decir', 'información', 'necesito', 'encontrar', '
                     'resultados', 'datos', 'informacion', 'listado', 'podrias', 'darme', 'pasarme', 'ofrecerme', 'producir',
                     'produjeron', 'aburrido','aburrimiento', 'bot', 'robot', 'maquina', 'máquina', 'chatbot', 'istac',
                     'istacchatbot', 'istac-chatbot', 'preguntaba', 'podrías', 'puedes', 'relativos', 'relacionados', 'ver','tiene',
-                    'tengan'}
+                    'tengan', 'dar'}
