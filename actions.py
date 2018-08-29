@@ -16,6 +16,7 @@ from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
 import properties
 import locale
+import messages
 
 URL = properties.url
 COLOR = properties.color
@@ -112,8 +113,7 @@ class ActionShow(Action):
                     return self.show_information(dispatcher, date_slot, location_slot, indicator, response_indicator)
                 else:
                     date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
-                    dispatcher.utter_button_message(
-                        "No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:".format(
+                    dispatcher.utter_button_message(messages.low_confidence.format(
                             self.indicator_confidence["value"],
                             self.location_confidence["value"],
                             self.translate_date(date, response_indicator)
@@ -149,8 +149,7 @@ class ActionShow(Action):
                         return found
 
             if not found:
-                dispatcher.utter_message(
-                    ("Lo siento, he buscado y parece que no hay información para la fecha indicada (el dato más reciente que tengo es de {}). Prueba con otra fecha").format(
+                dispatcher.utter_message((messages.date_not_found).format(
                         time['representation'][0]['title']['es'])
                 )
             return found
@@ -185,12 +184,11 @@ class ActionShow(Action):
 
             location, similarity = self.get_most_similar_location(loc_slot)
             if (similarity < 0.90):
-                dispatcher.utter_message(
-                    "Si te refieres a {}, no he encontrado información. Prueba con otro lugar:".format(
+                dispatcher.utter_message(messages.try_another_date.format(
                         location
                     ))
             else:
-                dispatcher.utter_message("Lo siento, no he econtrado información del lugar que buscas. Prueba con:")
+                dispatcher.utter_message(messages.place_not_found)
 
             res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
             for granularity in res_granularities:
@@ -218,8 +216,8 @@ class ActionShow(Action):
             buttons.append({"title": str(indicators_sorted[i]), "payload": indicators_sorted[i]})
 
         if len(buttons) > 0:
-            dispatcher.utter_button_message("Te dejo otros indicadores que pueden ser de tu interés", buttons,
-                                        button_type="custom")
+            dispatcher.utter_button_message(messages.similar_indicators, buttons,
+                                            button_type="custom")
 
     def get_geographical_name(self, nombre):
         result = re.match('(\w+)\s+\((\w+)\)', nombre)
@@ -264,8 +262,7 @@ class ActionShow(Action):
             return indicators_sorted[0]
         else:
 
-            dispatcher.utter_message(
-                "El indicador estadístico que has introducido no está en nuestra base de datos.")
+            dispatcher.utter_message(messages.indicator_not_valid)
 
             self.get_similar_indicators(indicator_slot, dispatcher)
 
@@ -283,8 +280,7 @@ class ActionShow(Action):
         return max_location["value"], max_location["ratio"]
 
     def dont_understand_message(self, dispatcher):
-        dispatcher.utter_message(
-            "Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015")
+        dispatcher.utter_message(messages.sorry_ask_again)
 
     def calculate_confidence_location(self, location_slot):
         if location_slot is not None:
@@ -368,7 +364,7 @@ class ActionShow(Action):
                     res_unitSymbol["description"]
                 ))
 
-                dispatcher.utter_message("\nTambién puedes preguntar por otra fecha y/o lugar ({}) :)".format(
+                dispatcher.utter_message(messages.you_can_also_ask.format(
                     self.get_location_granularities(response_indicator)
                 ))
                 self.get_similar_indicators(indicator, dispatcher)
@@ -410,7 +406,7 @@ class ActionAskHowCanHelp(Action):
         return 'action_ask_howcanhelp'
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message("Hola! Soy ISTAC-Bot, en qué te puedo ayudar?")
+        dispatcher.utter_message(messages.greeting)
         return [Restarted()]
 
 
@@ -428,8 +424,7 @@ class ActionNo(Action):
         return 'action_no'
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(
-            "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)")
+        dispatcher.utter_message(messages.dont_worry)
         return [Restarted()]
 
 
@@ -453,7 +448,7 @@ class ActionMujeres(Action):
                 buttons.append({"title": indicador, "payload": indicador})
 
             dispatcher.utter_button_message(
-                "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: ",
+                messages.similar_indicators_women,
                 buttons,
                 button_type="vertical")
 
@@ -480,14 +475,14 @@ class ActionHombres(Action):
                                 1] + " Hombres"),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
-        elif(tracker.get_slot("var_What") == None):
+        elif (tracker.get_slot("var_What") == None):
 
             buttons = []
             for indicador in hombres_indicadores:
                 buttons.append({"title": indicador, "payload": indicador})
 
             dispatcher.utter_button_message(
-                "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: ",
+                messages.similar_indicators_men,
                 buttons,
                 button_type="vertical")
 

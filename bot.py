@@ -12,7 +12,6 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from rasa_core import utils
-from rasa_core.actions import Action
 from rasa_core.agent import Agent
 from rasa_core.channels import HttpInputChannel
 from rasa_core.channels.console import ConsoleInputChannel
@@ -122,7 +121,6 @@ def stemming(text):
     frase = ''
     for word in filtered_words:
         frase = frase + word + ' '
-    # DEBUG print(frase)
     return frase
 
 stemming_lambda = lambda text: stemming(text)
@@ -138,7 +136,6 @@ def stopwords_clean(text):
     frase = ''
     for word in filtered_words_stemmed:
         frase = frase + word + ' '
-    # print(frase)
     return frase
 
 
