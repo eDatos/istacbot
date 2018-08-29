@@ -380,10 +380,7 @@ class ActionShow(Action):
                 dispatcher.utter_message(messages.you_can_also_ask.format(
                     self.get_location_granularities(response_indicator)
                 ))
-
-                dispatcher.utter_message(messages.you_can_also_ask.format(
-                    self.get_location_granularities(response_indicator)
-                ))
+                
                 self.get_similar_indicators(indicator, dispatcher)
 
 
