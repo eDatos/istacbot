@@ -337,9 +337,13 @@ class ActionShow(Action):
             response_all = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
 
+            response_interperiod = requests.get(URL + indicators[
+                indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[INTERPERIOD_PUNTUAL_RATE],TIME[" + DBDate + "]").json()
+
             if (response_all['observation'] and response_all['observation'][0]):
                 res_data = str(response_all['observation'][0])
                 res_unit = response_indicator['dimension']['MEASURE']['representation'][0]['quantity']['unit']['es']
+                res_interperiod = ""
 
                 res_unitSymbol = {"start": "", "end": "", "description": ""}
 
@@ -358,14 +362,23 @@ class ActionShow(Action):
                 else:
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
 
-                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}</b>".format(
+                if (response_interperiod['observation'][0]):
+                    res_interperiod = messages.interperiod.format(response_interperiod['observation'][0])
+
+                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}</b>".format(
                     indicator,
                     geographic_location_name,
                     self.translate_date(date, response_indicator),
                     res_unitSymbol["start"],
                     self.format_number(res_data),
                     res_unitSymbol["end"],
-                    res_unitSymbol["description"]
+                    res_unitSymbol["description"],
+                    res_interperiod
+
+                ))
+
+                dispatcher.utter_message(messages.you_can_also_ask.format(
+                    self.get_location_granularities(response_indicator)
                 ))
 
                 dispatcher.utter_message(messages.you_can_also_ask.format(
