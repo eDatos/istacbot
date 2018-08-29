@@ -12,11 +12,12 @@ from telegram import (Bot, InlineKeyboardButton, Update, InlineKeyboardMarkup,
 
 import csv
 import datetime
-
+import re
 from rasa_core.channels.channel import UserMessage, OutputChannel
 from rasa_core.channels.rest import HttpInputComponent
 import messages
 import properties
+import telegram_users
 
 logger = logging.getLogger(__name__)
 
@@ -32,10 +33,16 @@ class TelegramOutput(Bot, OutputChannel):
         super(TelegramOutput, self).__init__(access_token)
 
     def send_text_message(self, recipient_id, message):
+        if (re.match("^{}".format(messages.log_header), message)):
+            save_log(message, recipient_id, messages.user_debug)
+        else:
 
-        self.save_log(message, recipient_id)
+            if (messages.greeting == message):
+                message = custom_greeting(message, recipient_id)
 
-        return self.send_message(recipient_id, message, parse_mode=ParseMode.HTML)
+            save_log(message, recipient_id, messages.user_bot)
+            return self.send_message(recipient_id, message, parse_mode=ParseMode.HTML)
+
 
     def send_image_url(self, recipient_id, image_url):
         return self.send_photo(recipient_id, image_url)
@@ -79,13 +86,6 @@ class TelegramOutput(Bot, OutputChannel):
             return
 
         return self.send_message(recipient_id, text, reply_markup=reply_markup)
-
-    def save_log(self, text, sender_id):
-        text.replace('\n', '')
-        with open(get_log_filename(), 'a', newline='') as csvfile:
-            log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-            log.writerow([sender_id, 'bot', text, str(datetime.datetime.now())])
-
 
 class TelegramInput(HttpInputComponent):
     """Telegram input channel"""
@@ -157,7 +157,7 @@ class TelegramInput(HttpInputComponent):
                         return "success"
                 sender_id = message.chat.id
                 try:
-                    self.save_log(text, sender_id)
+                    save_log(text, sender_id, messages.user)
                     if text == '_restart' or text == '/restart':
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
@@ -181,10 +181,16 @@ class TelegramInput(HttpInputComponent):
 
         return telegram_webhook
 
-    def save_log(self, text, sender_id):
-        with open(get_log_filename(), 'a', newline='') as csvfile:
-            log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-            log.writerow([sender_id, 'user', text, str(datetime.datetime.now())])
+def custom_greeting(message, sender_id):
+    print(sender_id)
+    if sender_id in telegram_users.users.keys():
+        return message.format(" " + telegram_users.users[sender_id])
+    return message.format("")
+
+def save_log(text, sender_id, user):
+    with open(get_log_filename(), 'a', newline='') as csvfile:
+        log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
+        log.writerow([sender_id, user, text, str(datetime.datetime.now())])
 
 def get_log_filename():
     return properties.location + str(datetime.date.today().isocalendar()[0]) + "_" + str(datetime.date.today().isocalendar()[1]) + ".csv"

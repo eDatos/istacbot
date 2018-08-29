@@ -79,7 +79,7 @@ def run(serve_forever=True):
     agent = Agent.load("models/dialogue_2018080101458", interpreter=interpreter)
 
     if serve_forever:
-        agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean)
+        agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean_lambda)
     return agent
 
 def run_stemming (serve_forever=True):
