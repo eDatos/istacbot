@@ -4,3 +4,4 @@ credentials
 token.txt
 __pycache__/
 credentials.py
+*.csv
