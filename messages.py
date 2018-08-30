@@ -1,4 +1,4 @@
-greeting = "Hola{}! Soy ISTAC-Bot, en qué te puedo ayudar?"
+greeting = "Hola! Soy ISTAC-Bot, el asistente automatizado del ISTAC. Puedo ayudarte a localizar datos, pero si quieres saber en qué otras cosas te puedo asistir teclea 'Ayuda'. Además, puedes conocer mis condiciones de uso en el siguiente <a href=\"http://www.gobiernodecanarias.org/istac/aviso_legal.html\">enlace</a>."
 dont_worry = "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)"
 similar_indicators_women = "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 similar_indicators_men = "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: "
