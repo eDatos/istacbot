@@ -414,15 +414,21 @@ class ActionShow(Action):
         response_annual_rate = requests.get(URL + indicators[
             indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PUNTUAL_RATE],TIME[" + DBDate + "]").json()
 
-        if (response_annual_rate['observation']):
+        if (response_annual_rate['observation'] and self.is_number(response_annual_rate['observation'][0])):
             return messages.annual_puntual_rate.format(self.format_number(response_annual_rate['observation'][0]))
         else:
             response_annual_rate = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PERCENTAGE_RATE],TIME[" + DBDate + "]").json()
-
-            if (response_annual_rate['observation']):
+            if (response_annual_rate['observation'] and self.is_number(response_annual_rate['observation'][0])):
                 return messages.annual_percentage_rate.format(self.format_number(response_annual_rate['observation'][0]))
         return ""
+
+    def is_number(self, s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
 
 class ActionAskHowCanHelp(Action):
     def name(self):
