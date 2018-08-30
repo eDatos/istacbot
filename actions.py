@@ -52,7 +52,7 @@ class ActionShow(Action):
         return 'action_show'
 
     def run(self, dispatcher, tracker, domain):
-        if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None == None and next(
+        if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
                 and next(tracker.get_latest_entity_values("var_Date"), None) == None):
 
@@ -117,11 +117,12 @@ class ActionShow(Action):
                     return self.show_information(dispatcher, date_slot, location_slot, indicator, response_indicator)
                 else:
                     date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
-                    dispatcher.utter_button_message(messages.low_confidence.format(
-                            self.indicator_confidence["value"],
-                            self.location_confidence["value"],
-                            self.translate_date(date, response_indicator)
-                        ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
+                    if date:
+                        dispatcher.utter_button_message(messages.low_confidence.format(
+                                self.indicator_confidence["value"],
+                                self.location_confidence["value"],
+                                self.translate_date(date, response_indicator)
+                            ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
                     return [SlotSet("var_What", self.indicator_confidence["value"]),
                             SlotSet("var_Loc", self.location_confidence["value"]),
                             SlotSet("var_Date", date_slot)]
@@ -337,14 +338,9 @@ class ActionShow(Action):
             response_all = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
 
-            response_interperiod = requests.get(URL + indicators[
-                indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[INTERPERIOD_PUNTUAL_RATE],TIME[" + DBDate + "]").json()
-
             if (response_all['observation'] and response_all['observation'][0]):
                 res_data = str(response_all['observation'][0])
                 res_unit = response_indicator['dimension']['MEASURE']['representation'][0]['quantity']['unit']['es']
-                res_interperiod = ""
-
                 res_unitSymbol = {"start": "", "end": "", "description": ""}
 
                 if ('unitSymbol' in [str(keys) for keys in
@@ -362,8 +358,7 @@ class ActionShow(Action):
                 else:
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
 
-                if (response_interperiod['observation'][0]):
-                    res_interperiod = messages.interperiod.format(self.format_number(response_interperiod['observation'][0]))
+                res_interperiod = self.get_annual_rate(indicator, geographic_location_code, DBDate)
 
                 dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}</b>".format(
                     indicator,
@@ -414,6 +409,20 @@ class ActionShow(Action):
                 location_granularities = location_granularities + granularities[i]
 
         return location_granularities
+
+    def get_annual_rate(self, indicator, geographic_location_code, DBDate):
+        response_annual_rate = requests.get(URL + indicators[
+            indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PUNTUAL_RATE],TIME[" + DBDate + "]").json()
+
+        if (self.format_number(response_annual_rate['observation'][0])):
+            return messages.annual_puntual_rate.format(self.format_number(response_annual_rate['observation'][0]))
+        else:
+            response_annual_rate = requests.get(URL + indicators[
+                indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PERCENTAGE_RATE],TIME[" + DBDate + "]").json()
+
+            if (self.format_number(response_annual_rate['observation'][0])):
+                return messages.annual_percentage_rate.format(self.format_number(response_annual_rate['observation'][0]))
+        return ""
 
 class ActionAskHowCanHelp(Action):
     def name(self):
