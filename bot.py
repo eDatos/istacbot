@@ -42,9 +42,9 @@ class RestaurantAPI(object):
         return ""
 
 
-def train_dialogue(domain_file="domain/istac_domain_v8.yml",
-                   model_path="models/dialogue_201802301001",
-                   training_data_file="data/stories_v12.md"):
+def train_dialogue(domain_file="domain/istac_domain_v9.yml",
+                   model_path="models/dialogue_201802301413",
+                   training_data_file="data/stories_v13.md"):
 
     fallback = FallbackPolicy(fallback_action_name="utter_default",
                               nlu_threshold=0.4)
@@ -70,13 +70,13 @@ def train_nlu():
     trainer = Trainer(config.load("config/nlu_model_config_v1.yml"))
     trainer.train(training_data)
     model_directory = trainer.persist('models/nlu/',
-                                      fixed_model_name="nlu_train_v30_201802301001")
+                                      fixed_model_name="nlu_train_v30_201802301413")
     return model_directory
 
 
 def run(serve_forever=True):
-    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301001/")
-    agent = Agent.load("models/dialogue_201802301001", interpreter=interpreter)
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301413/")
+    agent = Agent.load("models/dialogue_201802301413", interpreter=interpreter)
 
     if serve_forever:
         agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean_lambda)
@@ -90,19 +90,9 @@ def run_stemming (serve_forever=True):
         agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean_lambda)
     return agent
 
-def runSlack(serve_forever=True):
-    interpreter = RasaNLUInterpreter("models/nlu_v19/default/model_20180524-130848")
-
-    input_channel = SlackInput(
-        slack_token="xoxb-371047401462-369661464209-wcn44I8JzTIfJVwE6soZp6XH",
-    )
-    print(HttpInputChannel(5004, "/app", input_channel))
-
-    agent.handle_channel(HttpInputChannel(5002, "/app", input_channel))
-
 def runTelegram(serve_forever=True):
-    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301001")
-    agent = Agent.load("models/dialogue_201802301001", interpreter=interpreter)
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301413")
+    agent = Agent.load("models/dialogue_201802301413", interpreter=interpreter)
 
     input_channel = TelegramInput(
         access_token=credentials.access_token,  # you get this when setting up a bot
@@ -146,7 +136,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'task',
-        choices=["train-nlu", "train-dialogue", "run", "runSlack", "run-stemming", "run-telegram"],
+        choices=["train-nlu", "train-dialogue", "run", "run-stemming", "run-telegram"],
         help="what the bot should do - e.g. run or train?")
     task = parser.parse_args().task
 
@@ -156,8 +146,6 @@ if __name__ == '__main__':
         train_dialogue()
     elif task == "run":
         run()
-    elif task == "runSlack":
-        runSlack()
     elif task == "run-telegram":
         runTelegram()
     elif task == "run-stemming":

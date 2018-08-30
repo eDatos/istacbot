@@ -538,3 +538,13 @@ class ActionHombres(Action):
             return [SlotSet("var_What", tracker.get_slot("var_What") + " Hombres"),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
+
+
+class ActionHelp(Action):
+    def name(self):
+        return 'action_help'
+
+    def run(self, dispatcher, tracker, domain):
+        for help_message in messages.help:
+            dispatcher.utter_message(help_message)
+        return [Restarted()]

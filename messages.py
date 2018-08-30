@@ -19,3 +19,8 @@ user = "user"
 annual_puntual_rate = ", esto supone una variación de {} respecto al año anterior"
 annual_percentage_rate = ", esto supone una variación del {}% respecto al año anterior"
 error_log = "ERROR"
+help = [
+    "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\".",
+    "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
+    "Por último, recordarte que soy un asistente automatizado pero si quieres, puedes ponerte en contacto con una persona a través de cualquiera de los medios detallados en el siguiente <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a>."
+]
