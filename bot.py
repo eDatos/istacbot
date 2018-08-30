@@ -43,7 +43,7 @@ class RestaurantAPI(object):
 
 
 def train_dialogue(domain_file="domain/istac_domain_v8.yml",
-                   model_path="models/dialogue_2018080101458",
+                   model_path="models/dialogue_201802301001",
                    training_data_file="data/stories_v12.md"):
 
     fallback = FallbackPolicy(fallback_action_name="utter_default",
@@ -66,17 +66,17 @@ def train_dialogue(domain_file="domain/istac_domain_v8.yml",
 
 
 def train_nlu():
-    training_data = load_data('data/nlu_train_v29.json')
-    trainer = Trainer(config.load("config/nlu_model_config_v3.yml"))
+    training_data = load_data('data/nlu_train_v30.json')
+    trainer = Trainer(config.load("config/nlu_model_config_v1.yml"))
     trainer.train(training_data)
     model_directory = trainer.persist('models/nlu/',
-                                      fixed_model_name="nlu_train_v29_201808011236")
+                                      fixed_model_name="nlu_train_v30_201802301001")
     return model_directory
 
 
 def run(serve_forever=True):
-    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v29_201808011236/")
-    agent = Agent.load("models/dialogue_2018080101458", interpreter=interpreter)
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301001/")
+    agent = Agent.load("models/dialogue_201802301001", interpreter=interpreter)
 
     if serve_forever:
         agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean_lambda)
@@ -92,7 +92,6 @@ def run_stemming (serve_forever=True):
 
 def runSlack(serve_forever=True):
     interpreter = RasaNLUInterpreter("models/nlu_v19/default/model_20180524-130848")
-    agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     input_channel = SlackInput(
         slack_token="xoxb-371047401462-369661464209-wcn44I8JzTIfJVwE6soZp6XH",
@@ -102,8 +101,8 @@ def runSlack(serve_forever=True):
     agent.handle_channel(HttpInputChannel(5002, "/app", input_channel))
 
 def runTelegram(serve_forever=True):
-    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v29_201808011236")
-    agent = Agent.load("models/dialogue_2018080101458", interpreter=interpreter)
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201802301001")
+    agent = Agent.load("models/dialogue_201802301001", interpreter=interpreter)
 
     input_channel = TelegramInput(
         access_token=credentials.access_token,  # you get this when setting up a bot
