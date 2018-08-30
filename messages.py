@@ -4,6 +4,7 @@ dont_worry = "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el pr
 similar_indicators_women = "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 similar_indicators_men = "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 you_can_also_ask = "También puedes preguntarme por otra fecha y/o lugar ({}) :)"
+you_can_also_ask_sex = "También puedes preguntarme por otra fecha, lugar ({}) y por datos específicos de mujeres u hombres :)"
 sorry_ask_again = "ERROR: Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015"
 indicator_not_valid = "El indicador estadístico que has introducido no está en nuestra base de datos."
 similar_indicators = "Te dejo otros indicadores que pueden ser de tu interés"

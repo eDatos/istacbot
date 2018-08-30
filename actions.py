@@ -13,7 +13,7 @@ from nltk.stem.snowball import SnowballStemmer
 from rasa_core.actions.action import Action
 from rasa_core.events import Restarted, SlotSet
 from custom_stopwords import stopwords_custom
-from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores
+from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, indicators_with_sex
 import properties
 import locale
 import messages
@@ -210,7 +210,8 @@ class ActionShow(Action):
     def get_similar_indicators(self, indicator_slot, dispatcher):
         indicators_difference = {}
         for indicator in indicators:
-            indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
+            if (not re.match(r".*(Mujeres|Hombres)", indicator)): # Nunca se recomiendan indicadores de sexo.
+                indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                                        self.stemming(indicator)).ratio()
         indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
         if len(indicators_sorted) > 0:
@@ -372,11 +373,9 @@ class ActionShow(Action):
 
                 ))
 
-                dispatcher.utter_message(messages.you_can_also_ask.format(
-                    self.get_location_granularities(response_indicator)
-                ))
-                
+                self.you_can_also_ask(indicator, response_indicator, dispatcher)
                 self.get_similar_indicators(indicator, dispatcher)
+
 
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
@@ -429,6 +428,22 @@ class ActionShow(Action):
             return True
         except ValueError:
             return False
+
+    def you_can_also_ask(self, indicator, response_indicator, dispatcher):
+        if (self.indicator_has_sex(indicator)):
+            dispatcher.utter_message(messages.you_can_also_ask_sex.format(
+                self.get_location_granularities(response_indicator)
+            ))
+        else:
+            dispatcher.utter_message(messages.you_can_also_ask.format(
+                self.get_location_granularities(response_indicator)
+            ))
+
+    def indicator_has_sex(self, indicator):
+        indicator = re.match(r"([^\.]*)\.?(.*)?", indicator)[1]
+        if (indicator in indicators_with_sex):
+            return True
+        return False
 
 class ActionAskHowCanHelp(Action):
     def name(self):

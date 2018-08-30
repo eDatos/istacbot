@@ -738,3 +738,24 @@ mujeres_indicadores = {
     'Paro registrado. Mujeres': 'PARO_REGISTRADO_MUJERES',
     'Defunciones. Mujeres': 'DEFUNCIONES_MUJERES'
 }
+
+indicators_with_sex = [
+    "Población inactiva",
+    "Tasa de actividad",
+    "Tasa de empleo",
+    "Tasa de paro",
+    "Paro registrado",
+    "Defunciones",
+    "Nacimientos",
+    "Población",
+    "Defunciones",
+    "Migraciones. Saldo migratorio",
+    "Población parada",
+    "Población ocupada",
+    "Población activa",
+    "Afiliaciones a la Seguridad Social",
+    "Afiliaciones a la Seguridad Social. Empleos asalariados",
+    "Afiliaciones a la Seguridad Social. Empleos autónomos",
+    "Tasa bruta de mortalidad",
+    "Población extranjera"
+]
