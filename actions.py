@@ -421,6 +421,7 @@ class ActionAskHowCanHelp(Action):
 
     def run(self, dispatcher, tracker, domain):
         dispatcher.utter_message(messages.greeting)
+        dispatcher.utter_message(messages.greeting_2)
         return [Restarted()]
 
 
