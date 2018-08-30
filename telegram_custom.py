@@ -8,7 +8,7 @@ import logging
 from flask import Blueprint, request, jsonify
 
 from telegram import (Bot, InlineKeyboardButton, Update, InlineKeyboardMarkup,
-                      KeyboardButton, ReplyKeyboardMarkup, ParseMode)
+                      KeyboardButton, ReplyKeyboardMarkup, ParseMode, ChatAction)
 
 import csv
 import datetime
@@ -33,14 +33,14 @@ class TelegramOutput(Bot, OutputChannel):
         super(TelegramOutput, self).__init__(access_token)
 
     def send_text_message(self, recipient_id, message):
+        self.send_chat_action(chat_id=recipient_id, action=ChatAction.TYPING);
         if (re.match("^{}".format(messages.log_header), message)):
             save_log(message, recipient_id, messages.user_debug)
         else:
-
             if (messages.greeting == message):
                 message = custom_greeting(message, recipient_id)
 
-            save_log(message, recipient_id, messages.user_bot)
+            message = save_log(message, recipient_id, messages.user_bot)
             return self.send_message(recipient_id, message, parse_mode=ParseMode.HTML)
 
 
@@ -59,6 +59,12 @@ class TelegramOutput(Bot, OutputChannel):
 
         :button_type custom: custom keyboard
         """
+
+        text = save_log(text, recipient_id, messages.user_bot)
+
+        for button in buttons:
+            save_log(button["title"], recipient_id, messages.user_bot)
+
         if button_type == "inline":
             button_list = [[InlineKeyboardButton(s["title"],
                             callback_data=s["payload"]) for s in buttons]]
@@ -188,9 +194,18 @@ def custom_greeting(message, sender_id):
     return message.format("")
 
 def save_log(text, sender_id, user):
+    message_match = re.match("^(ERROR: )?(.*)", text)
+    type_message = ""
+
+    if (message_match[1]):
+        text = message_match[2]
+        type_message=messages.error_log
+
     with open(get_log_filename(), 'a', newline='') as csvfile:
         log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-        log.writerow([sender_id, user, text, str(datetime.datetime.now())])
+        log.writerow([sender_id, user, text, type_message, str(datetime.datetime.now())])
+
+    return text
 
 def get_log_filename():
     return properties.location + str(datetime.date.today().isocalendar()[0]) + "_" + str(datetime.date.today().isocalendar()[1]) + ".csv"

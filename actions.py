@@ -363,7 +363,7 @@ class ActionShow(Action):
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
 
                 if (response_interperiod['observation'][0]):
-                    res_interperiod = messages.interperiod.format(response_interperiod['observation'][0])
+                    res_interperiod = messages.interperiod.format(self.format_number(response_interperiod['observation'][0]))
 
                 dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}</b>".format(
                     indicator,
