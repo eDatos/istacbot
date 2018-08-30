@@ -4,6 +4,7 @@ dont_worry = "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el pr
 similar_indicators_women = "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 similar_indicators_men = "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 you_can_also_ask = "También puedes preguntarme por otra fecha y/o lugar ({}) :)"
+you_can_also_ask_sex = "También puedes preguntarme por otra fecha, lugar ({}) y por datos específicos de mujeres u hombres :)"
 sorry_ask_again = "ERROR: Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015"
 indicator_not_valid = "El indicador estadístico que has introducido no está en nuestra base de datos."
 similar_indicators = "Te dejo otros indicadores que pueden ser de tu interés"
@@ -18,3 +19,8 @@ user = "user"
 annual_puntual_rate = ", esto supone una variación de {} respecto al año anterior"
 annual_percentage_rate = ", esto supone una variación del {}% respecto al año anterior"
 error_log = "ERROR"
+help = [
+    "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\".",
+    "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
+    "Por último, recordarte que soy un asistente automatizado pero si quieres, puedes ponerte en contacto con una persona a través de cualquiera de los medios detallados en el siguiente <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a>."
+]
