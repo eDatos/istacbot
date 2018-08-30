@@ -520,6 +520,6 @@ class ActionHombres(Action):
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
         else:
-            return [SlotSet("var_What", tracker.get_slot("var_Loc") + " Hombres"),
+            return [SlotSet("var_What", tracker.get_slot("var_What") + " Hombres"),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
