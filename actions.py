@@ -414,13 +414,13 @@ class ActionShow(Action):
         response_annual_rate = requests.get(URL + indicators[
             indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PUNTUAL_RATE],TIME[" + DBDate + "]").json()
 
-        if (self.format_number(response_annual_rate['observation'][0])):
+        if (response_annual_rate['observation']):
             return messages.annual_puntual_rate.format(self.format_number(response_annual_rate['observation'][0]))
         else:
             response_annual_rate = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ANNUAL_PERCENTAGE_RATE],TIME[" + DBDate + "]").json()
 
-            if (self.format_number(response_annual_rate['observation'][0])):
+            if (response_annual_rate['observation']):
                 return messages.annual_percentage_rate.format(self.format_number(response_annual_rate['observation'][0]))
         return ""
 
