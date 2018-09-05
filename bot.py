@@ -100,7 +100,6 @@ def stopwords_clean(text):
     text = text.lower()
     tokens = spacy_parser(text)
     tokens = [token.orth_ for token in tokens if not token.orth_.isspace()]
-    print(tokens)
     filtered_words = [word for word in tokens if word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
     spanish_stopwords_stemmed = [stemmer.stem(stopword)for stopword in spanish_stopwords]
     spanish_stopwords_stemmed.remove('par')
@@ -108,7 +107,6 @@ def stopwords_clean(text):
     frase = ''
     for word in filtered_words_stemmed:
         frase = frase + word + ' '
-    print(frase)
     return frase
 
 
