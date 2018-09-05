@@ -33,7 +33,6 @@ class TelegramOutput(Bot, OutputChannel):
         super(TelegramOutput, self).__init__(access_token)
 
     def send_text_message(self, recipient_id, message):
-        self.send_chat_action(chat_id=recipient_id, action=ChatAction.TYPING, timeout=100);
         if (re.match("^{}".format(messages.log_header), message)):
             save_log(message, recipient_id, messages.user_debug)
         else:
