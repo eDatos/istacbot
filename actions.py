@@ -450,8 +450,8 @@ class ActionAskHowCanHelp(Action):
         return 'action_ask_howcanhelp'
 
     def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(messages.greeting)
-        dispatcher.utter_message(messages.greeting_2)
+        dispatcher.utter_message(messages.greeting[0])
+        dispatcher.utter_message(messages.greeting[1])
         return [Restarted()]
 
 
