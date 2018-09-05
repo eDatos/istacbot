@@ -31,7 +31,7 @@
 import json
 import re
 
-with open('nlu_train_v17.json',  encoding="utf8") as json_data:
+with open('nlu_train.json',  encoding="utf8") as json_data:
     dataset = json.load(json_data)
 
 original_dataset = len(dataset['rasa_nlu_data']['common_examples'])

@@ -8,8 +8,14 @@ slots:
 
 intents:
  - Saludo
+ - SaludoPixelPerfect
  - Despedida
  - inform
+ - Ayuda
+ - RespuestaSi
+ - RespuestaNo
+ - Mujeres
+ - Hombres
 
 entities:
  - var_Date
@@ -17,38 +23,21 @@ entities:
  - var_What
 
 templates:
-  utter_greet:
-    - "Hola! Soy el ChatBot de ISTAC"
   utter_goodbye:
     - "Adiós :)"
     - "Fue un placer :-)"
     - "Que la fuerza te acompañe, joven padawan ;)"
-  utter_ask_loc: 
-    - text : "De dónde?"
-    - text : "De qué lugar?"
-    - text : "En qué localidad?"
-  utter_ask_date: 
-    - text : "De cuándo?"
-    - text : "En qué periodo?"
-  utter_ask_what: 
-    - text : "Qué te interesaráa saber?"
-    - text : "Qué indicador andas buscando?"
-  utter_ask_more: 
-    - text: "Opciones:"
-      buttons:
-      - title: "Otra localidad"
-        payload: "Escribe el nombre de otra población"
-      - title: "Otra fecha"
-        payload: "Escribe otra fecha"
-      - title: "Otra información"
-        payload: "Escribe otro indicador"
+  utter_default:
+    - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante 2015"
 
 actions:
-  - utter_greet
   - utter_goodbye
-  - utter_ask_date
-  - utter_ask_what
-  - utter_ask_loc
-  - utter_ask_more
-  - actions.ActionShow  
-  - actions.ActionAskHowCanHelp 
+  - utter_default
+  - actions.ActionShow
+  - actions.ActionAskHowCanHelp
+  - actions.ActionYes
+  - actions.ActionNo
+  - actions.ActionMujeres
+  - actions.ActionHombres
+  - actions.ActionHelp
+  - actions.ActionSaludoPixelPerfect

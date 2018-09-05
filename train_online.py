@@ -16,10 +16,10 @@ from rasa_core.policies.memoization import MemoizationPolicy
 logger = logging.getLogger(__name__)
 
 
-def run_restoclimabot_online(input_channel, interpreter,
-                          domain_file="domain/istac_domain_v8.yml",
-                          training_data_file='data/stories_v12.md'):
-    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train_v30_201808011236/")
+def run_online(input_channel, interpreter,
+                          domain_file="domain/istac_domain.yml",
+                          training_data_file='data/stories.md'):
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train/")
     agent = Agent(domain_file,
                   policies=[MemoizationPolicy(max_history=2), KerasPolicy()],
                   interpreter=interpreter)
@@ -36,4 +36,4 @@ def run_restoclimabot_online(input_channel, interpreter,
 
 if __name__ == '__main__':
     utils.configure_colored_logging(loglevel="INFO")
-    run_restoclimabot_online(ConsoleInputChannel(), RegexInterpreter())
+    run_online(ConsoleInputChannel(), RegexInterpreter())

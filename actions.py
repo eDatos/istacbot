@@ -548,3 +548,12 @@ class ActionHelp(Action):
         for help_message in messages.help:
             dispatcher.utter_message(help_message)
         return [Restarted()]
+
+
+class ActionSaludoPixelPerfect(Action):
+    def name(self):
+        return 'action_saludo_pixelperfect'
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(messages.saludo_pixelperfect)
+        return [Restarted()]
