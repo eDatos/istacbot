@@ -22,12 +22,17 @@ from rasa_nlu.model import Trainer
 from rasa_nlu.training_data import load_data
 import credentials
 import spacy
+import properties
 
 from custom_stopwords import stopwords_custom
 from policy import RestaurantPolicy
 from remove_from_stopwords import remove_stopwords
 
+logging.basicConfig(filename=properties.location + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
 logger = logging.getLogger(__name__)
+
 stemmer = SnowballStemmer("spanish")
 spanish_stopwords = stopwords.words('spanish')
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
