@@ -107,11 +107,17 @@ class TelegramInput(HttpInputComponent):
 
     @staticmethod
     def _is_location(message):
-        return message.location
+        if message:
+            return message.location
+        else:
+            return None
 
     @staticmethod
     def _is_user_message(message):
-        return message.text
+        if message:
+            return message.text
+        else:
+            return None
 
     @staticmethod
     def _is_button(update):
