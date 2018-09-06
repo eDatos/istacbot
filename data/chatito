@@ -277,6 +277,9 @@
     ~[Accidentes de trabajo con baja]
     ~[Afiliaciones a la seguridad social]
     ~[Alojamientos turisticos abiertos]
+    ~[Alumnado no universitario. Educacion infantil]
+    ~[Alumnado no universitario. Educacion primaria]
+    ~[Alumnado no universitario. Educación secundaria obligatoria]
     ~[Cabezas de ganado. Bovino]
     ~[Cabezas de ganado. Caprino]
     ~[Cabezas de ganado. Ovino]
@@ -287,6 +290,8 @@
     ~[Coste laboral. Por trabajador y mes]
     ~[Defunciones]
     ~[Empleo registrado]
+    ~[Empleo registrado. Ayuntamientos]
+    ~[Empleo registrado. Cabildos]
     ~[Empresas inscritas en la seguridad social]
     ~[Empresas inscritas en la Seguridad Social. Agricultura]
     ~[Empresas inscritas en la Seguridad Social. Construcción]
@@ -339,7 +344,21 @@
     ~[Turistas recibidos]
     ~[Venta mayor de cemento]
     ~[Viajeros entrados en alojamientos turísticos]
-
+    ~[IBI. Cuota liquida. Rusticos]
+    ~[IBI. Cuota liquida. Urbanos]
+    ~[Índice de precios de consumo (IPC). General]
+    ~[Licitación oficial en construcción. Edificación]
+    ~[Licitación oficial en construcción. Ingeniería civil]
+    ~[Población. De 65 o más años]
+    ~[Población. De 0 a 14 años]
+    ~[Población. Mujeres de 0 a 14 años]
+    ~[Policía Local. Efectivos por cada 1.000 habitantes]
+    ~[Población. Mujeres de 65 o más años]
+    ~[Tráfico aéreo comercial. Movimiento de mercancías]
+    ~[Visados de obra. Viviendas]
+    ~[Visados de obra. Viviendas de obra nueva]
+    ~[Vivienda libre. Precio del metro cuadrado]
+    ~[Vivienda protegida. Precio del metro cuadrado]
 
 ~[Accidentes de trabajo con baja]
     siniestros laborales
@@ -367,6 +386,17 @@
     pensiones
     apartahotel
     casas rurales
+
+~[Alumnado no universitario. Educacion infantil]
+    educacion infantil
+
+~[Alumnado no universitario. Educacion primaria]
+    educacion primaria
+
+~[Alumnado no universitario. Educación secundaria obligatoria]
+    educación secundaria obligatoria
+    eso
+    e.s.o
 
 ~[Cabezas de ganado. Bovino]
     vacas
@@ -416,6 +446,12 @@
     trabajo
     empleados
 
+~[Empleo registrado. Ayuntamientos]
+    empleo ayuntamientos
+
+~[Empleo registrado. Cabildos]
+    empleo cabildos
+
 ~[Empresas inscritas en la seguridad social]
     empresas inscritas seguridad social
     empresas inscritas ss
@@ -453,6 +489,23 @@
     nuevas hipotecas
     hipotecas
 
+~[IBI. Cuota liquida. Rusticos]
+    ibi
+    impuesto bienes inmuebles
+    impuesto municipal
+    ibi campo
+
+~[IBI. Cuota liquida. Urbanos]
+    ibi
+    impuesto bienes inmuebles
+    impuesto municipal
+    ibi
+
+~[Índice de precios de consumo (IPC). General]
+    ipc
+    índice precios consumo
+    precios
+
 ~[Indice de cifra de negocios (IASS). Servicios]
     cifra negocios
 
@@ -484,6 +537,14 @@
 ~[Licitacion oficial en construcción]
     obras publicas
     construccion publica
+
+~[Licitación oficial en construcción. Edificación]
+    obras públicas
+    construcción pública
+
+~[Licitación oficial en construcción. Ingeniería civil]
+    obras públicas
+    construcción pública
 
 ~[Matriculación de vehículos]
     vehiculos matriculados
@@ -572,13 +633,38 @@
 ~[Población turística equivalente en alojamientos turísticos]
     turistas
 
+~[Población. De 0 a 14 años]
+    infancia
+    niños
+    menores
+
+~[Población. De 65 o más años]
+    vejez
+    viejos
+    ancianos
+    mayores
+    tercera edad
+
 ~[Población. Edad media]
     edad media poblacion
     edad media
     media edad
 
+~[Población. Mujeres de 0 a 14 años]
+    niñas
+    menores
+
+~[Población. Mujeres de 65 o más años]
+    viejas
+    ancianas
+
 ~[Policía local. Efectivos]
     policia
+
+~[Policía Local. Efectivos por cada 1.000 habitantes]
+    policía local
+    efectivos policía
+    efectivos policía habitantes
 
 ~[Presupuesto liquidado. Gastos por habitante. Ayuntamientos]
     presupuesto ayuntamiento
@@ -669,6 +755,24 @@
 ~[Venta mayor de cemento]
     cemento
     venta cemento
+
+~[Tráfico aéreo comercial. Movimiento de mercancías]
+    tráfico aéreo comercial
+    transporte mercancías
+    movimiento mercancías
+    transporte mercancías
+
+~[Visados de obra. Viviendas]
+    licencias obra
+
+~[Visados de obra. Viviendas de obra nueva]
+    licencias obra
+
+~[Vivienda libre. Precio del metro cuadrado]
+    precio vivienda
+
+~[Vivienda protegida. Precio del metro cuadrado]
+    precio vivienda
 
 ~[Viajeros entrados en alojamientos turísticos]
     visitantes alojamientos turisticos
