@@ -97,7 +97,7 @@ def runTelegram(serve_forever=True):
 stopwords_clean_lambda = lambda text: stopwords_clean(text)
 
 def stopwords_clean(text):
-    text = text.lower()
+    text = remove_accents_and_lower(text)
     tokens = spacy_parser(text)
     tokens = [token.orth_ for token in tokens if not token.orth_.isspace()]
     filtered_words = [word for word in tokens if word not in spanish_stopwords and re.match(remove_punctuation_marks, word) != None]
@@ -108,6 +108,15 @@ def stopwords_clean(text):
     for word in filtered_words_stemmed:
         frase = frase + word + ' '
     return frase
+
+def remove_accents_and_lower(text):
+    text.lower()
+    text = text.replace('á', 'a')
+    text = text.replace('é', 'e')
+    text = text.replace('í', 'i')
+    text = text.replace('ó', 'o')
+    text = text.replace('ú', 'u')
+    return text
 
 
 if __name__ == '__main__':
