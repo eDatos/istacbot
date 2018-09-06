@@ -168,7 +168,6 @@ class TelegramInput(HttpInputComponent):
                         return "success"
                 sender_id = message.chat.id
                 try:
-                    save_log(text, sender_id, messages.user)
                     if text == '_restart' or text == '/restart':
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
@@ -180,6 +179,7 @@ class TelegramInput(HttpInputComponent):
                     else:
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
+                    save_log(text, sender_id, messages.user)
                 except Exception as e:
                     logger.error("Exception when trying to handle "
                                  "message.{0}".format(e))
@@ -205,11 +205,13 @@ def save_log(text, sender_id, user):
     if (message_match[1]):
         text = message_match[2]
         type_message=messages.error_log
-
-    with open(get_log_filename(), 'a', newline='') as csvfile:
-        log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-        log.writerow([sender_id, user, text, type_message, str(datetime.datetime.now())])
-
+    try:
+        with open(get_log_filename(), 'a', newline='') as csvfile:
+            log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
+            log.writerow([sender_id, user, text, type_message, str(datetime.datetime.now())])
+    except Exception as e:
+        logger.error("Error al guardar log. {}".format(e))
+        return ""
     return text
 
 def get_log_filename():
