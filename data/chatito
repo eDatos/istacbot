@@ -65,6 +65,18 @@
 %[RespuestaNo]
     answer_no
 
+~[Mujeres]
+    mujeres
+
+~[Hombres]
+    hombres
+
+%[Hombres]
+    ~[saludo?] ~[prephrase?] ~[hombres]
+
+%[Mujeres]
+    ~[saludo?] ~[prephrase?] ~[mujeres]
+
 %[ListadoIndicadores]
     ~[saludo?] ~[prephrase?] ~[listado_indicadores]
 
