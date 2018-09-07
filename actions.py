@@ -18,6 +18,7 @@ import properties
 import locale
 import messages
 
+MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.url
 COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
@@ -564,14 +565,13 @@ class ActionListadoIndicadores(Action):
 
     def run(self, dispatcher, tracker, domain):
         if len(indicators) > 0:
-            list_indicators_1 = messages.indicators_list + '\n'
-        list_indicators_2 = ""
-        for i in range(0, int(len(indicators) / 2)):
-            list_indicators_1 = list_indicators_1 + '\n' + list(indicators.keys())[i]
-        for i in range(int(len(indicators) / 2), len(indicators)):
-            list_indicators_2 = list_indicators_2 + '\n' + list(indicators.keys())[i]
+            list_indicators = messages.indicators_list + '\n'
 
-        dispatcher.utter_message(list_indicators_1)
-        dispatcher.utter_message(list_indicators_2)
-
+        for indicator in indicators.keys():
+            if (len(list_indicators + "\n" + indicator)  < MAX_LENGTH_TELEGRAM_MESSAGE):
+                list_indicators = list_indicators + "\n" + indicator
+            else:
+                dispatcher.utter_message(list_indicators)
+                list_indicators = "" + indicator
+        dispatcher.utter_message(list_indicators)
         return [Restarted()]
