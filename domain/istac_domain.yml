@@ -16,6 +16,7 @@ intents:
  - RespuestaNo
  - Mujeres
  - Hombres
+ - ListadoIndicadores
 
 entities:
  - var_Date
@@ -28,7 +29,7 @@ templates:
     - "Fue un placer :-)"
     - "Que la fuerza te acompañe, joven padawan ;)"
   utter_default:
-    - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: Dame el paro de Canarias durante 2015"
+    - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\""
 
 actions:
   - utter_goodbye
@@ -41,3 +42,4 @@ actions:
   - actions.ActionHombres
   - actions.ActionHelp
   - actions.ActionSaludoPixelPerfect
+  - actions.ActionListadoIndicadores

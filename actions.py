@@ -18,6 +18,7 @@ import properties
 import locale
 import messages
 
+MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.url
 COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
@@ -482,9 +483,7 @@ class ActionMujeres(Action):
         if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
                                                              tracker.get_slot("var_What")):
 
-            return [SlotSet("var_What",
-                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
-                                1] + " Mujeres"),
+            return [SlotSet("var_What", tracker.get_slot("var_What").lower().replace("hombres", "mujeres")),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
         elif (tracker.get_slot("var_What") == None):
@@ -515,9 +514,7 @@ class ActionHombres(Action):
         if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
                                                              tracker.get_slot("var_What")):
 
-            return [SlotSet("var_What",
-                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
-                                1] + " Hombres"),
+            return [SlotSet("var_What", tracker.get_slot("var_What").lower().replace("mujeres", "hombres")),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
         elif (tracker.get_slot("var_What") == None):
@@ -556,4 +553,21 @@ class ActionSaludoPixelPerfect(Action):
 
     def run(self, dispatcher, tracker, domain):
         dispatcher.utter_message(messages.saludo_pixelperfect)
+        return [Restarted()]
+
+class ActionListadoIndicadores(Action):
+    def name(self):
+        return 'action_listado_indicadores'
+
+    def run(self, dispatcher, tracker, domain):
+        if len(indicators) > 0:
+            list_indicators = messages.indicators_list + '\n'
+
+        for indicator in indicators.keys():
+            if (len(list_indicators + "\n" + indicator)  < MAX_LENGTH_TELEGRAM_MESSAGE):
+                list_indicators = list_indicators + "\n" + indicator
+            else:
+                dispatcher.utter_message(list_indicators)
+                list_indicators = "" + indicator
+        dispatcher.utter_message(list_indicators)
         return [Restarted()]

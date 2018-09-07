@@ -5,7 +5,7 @@ similar_indicators_women = "Vale, si tienes curiosidad sobre datos relativos a m
 similar_indicators_men = "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 you_can_also_ask = "También puedes preguntarme por otra fecha y/o lugar ({}) :)"
 you_can_also_ask_sex = "También puedes preguntarme por otra fecha, lugar ({}) y por datos específicos de mujeres u hombres :)"
-sorry_ask_again = "ERROR: Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: Dame el paro de Canarias durante 2015"
+sorry_ask_again = "ERROR: Lo siento, no te entiendo. Prueba a preguntármelo de otra manera ;). Por ejemplo: \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\""
 indicator_not_valid = "El indicador estadístico que has introducido no está en nuestra base de datos."
 similar_indicators = "Te dejo otros indicadores que pueden ser de tu interés"
 place_not_found = "ERROR: Lo siento, no he encontrado información del lugar que buscas. Prueba con:"
@@ -19,8 +19,9 @@ user = "user"
 annual_puntual_rate = ", esto supone una variación de {} respecto al año anterior"
 annual_percentage_rate = ", esto supone una variación del {}% respecto al año anterior"
 error_log = "ERROR"
+indicators_list = "Puedes preguntarme por cualquiera de estos datos:\n"
 help = [
-    "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\".",
+    "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\".",
     "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
     "Por último, rrecuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
 ]

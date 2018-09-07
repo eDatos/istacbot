@@ -20,6 +20,20 @@
     - reset_slots  
 * Despedida
     - utter_goodbye
+    
+## listado indicadores
+* ListadoIndicadores
+    - action_listado_indicadores
+    - reset_slots  
+* ListadoIndicadores
+    - action_listado_indicadores
+    - reset_slots
+* ListadoIndicadores
+    - action_listado_indicadores
+    - reset_slots  
+> check_more_info
+* Despedida
+    - utter_goodbye
 
 ## saludo2
 * Saludo
