@@ -120,6 +120,13 @@ class TelegramInput(HttpInputComponent):
             return ''
 
     @staticmethod
+    def check_has_not_exceeded_time(message):
+        if message and (datetime.datetime.now() - message.date) < datetime.timedelta(minutes=properties.discard_messages_max_minutes):
+            return message.text
+        else:
+            return ''
+
+    @staticmethod
     def _is_button(update):
         return update.callback_query
 
@@ -158,7 +165,7 @@ class TelegramInput(HttpInputComponent):
                     text = update.callback_query.data
                 else:
                     message = update.message
-                    if self._is_user_message(message):
+                    if self._is_user_message(message) and self.check_has_not_exceeded_time(message):
                         text = message.text.replace('/bot', '')
                     elif self._is_location(message):
                         text = ('{{"lng":{0}, "lat":{1}}}'
