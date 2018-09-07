@@ -483,9 +483,7 @@ class ActionMujeres(Action):
         if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
                                                              tracker.get_slot("var_What")):
 
-            return [SlotSet("var_What",
-                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
-                                1] + " Mujeres"),
+            return [SlotSet("var_What", tracker.get_slot("var_What").lower().replace("hombres", "mujeres")),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
         elif (tracker.get_slot("var_What") == None):
@@ -516,9 +514,7 @@ class ActionHombres(Action):
         if tracker.get_slot("var_What") != None and re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)",
                                                              tracker.get_slot("var_What")):
 
-            return [SlotSet("var_What",
-                            re.match(r"(.*)(mujeres|Mujeres|Hombres|hombres)", tracker.get_slot("var_What"))[
-                                1] + " Hombres"),
+            return [SlotSet("var_What", tracker.get_slot("var_What").lower().replace("mujeres", "hombres")),
                     SlotSet("var_Loc", tracker.get_slot("var_Loc")),
                     SlotSet("var_Date", tracker.get_slot("var_Date"))]
         elif (tracker.get_slot("var_What") == None):
