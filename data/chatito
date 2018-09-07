@@ -29,6 +29,18 @@
 %[SaludoPixelPerfect]
     hola pixelperfect
 
+~[listado_indicadores]
+    datos
+    datos darme
+    datos consultar
+    comandos
+    listame
+    muestrame
+    enseñame
+    datos conocer
+    datos usar
+    buscar
+
 %[Despedida]
     gracias
     gracias
@@ -41,10 +53,7 @@
     hacer
     ayuda
     ayudame
-    comandos
     funcionas
-    listame
-    enseñame
     empezar
     empieza
     ayuda
@@ -55,6 +64,9 @@
 
 %[RespuestaNo]
     answer_no
+
+%[ListadoIndicadores]
+    ~[saludo?] ~[prephrase?] ~[listado_indicadores]
 
 %[inform]('training': '15000')
     @[var_What]
@@ -100,6 +112,11 @@
 
 ~[prephrase]
     interesa
+    datos
+    darme
+    consultar
+    conocer
+    informacion
 
 @[var_What]
     sociedades mercantiles creadas

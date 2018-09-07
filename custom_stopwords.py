@@ -1,8 +1,6 @@
-stopwords_custom = {'digas', 'decir', 'información', 'necesito', 'encontrar', 'buscar', 'dijeras', 'disponible',
-                    'dispongas', 'ciudad', 'gustaría', 'posible', 'gustaria', 'largo', 'municipio', 'mes', 'dame',
+stopwords_custom = {'digas', 'decir', 'necesito', 'dijeras', 'disponible',
+                    'dispongas', 'ciudad', 'gustaría', 'posible', 'gustaria', 'largo', 'municipio', 'mes',
                     'quisiera', 'gustaria', 'favor', 'por', 'numero', 'dime', 'guapo', 'hermoso', 'bello', 'bellezon',
-                    'cariño', 'año', 'quiero', 'guapeton', 'cari', 'saber', 'conocer', 'obtener', 'tener', 'ver',
-                    'resultados', 'datos', 'informacion', 'listado', 'podrias', 'darme', 'pasarme', 'ofrecerme', 'producir',
-                    'produjeron', 'aburrido','aburrimiento', 'bot', 'robot', 'maquina', 'máquina', 'chatbot', 'istac',
-                    'istacchatbot', 'istac-chatbot', 'preguntaba', 'podrías', 'puedes', 'relativos', 'relacionados', 'ver','tiene',
-                    'tengan', 'dar', 'queria'}
+                    'cariño', 'año', 'quiero', 'guapeton', 'cari', 'saber', 'ofrecerme', 'tener', 'ver',
+                    'resultados', 'listado', 'podrias', 'pasarme', 'producir','produjeron', 'aburrido','aburrimiento', 'bot', 'robot', 'maquina', 'chatbot',
+                    'istac','istacchatbot', 'istac-chatbot', 'preguntaba', 'podrías', 'puedes', 'relativos', 'relacionados', 'ver','tengan', 'queria'}

@@ -557,3 +557,21 @@ class ActionSaludoPixelPerfect(Action):
     def run(self, dispatcher, tracker, domain):
         dispatcher.utter_message(messages.saludo_pixelperfect)
         return [Restarted()]
+
+class ActionListadoIndicadores(Action):
+    def name(self):
+        return 'action_listado_indicadores'
+
+    def run(self, dispatcher, tracker, domain):
+        if len(indicators) > 0:
+            list_indicators_1 = messages.indicators_list + '\n'
+        list_indicators_2 = ""
+        for i in range(0, int(len(indicators) / 2)):
+            list_indicators_1 = list_indicators_1 + '\n' + list(indicators.keys())[i]
+        for i in range(int(len(indicators) / 2), len(indicators)):
+            list_indicators_2 = list_indicators_2 + '\n' + list(indicators.keys())[i]
+
+        dispatcher.utter_message(list_indicators_1)
+        dispatcher.utter_message(list_indicators_2)
+
+        return [Restarted()]

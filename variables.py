@@ -281,7 +281,7 @@ indicators_check = {
     "los alumnos primaria": "Alumnado no universitario. Educacion primaria",
     "Alumnado no universitario Educacion secundaria obligatoria ESO": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)",
     "educacion secundaria obligatoria": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)",
-    "alumnos ESO": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)O",
+    "alumnos ESO": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)",
     "ESO": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)",
     "la eso": "Alumnado no universitario. Educación secundaria obligatoria (E.S.O.)",
     "Alumnado no universitario Educacion infantil": "Alumnado no universitario. Educación infantil",
