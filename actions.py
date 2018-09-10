@@ -161,8 +161,9 @@ class ActionShow(Action):
             return found
 
     def check_in_list(self, value, var_list):
-        if value in var_list:
-            return str(value)
+        for date in var_list:
+            if (date.find(value) != -1):
+                return str(date)
         return False
 
     def getGeographical(self, loc_slot, response_indicator, dispatcher):
@@ -441,7 +442,8 @@ class ActionShow(Action):
             ))
 
     def indicator_has_sex(self, indicator):
-        indicator = re.match(r"([^\.]*)\.?(.*)?", indicator)[1]
+        indicator = indicator.replace(". Mujeres", "")
+        indicator = indicator.replace(". Hombres", "")
         if (indicator in indicators_with_sex):
             return True
         return False
