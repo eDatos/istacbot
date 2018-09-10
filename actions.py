@@ -441,7 +441,8 @@ class ActionShow(Action):
             ))
 
     def indicator_has_sex(self, indicator):
-        indicator = re.match(r"([^\.]*)\.?(.*)?", indicator)[1]
+        indicator = indicator.replace(". Mujeres", "")
+        indicator = indicator.replace(". Hombres", "")
         if (indicator in indicators_with_sex):
             return True
         return False
