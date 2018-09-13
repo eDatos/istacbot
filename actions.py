@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import datetime
 import difflib
 import re
 import requests
@@ -24,6 +25,7 @@ COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
 NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
 locale.setlocale(locale.LC_ALL, properties.locale)
+REGEX_HAS_YEAR =  r".*(\d{4}).*"
 
 indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
@@ -33,6 +35,7 @@ for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
 
 class ActionShow(Action):
+    restart_index = 0
     previous_date = None
     previous_indicator = None
     previous_location = None
@@ -49,10 +52,31 @@ class ActionShow(Action):
 
     actions_ignore = ["action_hombres", "action_mujeres", "action_yes"]
 
+    def reset(self):
+        self.previous_date = None
+        self.previous_indicator = None
+        self.previous_location = None
+        self.possible_location = None
+
+        self.location_confidence = {'confidence': -1, 'value': DEFAULT_LOCATION}
+        self.date_confidence = {'confidence': -1, 'value': ''}
+        self.indicator_confidence = {'confidence': -1, 'value': ''}
+
+        self.previuos_location_confidence = {'confidence': -1, 'value': ''}
+        self.previous_date_confidence = {'confidence': -1, 'value': ''}
+        self.previous_indicator_confidence = {'confidence': -1, 'value': ''}
+
+        self.actions_ignore = ["action_hombres", "action_mujeres", "action_yes"]
+
     def name(self):
         return 'action_show'
 
     def run(self, dispatcher, tracker, domain):
+
+        if self.restart_index != tracker.idx_after_latest_restart():
+            self.restart_index = tracker.idx_after_latest_restart()
+            self.reset()
+
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
                 and next(tracker.get_latest_entity_values("var_Date"), None) == None):
@@ -91,7 +115,10 @@ class ActionShow(Action):
                 print("location_slot: " + repr(location_slot) + ", date_slot: " + repr(
                     date_slot) + ", indicator_slot: " + str(indicator_slot))
 
-            self.previous_date = date_slot
+
+
+            if (date_slot and self.date_get_year(date_slot)):
+                self.previous_date = date_slot
             self.previous_location = location_slot
             self.previous_indicator = indicator_slot
 
@@ -117,7 +144,7 @@ class ActionShow(Action):
                     'confidence'] > 0.9 and response_indicator != None):
                     return self.show_information(dispatcher, date_slot, location_slot, indicator, response_indicator)
                 else:
-                    date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
+                    date = self.getDate(date_slot, response_indicator, dispatcher)
                     if date:
                         dispatcher.utter_button_message(messages.low_confidence.format(
                                 self.indicator_confidence["value"],
@@ -133,32 +160,28 @@ class ActionShow(Action):
                         SlotSet("var_Date", date_slot)]
         return [SlotSet("var_What", None)]
 
-    def getDate(self, date, indicator, response_indicator, dispatcher):
+    def getDate(self, date, response_indicator, dispatcher):
         time = response_indicator['dimension']['TIME']
-        date_list = [str(t['code']) for t in time['representation']]
-
-        if date is None or date == 'None':
-            return time['representation'][0]['code']
+        date_list = [str(t['code'].lower()) for t in time['representation']]
+        found = False
+        if not date:
+            return date_list[0].upper() # Si no se especifica fecha, se devuelve la más reciente
+        if not self.date_get_year(date):
+            year = str(datetime.datetime.now().year)
+            if self.previous_date and self.date_get_year(self.previous_date):
+                year = self.date_get_year(self.previous_date)[1]
+            found = self.check_in_list(year + date, date_list)
         else:
-            found = False
-            if (time['granularity'][0]['code'] == "YEARLY"):
-                found = self.check_in_list(date, date_list)
-            elif (time['granularity'][0]['code'] == "MONTHLY"):
-                for mes in reversed(range(1, 13)):
-                    found = self.check_in_list(date + 'M' + str(mes).zfill(2), date_list)
-                    if (found):
-                        return found
-            elif (time['granularity'][0]['code'] == "QUARTERLY"):
-                for quarter in reversed(range(1, 5)):
-                    found = self.check_in_list(str(date) + 'Q' + str(quarter), date_list)
-                    if (found):
-                        return found
+            found = self.check_in_list(date, date_list)
 
-            if not found:
-                dispatcher.utter_message((messages.date_not_found).format(
-                        time['representation'][0]['title']['es'])
-                )
-            return found
+        if not found and self.indicator_confidence['confidence'] > 0.9: # Solo se muestra el mensaje cuando tenemos una confianza superior al 0.9
+            dispatcher.utter_message((messages.date_not_found))
+            found = date_list[0].upper()
+            self.previous_date = found
+        else:
+            found = found.upper()
+
+        return found
 
     def check_in_list(self, value, var_list):
         for date in var_list:
@@ -329,7 +352,7 @@ class ActionShow(Action):
             if (geographic_location_code is None):
                 location_slot = None
             else:
-                date = self.getDate(date_slot, indicator, response_indicator, dispatcher)
+                date = self.getDate(date_slot, response_indicator, dispatcher)
                 if (not date):
                     return [SlotSet("var_Date", None)]
         if (geographic_location_code and date and indicator):  # If all params where found.
@@ -340,6 +363,9 @@ class ActionShow(Action):
             # Requests to ISTAC API https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/
             response_all = requests.get(URL + indicators[
                 indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]").json()
+
+            print(URL + indicators[
+                indicator] + "/data?representation=GEOGRAPHICAL[" + geographic_location_code + "],MEASURE[ABSOLUTE],TIME[" + DBDate + "]")
 
             if (response_all['observation'] and response_all['observation'][0]):
                 res_data = str(response_all['observation'][0])
@@ -447,6 +473,9 @@ class ActionShow(Action):
         if (indicator in indicators_with_sex):
             return True
         return False
+
+    def date_get_year(self, date):
+        return re.match(REGEX_HAS_YEAR, date)
 
 class ActionAskHowCanHelp(Action):
     def name(self):

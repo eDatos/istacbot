@@ -812,22 +812,48 @@
 
 @[var_Date]
     hoy
-    trimestre
-    enero
-    febrero
-    marzo
-    abril
-    mayo
-    junio
-    julio
-    agosto
-    septiembre
-    octubre
-    noviembre
-    diciembre
+    1990q1
+    2015q1
+    1962q2
+    2018q3
+    2005q4
+    1984q4
+    1976q3
+    1972q3
+    1972q2
+    m01
+    m02
+    m03
+    m04
+    m05
+    m06
+    m07
+    m08
+    m09
+    m10
+    m11
+    m12
+    1990
+    2015
+    1962
     2018
-    2017
-    1996
+    2005
+    1984
+    1976
+    1972
+    q1
+    q2
+    q3
+    q4
+    1990M01
+    2012M02
+    1945M03
+    2011M03
+    2006M12
+    1998M09
+    1977M05
+    1974M07
+    1979M08
 
 @[var_Loc]
 

@@ -9,7 +9,7 @@ sorry_ask_again = "ERROR: Lo siento, no te entiendo. Prueba a preguntármelo de 
 indicator_not_valid = "El indicador estadístico que has introducido no está en nuestra base de datos."
 similar_indicators = "Te dejo otros indicadores que pueden ser de tu interés"
 place_not_found = "ERROR: Lo siento, no he encontrado información del lugar que buscas. Prueba con:"
-date_not_found = "ERROR: Lo siento, he buscado y parece que no hay información para la fecha indicada (el dato más reciente que tengo es de {}). Prueba con otra fecha"
+date_not_found = "ERROR: Lo siento, he buscado y parece que no hay información para la fecha indicada. Te dejo información del dato más reciente que tengo :)"
 try_another_date = "ERROR: Si te refieres a {}, no he encontrado información. Prueba con otro lugar:"
 low_confidence = "ERROR: No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:"
 log_header = "#DEBUGLOG# "
@@ -23,6 +23,6 @@ indicators_list = "Puedes preguntarme por cualquiera de estos datos:\n"
 help = [
     "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\".",
     "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
-    "Por último, rrecuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
+    "Por último, recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
 ]
 saludo_pixelperfect = "Hola amo. ¿En qué puedo servirte hoy?"

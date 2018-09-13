@@ -759,3 +759,18 @@ indicators_with_sex = [
     "Tasa bruta de mortalidad",
     "Población extranjera"
 ]
+
+months ={
+    "enero": "m01",
+    "febrero": "m02" ,
+    "marzo": "m03",
+    "abril": "m04",
+    "mayo": "m05",
+    "junio": "m06",
+    "julio": "m07",
+    "agosto": "m08",
+    "septiembre": "m09",
+    "octubre": "m10",
+    "noviembre": "m11",
+    "diciembre": "m12"
+}

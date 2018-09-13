@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import argparse
+import datetime
 import logging
 import re
 
@@ -23,6 +24,8 @@ from rasa_nlu.training_data import load_data
 import credentials
 import spacy
 import properties
+import requests
+import variables
 
 from custom_stopwords import stopwords_custom
 from policy import RestaurantPolicy
@@ -84,7 +87,7 @@ def run(serve_forever=True):
     agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     if serve_forever:
-        agent.handle_channel(ConsoleInputChannel(), message_preprocessor=stopwords_clean_lambda)
+        agent.handle_channel(ConsoleInputChannel(), message_preprocessor=clean_text_input_lambda)
     return agent
 
 def runTelegram(serve_forever=True):
@@ -97,9 +100,37 @@ def runTelegram(serve_forever=True):
         webhook_url=credentials.webhook_url  # the url your bot should listen for messages
     )
 
-    agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=stopwords_clean_lambda)
+    agent.handle_channel(HttpInputChannel(properties.telegram_port, "", input_channel), message_preprocessor=clean_text_input)
 
-stopwords_clean_lambda = lambda text: stopwords_clean(text)
+clean_text_input_lambda = lambda text: clean_text_input(text)
+
+def clean_text_input(text):
+    text_stopwords_cleaned = stopwords_clean(text)
+    return date_clean(text_stopwords_cleaned)
+
+def date_clean(text):
+    query = {'locale': 'es_ES', 'dims': '["time"]', 'text': text}
+    response_duckling = requests.post(properties.duckling_server, data=query).json()
+    if (response_duckling):
+        grain = response_duckling[0]["value"]["grain"]
+        match = response_duckling[0]["body"].lower()
+        date = re.match(r"(\d{4})-(\d{2})-(\d{2}).*", response_duckling[0]["value"]["value"])
+        has_year = re.match(r"(.*\d{4}.*|.*años?.*)", match)
+        if (date):
+            if (match in variables.months):
+                return text.replace(match, variables.months[match])
+            elif (grain == "day" or grain == "month"):
+                if has_year:
+                    return text.replace(match, date[1] + "M" + date[2])
+                else:
+                    return text.replace(match, "M" + date[2])
+            elif (grain == "quarter"):
+                quarter = str(int(int(date[2]) / 3) + 1)
+                if has_year:
+                    return text.replace(match, date[1] + "Q" + quarter)
+                else:
+                    return text.replace(match, "Q" + quarter)
+    return text
 
 def stopwords_clean(text):
     text = remove_accents_and_lower(text)
