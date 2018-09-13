@@ -117,7 +117,7 @@ class ActionShow(Action):
 
 
 
-            if (date_slot and self.date_has_year(date_slot)):
+            if (date_slot and self.date_get_year(date_slot)):
                 self.previous_date = date_slot
             self.previous_location = location_slot
             self.previous_indicator = indicator_slot
@@ -166,10 +166,10 @@ class ActionShow(Action):
         found = False
         if not date:
             return date_list[0].upper() # Si no se especifica fecha, se devuelve la más reciente
-        if not self.date_has_year(date):
+        if not self.date_get_year(date):
             year = str(datetime.datetime.now().year)
-            if self.previous_date and self.date_has_year(self.previous_date):
-                year = self.date_has_year(self.previous_date)[1]
+            if self.previous_date and self.date_get_year(self.previous_date):
+                year = self.date_get_year(self.previous_date)[1]
             found = self.check_in_list(year + date, date_list)
         else:
             found = self.check_in_list(date, date_list)
@@ -474,7 +474,7 @@ class ActionShow(Action):
             return True
         return False
 
-    def date_has_year(self, date):
+    def date_get_year(self, date):
         return re.match(REGEX_HAS_YEAR, date)
 
 class ActionAskHowCanHelp(Action):
