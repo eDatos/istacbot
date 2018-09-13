@@ -23,6 +23,6 @@ indicators_list = "Puedes preguntarme por cualquiera de estos datos:\n"
 help = [
     "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\".",
     "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
-    "Por último, rrecuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
+    "Por último, recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
 ]
 saludo_pixelperfect = "Hola amo. ¿En qué puedo servirte hoy?"
