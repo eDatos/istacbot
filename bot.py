@@ -109,7 +109,7 @@ def clean_text_input(text):
     return date_clean(text_stopwords_cleaned)
 
 def date_clean(text):
-    query = {'locale': 'es_ES', 'dims': ['time'], 'text': text}
+    query = {'locale': 'es_ES', 'dims': '["time"]', 'text': text}
     response_duckling = requests.post(properties.duckling_server, data=query).json()
     if (response_duckling):
         grain = response_duckling[0]["value"]["grain"]
