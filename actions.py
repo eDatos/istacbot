@@ -173,10 +173,10 @@ class ActionShow(Action):
         else:
             found = self.check_in_list(date, date_list)
 
-        if not found:
-            dispatcher.utter_message((messages.date_not_found).format(
-                time['representation'][0]['title']['es'])
-            )
+        if not found and self.indicator_confidence['confidence'] > 0.9: # Solo se muestra el mensaje cuando tenemos una confianza superior al 0.9
+            dispatcher.utter_message((messages.date_not_found))
+            found = date_list[0].upper()
+            self.previous_date = found
         else:
             found = found.upper()
 
