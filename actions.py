@@ -25,7 +25,7 @@ COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
 NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
 locale.setlocale(locale.LC_ALL, properties.locale)
-REGEX_HAS_YEAR =  r".*\d{4}.*"
+REGEX_HAS_YEAR =  r".*(\d{4}).*"
 
 indexes_lower = [unidecode.unidecode(x).lower() for x in indicators.keys()]
 stemmer = SnowballStemmer("spanish")
@@ -168,8 +168,8 @@ class ActionShow(Action):
             return date_list[0].upper() # Si no se especifica fecha, se devuelve la más reciente
         if not self.date_has_year(date):
             year = str(datetime.datetime.now().year)
-            if self.previous_date and re.match(r"\d{4}.*", self.previous_date):
-                year = re.match(r"(\d{4}).*", self.previous_date)[1]
+            if self.previous_date and self.date_has_year(self.previous_date):
+                year = self.date_has_year(self.previous_date)[1]
             found = self.check_in_list(year + date, date_list)
         else:
             found = self.check_in_list(date, date_list)
@@ -475,10 +475,7 @@ class ActionShow(Action):
         return False
 
     def date_has_year(self, date):
-        if re.match(REGEX_HAS_YEAR, date):
-            return True
-        else:
-            return False
+        return re.match(REGEX_HAS_YEAR, date)
 
 class ActionAskHowCanHelp(Action):
     def name(self):
