@@ -90,7 +90,7 @@ class TelegramOutput(Bot, OutputChannel):
                          'button type {}'.format(button_type))
             return
 
-        return self.send_message(recipient_id, text, reply_markup=reply_markup)
+        return self.send_message(recipient_id, text, reply_markup=reply_markup, timeout=20)
 
 class TelegramInput(HttpInputComponent):
     """Telegram input channel"""
