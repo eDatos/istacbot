@@ -143,7 +143,6 @@ def stopwords_clean(text):
     frase = ''
     for word in filtered_words_stemmed:
         frase = frase + word + ' '
-    print(frase)
     return frase
 
 def remove_accents_and_lower(text):
