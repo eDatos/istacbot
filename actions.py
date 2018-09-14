@@ -431,10 +431,10 @@ class ActionShow(Action):
             elif ((i + 1) < len(granularities)):
                 location_granularities = location_granularities + ', ' + granularities[i]
             else:
-                conjuncion = " y "
+                conjunction = " y "
                 if (granularities[i].startswith('i')):
-                    conjuncion = " e "
-                location_granularities = location_granularities + conjuncion + granularities[i]
+                    conjunction = " e "
+                location_granularities = location_granularities + conjunction + granularities[i]
 
 
 
