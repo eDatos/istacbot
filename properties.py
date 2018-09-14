@@ -6,4 +6,3 @@ locale = 'es_ES.UTF-8'
 location = "/data/istac/istacbot/logs/"
 discard_messages_max_minutes = 5
 duckling_server="http://192.168.1.168:8000/parse"
-telegram_port = 5004
