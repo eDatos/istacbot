@@ -371,6 +371,7 @@ class ActionShow(Action):
                 res_data = str(response_all['observation'][0])
                 res_unit = response_indicator['dimension']['MEASURE']['representation'][0]['quantity']['unit']['es']
                 res_unitSymbol = {"start": "", "end": "", "description": ""}
+                res_unit_multiplier = response_indicator['dimension']['MEASURE']['representation'][0]['quantity']['unitMultiplier']['es'].lower()
 
                 if ('unitSymbol' in [str(keys) for keys in
                                      response_indicator['dimension']['MEASURE']['representation'][0][
@@ -382,19 +383,22 @@ class ActionShow(Action):
                             'unitSymbolPosition']
                     if (res_unitSymbolPosition == "START"):
                         res_unitSymbol["start"] = unitSymbol
+                        res_unit_multiplier = ' de ' + res_unit_multiplier + ' ' if res_unit_multiplier != 'unidades' else ''
                     else:
                         res_unitSymbol["end"] = unitSymbol
+                        res_unit_multiplier = ' ' + res_unit_multiplier + ' de ' if res_unit_multiplier != 'unidades' else ''
                 else:
                     res_unitSymbol["description"] = ' (' + res_unit.lower() + ')'
+                    res_unit_multiplier = ' ' + res_unit_multiplier + ' ' if res_unit_multiplier != 'unidades' else ''
 
                 res_interperiod = self.get_annual_rate(indicator, geographic_location_code, DBDate)
-
-                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}</b>".format(
+                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}{}</b>".format(
                     indicator,
                     geographic_location_name,
                     self.translate_date(date, response_indicator),
                     res_unitSymbol["start"],
                     self.format_number(res_data),
+                    res_unit_multiplier,
                     res_unitSymbol["end"],
                     res_unitSymbol["description"],
                     res_interperiod
