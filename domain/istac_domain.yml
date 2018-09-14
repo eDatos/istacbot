@@ -27,7 +27,8 @@ templates:
   utter_goodbye:
     - "Adiós :)"
     - "Fue un placer :-)"
-    - "Que la fuerza te acompañe, joven padawan ;)"
+    - "Recuerda que puedes volver cada vez que me necesites"
+    - "Ya sabes donde encontrarme, estaré aquí para cuando me necesites"
   utter_default:
     - "Lo siento, no te entiendo. Prueba a preguntar otra cosa. Por ejemplo: \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\""
 
