@@ -388,6 +388,8 @@
     ~[Visados de obra. Viviendas de obra nueva]
     ~[Vivienda libre. Precio del metro cuadrado]
     ~[Vivienda protegida. Precio del metro cuadrado]
+    ~[Población. De 0 a 14 años (% sobre total)]
+    ~[Población. De 65 o más años (% sobre total)]
 
 ~[Accidentes de trabajo con baja]
     siniestros laborales
@@ -809,6 +811,12 @@
     visitantes hoteles
     huespedes hoteles
     reservas hoteles
+
+~[Población. De 0 a 14 años (% sobre total)]
+    Poblacion 0 14 años total
+
+~[Población. De 65 o más años (% sobre total)]
+    Poblacion 65 años total
 
 @[var_Date]
     hoy
