@@ -100,7 +100,7 @@ def runTelegram(serve_forever=True):
         webhook_url=credentials.webhook_url  # the url your bot should listen for messages
     )
 
-    agent.handle_channel(HttpInputChannel(properties.telegram_port, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(credentials.port, "", input_channel), message_preprocessor=clean_text_input)
 
 clean_text_input_lambda = lambda text: clean_text_input(text)
 
