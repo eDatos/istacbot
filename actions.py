@@ -215,21 +215,13 @@ class ActionShow(Action):
             location, similarity = self.get_most_similar_location(loc_slot)
             if (similarity < 0.90):
                 dispatcher.utter_message(messages.try_another_date.format(
-                        location
+                        location,
+                        self.get_location_granularities(response_indicator)
                     ))
             else:
-                dispatcher.utter_message(messages.place_not_found)
-
-            res_granularities = response_indicator['dimension']['GEOGRAPHICAL']['granularity']
-            for granularity in res_granularities:
-                geographical_names_sorted = sorted(geographical_names[granularity['code']],
-                                                   key=geographical_names[granularity['code']].get, reverse=True)
-                buttons = []
-                for i in range(min(len(geographical_names_sorted), 5)):
-                    buttons.append({"title": geographical_names_sorted[i], "payload": geographical_names_sorted[i]})
-
-                dispatcher.utter_button_message(granularity['title']['es'] + ":", buttons,
-                                                button_type="vertical")
+                dispatcher.utter_message(messages.place_not_found.format(
+                    self.get_location_granularities(response_indicator)
+                ))
         return None, None
 
     def get_similar_indicators(self, indicator_slot, dispatcher):
@@ -434,10 +426,17 @@ class ActionShow(Action):
                 granularities.append(granularity['title']['es'].lower())
 
         for i in range(0, len(granularities)):
-            if ((i + 1) < len(granularities)):
-                location_granularities = location_granularities + granularities[i] + ', '
-            else:
+            if (i == 0):
                 location_granularities = location_granularities + granularities[i]
+            elif ((i + 1) < len(granularities)):
+                location_granularities = location_granularities + ', ' + granularities[i]
+            else:
+                conjuncion = " y "
+                if (granularities[i].startswith('i')):
+                    conjuncion = " e "
+                location_granularities = location_granularities + conjuncion + granularities[i]
+
+
 
         return location_granularities
 
