@@ -260,7 +260,7 @@ class FacebookInput(HttpInputComponent):
         @fb_webhook.route("/webhook", methods=['POST'])
         def webhook():
             if not self.check_has_not_exceeded_time(request.data):
-                return "Exceed time"
+                return "Exceeded time"
 
             signature = request.headers.get("X-Hub-Signature") or ''
             if not self.validate_hub_signature(self.fb_secret, request.data,
