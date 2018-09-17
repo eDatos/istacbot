@@ -107,9 +107,9 @@ def runFacebook(serve_forever=True):
     agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     input_channel = FacebookInput(
-        fb_verify=credentials.fb_verify,  # you need tell facebook this token, to confirm your URL
-        fb_secret=credentials.fb_secret,  # your app secret
-        fb_access_token=credentials.fb_access_token
+        fb_verify=credentials.facebook_verify,  # you need tell facebook this token, to confirm your URL
+        fb_secret=credentials.facebook_secret,  # your app secret
+        fb_access_token=credentials.facebook_token
     )
 
     agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=clean_text_input)
