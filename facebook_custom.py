@@ -259,12 +259,16 @@ class FacebookInput(HttpInputComponent):
 
         @fb_webhook.route("/webhook", methods=['POST'])
         def webhook():
+            if not self.check_has_not_exceeded_time(request.data):
+                return "Exceed time"
+
             signature = request.headers.get("X-Hub-Signature") or ''
             if not self.validate_hub_signature(self.fb_secret, request.data,
                                                signature):
                 logger.warn("Wrong fb secret! Make sure this matches the "
                             "secret in your facebook app settings")
                 return "not validated"
+
 
             messenger = Messenger(self.fb_access_token, on_new_message)
 
@@ -303,6 +307,15 @@ class FacebookInput(HttpInputComponent):
             if hub_signature == generated_hash:
                 return True
         return False
+
+    @staticmethod
+    def check_has_not_exceeded_time(message):
+        timestamp = None
+        try:
+            timestamp = int(str(request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp'])[:10])
+            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(timestamp)) < datetime.timedelta(minutes=properties.discard_messages_max_minutes)
+        except Exception:
+            return None
 
 def save_log(text, sender_id, user):
     message_match = re.match("^(ERROR: )?(.*)", text)
