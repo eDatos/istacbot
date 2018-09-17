@@ -5,7 +5,9 @@ from __future__ import unicode_literals
 
 import datetime
 import difflib
+import locale
 import re
+
 import requests
 import unidecode
 from nltk import word_tokenize
@@ -13,11 +15,12 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from rasa_core.actions.action import Action
 from rasa_core.events import Restarted, SlotSet
-from custom_stopwords import stopwords_custom
-from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, indicators_with_sex
-import properties
-import locale
+
 import messages
+import properties
+from custom_stopwords import stopwords_custom
+from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, \
+    indicators_with_sex
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.url
@@ -384,7 +387,7 @@ class ActionShow(Action):
                     res_unit_multiplier = ' ' + res_unit_multiplier + ' ' if res_unit_multiplier != 'unidades' else ''
 
                 res_interperiod = self.get_annual_rate(indicator, geographic_location_code, DBDate)
-                dispatcher.utter_message("<b>{} en {} en {}: {}{}{}{}{}{}</b>".format(
+                dispatcher.utter_message("*{} en {} en {}: {}{}{}{}{}{}*".format(
                     indicator,
                     geographic_location_name,
                     self.translate_date(date, response_indicator),
