@@ -107,9 +107,9 @@ def runFacebook(serve_forever=True):
     agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     input_channel = FacebookInput(
-        fb_verify="desarrollotestistacbot",  # you need tell facebook this token, to confirm your URL
-        fb_secret="e88bce9287cb4e8fa745299ac7330472",  # your app secret
-        fb_access_token="EAADWZAjXEZBbcBAKAkLNGZCjrZCMXbLZA0md9R2SJcavEvwno6QdsusRZCtF2N4nXTV9DZAlqP4Mdj0bTaQJ49n4UgtqotvJOkjD3BQrPnPgZCCskYeoLZA8ZAFO8mfhwEzZChoS5t80L8AvgWXwZAsGRvOKCwTg1yQn7CetpqxBIWsS1eOuas7ZAcnppEgNwCwLNpfgZD"  # token for the page you subscribed to
+        fb_verify=credentials.fb_verify,  # you need tell facebook this token, to confirm your URL
+        fb_secret=credentials.fb_secret,  # your app secret
+        fb_access_token=credentials.fb_access_token
     )
 
     agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=clean_text_input)
