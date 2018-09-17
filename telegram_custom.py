@@ -40,7 +40,8 @@ class TelegramOutput(Bot, OutputChannel):
                 message = custom_greeting(message, recipient_id)
 
             message = save_log(message, recipient_id, messages.user_bot)
-            return self.send_message(recipient_id, message, parse_mode=ParseMode.HTML)
+            message = message.replace('_', "\_")
+            return self.send_message(recipient_id, message, parse_mode=ParseMode.MARKDOWN)
 
 
     def send_image_url(self, recipient_id, image_url):
@@ -222,4 +223,4 @@ def save_log(text, sender_id, user):
     return text
 
 def get_log_filename():
-    return properties.location + str(datetime.date.today().isocalendar()[0]) + "_" + str(datetime.date.today().isocalendar()[1]) + ".csv"
+    return properties.location + str(datetime.date.today().isocalendar()[0]) + "_telegram_" + str(datetime.date.today().isocalendar()[1]) + ".csv"

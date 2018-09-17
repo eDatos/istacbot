@@ -4,11 +4,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import argparse
-import datetime
 import logging
 import re
 
-from telegram_custom import TelegramInput
+import requests
+import spacy
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from rasa_core import utils
@@ -21,15 +21,15 @@ from rasa_core.policies.memoization import MemoizationPolicy
 from rasa_nlu import config
 from rasa_nlu.model import Trainer
 from rasa_nlu.training_data import load_data
-import credentials
-import spacy
-import properties
-import requests
-import variables
 
+import credentials
+import properties
+import variables
 from custom_stopwords import stopwords_custom
 from policy import RestaurantPolicy
 from remove_from_stopwords import remove_stopwords
+from telegram_custom import TelegramInput
+from facebook_custom import FacebookInput
 
 logging.basicConfig(filename=properties.location + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -102,6 +102,18 @@ def runTelegram(serve_forever=True):
 
     agent.handle_channel(HttpInputChannel(credentials.port, "", input_channel), message_preprocessor=clean_text_input)
 
+def runFacebook(serve_forever=True):
+    interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train")
+    agent = Agent.load("models/dialogue", interpreter=interpreter)
+
+    input_channel = FacebookInput(
+        fb_verify="desarrollotestistacbot",  # you need tell facebook this token, to confirm your URL
+        fb_secret="e88bce9287cb4e8fa745299ac7330472",  # your app secret
+        fb_access_token="EAADWZAjXEZBbcBAKAkLNGZCjrZCMXbLZA0md9R2SJcavEvwno6QdsusRZCtF2N4nXTV9DZAlqP4Mdj0bTaQJ49n4UgtqotvJOkjD3BQrPnPgZCCskYeoLZA8ZAFO8mfhwEzZChoS5t80L8AvgWXwZAsGRvOKCwTg1yQn7CetpqxBIWsS1eOuas7ZAcnppEgNwCwLNpfgZD"  # token for the page you subscribed to
+    )
+
+    agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=clean_text_input)
+
 clean_text_input_lambda = lambda text: clean_text_input(text)
 
 def clean_text_input(text):
@@ -163,7 +175,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'task',
-        choices=["train-nlu", "train-dialogue", "run", "run-stemming", "run-telegram"],
+        choices=["train-nlu", "train-dialogue", "run", "run-stemming", "run-telegram", "run-facebook"],
         help="what the bot should do - e.g. run or train?")
     task = parser.parse_args().task
 
@@ -175,3 +187,5 @@ if __name__ == '__main__':
         run()
     elif task == "run-telegram":
         runTelegram()
+    elif task == "run-facebook":
+        runFacebook()
