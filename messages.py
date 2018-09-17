@@ -1,5 +1,5 @@
-greeting = [ "Hola! Soy ISTAC-Bot, el asistente automatizado del ISTAC. Puedo ayudarte a localizar datos, pero si quieres saber en qué otras cosas te puedo asistir teclea \"Ayuda\". Además, puedes conocer mis condiciones de uso en el siguiente <a href=\"http://www.gobiernodecanarias.org/istac/aviso_legal.html\">enlace</a>.",
-             "Recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."]
+greeting = [ 'Hola! Soy ISTAC-Bot, el asistente automatizado del ISTAC. Puedo ayudarte a localizar datos, pero si quieres saber en qué otras cosas te puedo asistir teclea "Ayuda". Además, puedes conocer mis condiciones de uso en el siguiente enlace: http://www.gobiernodecanarias.org/istac/aviso_legal.html',
+             "Recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en el siguiente enlace puedes consultar nuestros teléfonos, correos y direcciones: http://www.gobiernodecanarias.org/istac/servicios/atencion.html"]
 dont_worry = "No pasa nada, esto lo podemos sacar juntos!! Empecemos desde el principio. ¿Qué buscas? :)"
 similar_indicators_women = "Vale, si tienes curiosidad sobre datos relativos a mujeres, aquí tengo unos cuantos indicadores que te pueden interesar: "
 similar_indicators_men = "Vale, si tienes curiosidad sobre datos relativos a hombres, aquí tengo unos cuantos indicadores que te pueden interesar: "
@@ -23,6 +23,6 @@ indicators_list = "Puedes preguntarme por cualquiera de estos datos:\n"
 help = [
     "Mi objetivo es ayudarte a obtener el dato que buscas de la manera más rápida posible. Para ello puedes preguntarme cosas como \"Dame el paro de Canarias durante 2015\" o \"¿Qué datos puedes darme?\".",
     "También puedes no especificar la fecha y te daré el dato más reciente que tenga :)\nAdemás, cada vez que te dé un dato te sugeriré qué otros datos relacionados puedes obtener.",
-    "Por último, recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en este <a href=\"http://www.gobiernodecanarias.org/istac/servicios/atencion.html\">enlace</a> puedes consultar nuestros teléfonos, correos y direcciones."
+    "Por último, recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en el siguiente enlace puedes consultar nuestros teléfonos, correos y direcciones: http://www.gobiernodecanarias.org/istac/servicios/atencion.html"
 ]
 saludo_pixelperfect = "Hola amo. ¿En qué puedo servirte hoy?"
