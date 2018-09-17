@@ -315,7 +315,7 @@ class FacebookInput(HttpInputComponent):
             timestamp = int(str(request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp'])[:10])
             return (datetime.datetime.now() - datetime.datetime.fromtimestamp(timestamp)) < datetime.timedelta(minutes=properties.discard_messages_max_minutes)
         except Exception:
-            return None
+            return False
 
 def save_log(text, sender_id, user):
     message_match = re.match("^(ERROR: )?(.*)", text)
