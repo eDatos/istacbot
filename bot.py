@@ -99,7 +99,7 @@ def runTelegram(serve_forever=True):
         webhook_url=properties.telegram_webhook_url  # the url your bot should listen for messages
     )
 
-    agent.handle_channel(HttpInputChannel(properties.telegram_webhook_url, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(properties.telegram_webhook_port, "", input_channel), message_preprocessor=clean_text_input)
 
 def runFacebook(serve_forever=True):
     interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train")
