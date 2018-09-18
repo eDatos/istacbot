@@ -259,12 +259,16 @@ class FacebookInput(HttpInputComponent):
 
         @fb_webhook.route("/webhook", methods=['POST'])
         def webhook():
+            if not self.check_has_not_exceeded_time(request.data):
+                return "Exceeded time"
+
             signature = request.headers.get("X-Hub-Signature") or ''
             if not self.validate_hub_signature(self.fb_secret, request.data,
                                                signature):
                 logger.warn("Wrong fb secret! Make sure this matches the "
                             "secret in your facebook app settings")
                 return "not validated"
+
 
             messenger = Messenger(self.fb_access_token, on_new_message)
 
@@ -304,6 +308,15 @@ class FacebookInput(HttpInputComponent):
                 return True
         return False
 
+    @staticmethod
+    def check_has_not_exceeded_time(message):
+        try:
+            facebook_timestamp_in_milliseconds = request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp']
+            facebook_timestamp_in_seconds = facebook_timestamp_in_milliseconds / 1000.0
+            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(facebook_timestamp_in_seconds)) < datetime.timedelta(minutes=properties.discard_messages_timemout)
+        except Exception:
+            return False
+
 def save_log(text, sender_id, user):
     message_match = re.match("^(ERROR: )?(.*)", text)
     type_message = ""
@@ -322,4 +335,4 @@ def save_log(text, sender_id, user):
     return text
 
 def get_log_filename():
-    return properties.location + str(datetime.date.today().isocalendar()[0]) + "_facebook_" + str(datetime.date.today().isocalendar()[1]) + ".csv"
+    return properties.logs_path + str(datetime.date.today().isocalendar()[0]) + "_facebook_" + str(datetime.date.today().isocalendar()[1]) + ".csv"

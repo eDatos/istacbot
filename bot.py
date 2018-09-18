@@ -22,7 +22,6 @@ from rasa_nlu import config
 from rasa_nlu.model import Trainer
 from rasa_nlu.training_data import load_data
 
-import credentials
 import properties
 import variables
 from custom_stopwords import stopwords_custom
@@ -31,7 +30,7 @@ from remove_from_stopwords import remove_stopwords
 from telegram_custom import TelegramInput
 from facebook_custom import FacebookInput
 
-logging.basicConfig(filename=properties.location + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(filename=properties.logs_path + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
@@ -95,24 +94,24 @@ def runTelegram(serve_forever=True):
     agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     input_channel = TelegramInput(
-        access_token=credentials.access_token,  # you get this when setting up a bot
-        verify=credentials.verify,  # this is your bots username
-        webhook_url=credentials.webhook_url  # the url your bot should listen for messages
+        access_token=properties.telegram_access_token,  # you get this when setting up a bot
+        verify=properties.telegram_verify,  # this is your bots username
+        webhook_url=properties.telegram_webhook_url  # the url your bot should listen for messages
     )
 
-    agent.handle_channel(HttpInputChannel(credentials.port, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(properties.telegram_webhook_url, "", input_channel), message_preprocessor=clean_text_input)
 
 def runFacebook(serve_forever=True):
     interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train")
     agent = Agent.load("models/dialogue", interpreter=interpreter)
 
     input_channel = FacebookInput(
-        fb_verify=credentials.fb_verify,  # you need tell facebook this token, to confirm your URL
-        fb_secret=credentials.fb_secret,  # your app secret
-        fb_access_token=credentials.fb_access_token
+        fb_verify=properties.facebook_verify,  # you need tell facebook this token, to confirm your URL
+        fb_secret=properties.facebook_secret,  # your app secret
+        fb_access_token=properties.facebook_token
     )
 
-    agent.handle_channel(HttpInputChannel(5004, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(properties.facebook_webhook_port, "", input_channel), message_preprocessor=clean_text_input)
 
 clean_text_input_lambda = lambda text: clean_text_input(text)
 
