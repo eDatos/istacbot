@@ -310,10 +310,10 @@ class FacebookInput(HttpInputComponent):
 
     @staticmethod
     def check_has_not_exceeded_time(message):
-        timestamp = None
         try:
-            timestamp = int(str(request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp'])[:10])
-            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(timestamp)) < datetime.timedelta(minutes=properties.discard_messages_timemout)
+            facebook_timestamp_in_milliseconds = request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp']
+            facebook_timestamp_in_seconds = facebook_timestamp_in_milliseconds  / 1000
+            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(facebook_timestamp_in_seconds)) < datetime.timedelta(minutes=properties.discard_messages_timemout)
         except Exception:
             return False
 
