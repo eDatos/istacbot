@@ -24,7 +24,6 @@ from variables import indicators, indicators_check, locations_check, hombres_ind
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.url
-COLOR = properties.color
 DEFAULT_LOCATION = properties.default_location
 NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
 locale.setlocale(locale.LC_ALL, properties.locale)
