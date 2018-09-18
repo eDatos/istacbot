@@ -23,9 +23,9 @@ from variables import indicators, indicators_check, locations_check, hombres_ind
     indicators_with_sex
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
-URL = properties.url
-DEFAULT_LOCATION = properties.default_location
-NUMBER_SIMILAR_INDICATORS = properties.number_similar_indicators
+URL = properties.indicators_api_url
+DEFAULT_LOCATION = properties.default_geographical_location
+NUMBER_SIMILAR_INDICATORS = properties.similar_indicators_quantity
 locale.setlocale(locale.LC_ALL, properties.locale)
 REGEX_HAS_YEAR =  r".*(\d{4}).*"
 

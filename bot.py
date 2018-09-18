@@ -30,7 +30,7 @@ from remove_from_stopwords import remove_stopwords
 from telegram_custom import TelegramInput
 from facebook_custom import FacebookInput
 
-logging.basicConfig(filename=properties.location + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(filename=properties.logs_path + 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
@@ -99,7 +99,7 @@ def runTelegram(serve_forever=True):
         webhook_url=properties.telegram_webhook_url  # the url your bot should listen for messages
     )
 
-    agent.handle_channel(HttpInputChannel(properties.webhook_port, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(properties.telegram_webhook_url, "", input_channel), message_preprocessor=clean_text_input)
 
 def runFacebook(serve_forever=True):
     interpreter = RasaNLUInterpreter("models/nlu/default/nlu_train")
@@ -111,7 +111,7 @@ def runFacebook(serve_forever=True):
         fb_access_token=properties.facebook_token
     )
 
-    agent.handle_channel(HttpInputChannel(properties.webhook_port, "", input_channel), message_preprocessor=clean_text_input)
+    agent.handle_channel(HttpInputChannel(properties.facebook_webhook_port, "", input_channel), message_preprocessor=clean_text_input)
 
 clean_text_input_lambda = lambda text: clean_text_input(text)
 

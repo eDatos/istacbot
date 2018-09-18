@@ -313,7 +313,7 @@ class FacebookInput(HttpInputComponent):
         timestamp = None
         try:
             timestamp = int(str(request.get_json(force=True)['entry'][0]['messaging'][0]['timestamp'])[:10])
-            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(timestamp)) < datetime.timedelta(minutes=properties.discard_messages_max_minutes)
+            return (datetime.datetime.now() - datetime.datetime.fromtimestamp(timestamp)) < datetime.timedelta(minutes=properties.discard_messages_timemout)
         except Exception:
             return False
 
@@ -335,4 +335,4 @@ def save_log(text, sender_id, user):
     return text
 
 def get_log_filename():
-    return properties.location + str(datetime.date.today().isocalendar()[0]) + "_facebook_" + str(datetime.date.today().isocalendar()[1]) + ".csv"
+    return properties.logs_path + str(datetime.date.today().isocalendar()[0]) + "_facebook_" + str(datetime.date.today().isocalendar()[1]) + ".csv"

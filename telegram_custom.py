@@ -122,7 +122,7 @@ class TelegramInput(HttpInputComponent):
 
     @staticmethod
     def check_has_not_exceeded_time(message):
-        if message and (datetime.datetime.now() - message.date) < datetime.timedelta(minutes=properties.discard_messages_max_minutes):
+        if message and (datetime.datetime.now() - message.date) < datetime.timedelta(minutes=properties.discard_messages_timemout):
             return message.text
         else:
             return ''
@@ -223,4 +223,4 @@ def save_log(text, sender_id, user):
     return text
 
 def get_log_filename():
-    return properties.location + str(datetime.date.today().isocalendar()[0]) + "_telegram_" + str(datetime.date.today().isocalendar()[1]) + ".csv"
+    return properties.logs_path + str(datetime.date.today().isocalendar()[0]) + "_telegram_" + str(datetime.date.today().isocalendar()[1]) + ".csv"
