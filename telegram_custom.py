@@ -17,7 +17,6 @@ from rasa_core.channels.channel import UserMessage, OutputChannel
 from rasa_core.channels.rest import HttpInputComponent
 import messages
 import properties
-import telegram_users
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +35,6 @@ class TelegramOutput(Bot, OutputChannel):
         if (re.match("^{}".format(messages.log_header), message)):
             save_log(message, recipient_id, messages.user_debug)
         else:
-            if (messages.greeting == message):
-                message = custom_greeting(message, recipient_id)
-
             message = save_log(message, recipient_id, messages.user_bot)
             message = message.replace('_', "\_")
             return self.send_message(recipient_id, message, parse_mode=ParseMode.MARKDOWN)
@@ -199,12 +195,6 @@ class TelegramInput(HttpInputComponent):
                 return "success"
 
         return telegram_webhook
-
-def custom_greeting(message, sender_id):
-    print(sender_id)
-    if sender_id in telegram_users.users.keys():
-        return message.format(" " + telegram_users.users[sender_id])
-    return message.format("")
 
 def save_log(text, sender_id, user):
     message_match = re.match("^(ERROR: )?(.*)", text)
