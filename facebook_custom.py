@@ -141,6 +141,7 @@ class MessengerBot(OutputChannel):
         else:
             logger.info("Sending message: " + message)
             message = save_log(message, recipient_id, messages.user_bot)
+            message = message.replace('*', '')
             self.send(recipient_id, elements.Text(text=message))
 
     def send_image_url(self, recipient_id, image_url):
@@ -155,32 +156,31 @@ class MessengerBot(OutputChannel):
 
         # buttons is a list of tuples: [(option_name,payload)]
         text = save_log(text, recipient_id, messages.user_bot)
+        text = text.replace('*', '')
         for button in buttons:
             save_log(button["title"], recipient_id, messages.user_bot)
 
         if len(buttons) > 3:
-            logger.warn("Facebook API currently allows only up to 3 buttons. "
-                        "If you add more, all will be ignored.")
-            self.send_text_message(recipient_id, text)
-        else:
-            self._add_postback_info(buttons)
+            buttons = buttons[:3]
 
-            # Currently there is no predefined way to create a message with
-            # buttons in the fbmessenger framework - so we need to create the
-            # payload on our own
-            payload = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": text,
-                        "buttons": buttons
-                    }
+        self._add_postback_info(buttons)
+
+        # Currently there is no predefined way to create a message with
+        # buttons in the fbmessenger framework - so we need to create the
+        # payload on our own
+        payload = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": text,
+                    "buttons": buttons
                 }
             }
-            self.messenger_client.send(payload,
-                                       {"sender": {"id": recipient_id}},
-                                       'RESPONSE')
+        }
+        self.messenger_client.send(payload,
+                                   {"sender": {"id": recipient_id}},
+                                   'RESPONSE')
 
     def send_custom_message(self, recipient_id, elements):
         # type: (Text, List[Dict[Text, Any]]) -> None
