@@ -409,9 +409,12 @@ class ActionShow(Action):
                 SlotSet("var_Date", date)]
 
     def format_number(self, number):
-        formatted_number = locale.format('%.2f', float(number), 1)
-        formatted_number = re.sub(',00$', '', formatted_number)
-        return formatted_number
+        try:
+            formatted_number = locale.format('%.2f', float(number), 1)
+            formatted_number = re.sub(',00$', '', formatted_number)
+            return formatted_number
+        except Exception:
+            return number
 
     def translate_date(self, date, response_indicator):
         for date_indicator in response_indicator['dimension']['TIME']['representation']:
