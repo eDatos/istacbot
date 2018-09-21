@@ -386,7 +386,7 @@ class ActionShow(Action):
                     res_unit_multiplier = ' ' + res_unit_multiplier + ' ' if res_unit_multiplier != 'unidades' else ''
 
                 res_interperiod = self.get_annual_rate(indicator, geographic_location_code, DBDate)
-                if (self.format_number(res_data)):
+                if (self.is_number(res_data)):
                     dispatcher.utter_message("*{} en {} en {}: {}{}{}{}{}{}*".format(
                         indicator,
                         geographic_location_name,
@@ -406,23 +406,24 @@ class ActionShow(Action):
                         messages.data_not_available,
                     ))
 
-
                 self.you_can_also_ask(indicator, response_indicator, dispatcher)
                 self.get_similar_indicators(indicator, dispatcher)
-
-
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
                 SlotSet("var_Date", date)]
 
     def format_number(self, number):
+        formatted_number = locale.format('%.2f', float(number), 1)
+        formatted_number = re.sub(',00$', '', formatted_number)
+        return formatted_number
+
+    def is_number(self, number):
         try:
-            formatted_number = locale.format('%.2f', float(number), 1)
-            formatted_number = re.sub(',00$', '', formatted_number)
-            return formatted_number
-        except Exception:
-            return None
+            float(number)
+            return True
+        except ValueError:
+            return False
 
     def translate_date(self, date, response_indicator):
         for date_indicator in response_indicator['dimension']['TIME']['representation']:
