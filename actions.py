@@ -20,7 +20,7 @@ import messages
 import properties
 from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, \
-    indicators_with_sex
+    indicators_with_sex, indicators_synonyms
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.indicators_api_url
@@ -43,6 +43,7 @@ class ActionShow(Action):
     previous_location = None
     possible_location = None
     debug = True
+    message = ""
 
     location_confidence = {'confidence': -1, 'value': DEFAULT_LOCATION}
     date_confidence = {'confidence': -1, 'value': ''}
@@ -78,6 +79,8 @@ class ActionShow(Action):
         if self.restart_index != tracker.idx_after_latest_restart():
             self.restart_index = tracker.idx_after_latest_restart()
             self.reset()
+
+        self.message = tracker.latest_message.text.strip()
 
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
@@ -232,9 +235,20 @@ class ActionShow(Action):
             if (not re.match(r".*(Mujeres|Hombres)", indicator)): # Nunca se recomiendan indicadores de sexo.
                 indicators_difference[indicator] = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                                        self.stemming(indicator)).ratio()
+
         indicators_sorted = sorted(indicators_difference, key=indicators_difference.get, reverse=True)
         if len(indicators_sorted) > 0:
             indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
+
+        # Añadidos otros indicadores con el mismo sinónimos
+        indicators_same_synonym = []
+        for indicator in indicators_synonyms:
+            for synonym in indicators_synonyms[indicator]:
+                if (self.message == synonym and indicator_slot != indicator):
+                    indicators_same_synonym.append(indicator)
+
+        indicators_sorted = indicators_same_synonym + indicators_sorted
+
         buttons = []
         for i in range(min(len(indicators_sorted), NUMBER_SIMILAR_INDICATORS)):
             print(indicators_sorted[i])
