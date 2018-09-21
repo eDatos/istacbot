@@ -161,6 +161,7 @@ class MessengerBot(OutputChannel):
             save_log(button["title"], recipient_id, messages.user_bot)
 
         if len(buttons) > 3:
+            # TODO Corregir
             buttons = buttons[:3]
 
         self._add_postback_info(buttons)
