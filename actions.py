@@ -174,7 +174,7 @@ class ActionShow(Action):
                 year = self.date_get_year(self.previous_date)[1]
             found = self.check_in_list(year + date, date_list)
         else:
-            found = self.check_in_list(date, date_list)
+            found = self.check_in_list(date.lower(), date_list)
 
         if not found and self.indicator_confidence['confidence'] > 0.9: # Solo se muestra el mensaje cuando tenemos una confianza superior al 0.9
             dispatcher.utter_message((messages.date_not_found))
@@ -406,7 +406,7 @@ class ActionShow(Action):
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
-                SlotSet("var_Date", date_slot)]
+                SlotSet("var_Date", date)]
 
     def format_number(self, number):
         formatted_number = locale.format('%.2f', float(number), 1)
