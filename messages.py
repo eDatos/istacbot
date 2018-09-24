@@ -26,3 +26,4 @@ help = [
     "Por último, recuerda que soy un asistente automatizado, si quieres ponerte en contacto con una persona, en el siguiente enlace puedes consultar nuestros teléfonos, correos y direcciones: http://www.gobiernodecanarias.org/istac/servicios/atencion.html"
 ]
 saludo_pixelperfect = "Hola amo. ¿En qué puedo servirte hoy?"
+data_not_available = "dato no disponible"
