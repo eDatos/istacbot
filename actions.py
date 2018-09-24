@@ -418,13 +418,6 @@ class ActionShow(Action):
         formatted_number = re.sub(',00$', '', formatted_number)
         return formatted_number
 
-    def is_number(self, number):
-        try:
-            float(number)
-            return True
-        except ValueError:
-            return False
-
     def translate_date(self, date, response_indicator):
         for date_indicator in response_indicator['dimension']['TIME']['representation']:
             if (date == date_indicator['code']):
@@ -449,8 +442,6 @@ class ActionShow(Action):
                 if (granularities[i].startswith('i')):
                     conjunction = " e "
                 location_granularities = location_granularities + conjunction + granularities[i]
-
-
 
         return location_granularities
 
