@@ -400,23 +400,28 @@ class ActionShow(Action):
                     res_unit_multiplier = ' ' + res_unit_multiplier + ' ' if res_unit_multiplier != 'unidades' else ''
 
                 res_interperiod = self.get_annual_rate(indicator, geographic_location_code, DBDate)
-                dispatcher.utter_message("*{} en {} en {}: {}{}{}{}{}{}*".format(
-                    indicator,
-                    geographic_location_name,
-                    self.translate_date(date, response_indicator),
-                    res_unitSymbol["start"],
-                    self.format_number(res_data),
-                    res_unit_multiplier,
-                    res_unitSymbol["end"],
-                    res_unitSymbol["description"],
-                    res_interperiod
-
-                ))
+                if (self.is_number(res_data)):
+                    dispatcher.utter_message("*{} en {} en {}: {}{}{}{}{}{}*".format(
+                        indicator,
+                        geographic_location_name,
+                        self.translate_date(date, response_indicator),
+                        res_unitSymbol["start"],
+                        self.format_number(res_data),
+                        res_unit_multiplier,
+                        res_unitSymbol["end"],
+                        res_unitSymbol["description"],
+                        res_interperiod
+                    ))
+                else:
+                    dispatcher.utter_message("*{} en {} en {}: {}*".format(
+                        indicator,
+                        geographic_location_name,
+                        self.translate_date(date, response_indicator),
+                        messages.data_not_available,
+                    ))
 
                 self.you_can_also_ask(indicator, response_indicator, dispatcher)
                 self.get_similar_indicators(indicator, dispatcher)
-
-
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
@@ -451,8 +456,6 @@ class ActionShow(Action):
                 if (granularities[i].startswith('i')):
                     conjunction = " e "
                 location_granularities = location_granularities + conjunction + granularities[i]
-
-
 
         return location_granularities
 
