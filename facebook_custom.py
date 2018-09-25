@@ -328,7 +328,7 @@ def save_log(text, sender_id, user):
     try:
         with open(get_log_filename(), 'a', newline='') as csvfile:
             log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-            log.writerow([sender_id, user, text, type_message, str(datetime.datetime.now())])
+            log.writerow([sender_id, user, type_message, str(datetime.datetime.now()), text])
     except Exception as e:
         logger.error("Error al guardar log. {}".format(e))
         return ""
