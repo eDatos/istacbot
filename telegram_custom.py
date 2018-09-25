@@ -172,18 +172,18 @@ class TelegramInput(HttpInputComponent):
                         return "success"
                 sender_id = message.chat.id
                 try:
+                    save_log(text, sender_id, messages.user)
                     if text == '_restart' or text == '/restart':
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
                         on_new_message(UserMessage('/start', out_channel,
                                                    sender_id))
                     elif text == '/start':
-                            on_new_message(UserMessage("hola", out_channel,
-                                                       sender_id))
+                        on_new_message(UserMessage("hola", out_channel,
+                                                   sender_id))
                     else:
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
-                    save_log(text, sender_id, messages.user)
                 except Exception as e:
                     logger.error("Exception when trying to handle "
                                  "message.{0}".format(e))
