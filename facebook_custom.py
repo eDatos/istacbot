@@ -319,12 +319,12 @@ class FacebookInput(HttpInputComponent):
             return False
 
 def save_log(text, sender_id, user):
-    message_match = re.match("^(ERROR: )?(.*)", text)
+    message_match = re.match("^(ERROR_LUGAR: |ERROR_FECHA: |ERROR_ENTENDER: |ERROR_DUDA: )?(.*)", text)
     type_message = ""
 
     if (message_match[1]):
         text = message_match[2]
-        type_message=messages.error_log
+        type_message=message_match[1].replace(": ", "")
     try:
         with open(get_log_filename(), 'a', newline='') as csvfile:
             log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
