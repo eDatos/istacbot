@@ -12,6 +12,7 @@ place_not_found = "ERROR_LUGAR: Lo siento, no he encontrado información del lug
 date_not_found = "ERROR_FECHA: Lo siento, he buscado y parece que no hay información para la fecha indicada. Te dejo información del dato más reciente que tengo :)"
 try_another_date = "ERROR_FECHA: Si te refieres a {}, no he encontrado información. Te puedo dar información de: {}"
 low_confidence = "ERROR_DUDA: No sé si te he entendido bien... ¿Me estás preguntando por: {} en {} durante {}? Elige una de las siguientes opciones:"
+low_confidence_without_date = "ERROR_DUDA: No sé si te he entendido bien... ¿Me estás preguntando por: {} en {}? Elige una de las siguientes opciones:"
 log_header = "#DEBUGLOG# "
 user_bot = "bot"
 user_debug = "debug_log"

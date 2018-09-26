@@ -20,17 +20,11 @@ from rasa_core.events import Restarted, SlotSet
 import messages
 import properties
 from custom_stopwords import stopwords_custom
-from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, \
+from variables import indicators, locations_check, hombres_indicadores, mujeres_indicadores, \
     indicators_with_sex
 
 indicators_synonyms = {}
-
-with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
-    nlu_train = json.load(json_data)
-
-    for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
-        indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
-
+indicators_and_synonyms = {}
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.indicators_api_url
@@ -45,6 +39,15 @@ spanish_stopwords = stopwords.words('spanish')
 remove_punctuation_marks = re.compile(r"\w+")
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
+with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
+    nlu_train = json.load(json_data)
+    for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
+        if (synonym_entity["value"] in indicators):
+            indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
+            for synonym in synonym_entity["synonyms"]:
+                indicators_and_synonyms[synonym] = synonym_entity["value"]
+for inidicator in indicators:
+    indicators_and_synonyms[inidicator] = inidicator
 
 class ActionShow(Action):
     restart_index = 0
@@ -166,6 +169,11 @@ class ActionShow(Action):
                                 self.location_confidence["value"],
                                 self.translate_date(date, response_indicator)
                             ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
+                    else:
+                        dispatcher.utter_button_message(messages.low_confidence_without_date.format(
+                            self.indicator_confidence["value"],
+                            self.location_confidence["value"],
+                        ), [{"title": "Sí", "payload": "si"}, {"title": "No", "payload": "no"}], button_type="custom")
                     return [SlotSet("var_What", self.indicator_confidence["value"]),
                             SlotSet("var_Loc", self.location_confidence["value"]),
                             SlotSet("var_Date", date_slot)]
@@ -189,11 +197,10 @@ class ActionShow(Action):
         else:
             found = self.check_in_list(date.lower(), date_list)
 
-        if not found and self.indicator_confidence['confidence'] > 0.9: # Solo se muestra el mensaje cuando tenemos una confianza superior al 0.9
+        if not found and self.indicator_confidence['confidence'] > 0.9 and self.location_confidence['confidence'] > 0.9: # Solo se muestra el mensaje cuando tenemos una confianza superior al 0.9
             dispatcher.utter_message((messages.date_not_found))
-            found = date_list[0].upper()
-            self.previous_date = found
-        else:
+            self.previous_date = date_list[0].upper()
+        elif found:
             found = found.upper()
 
         return found
@@ -342,20 +349,13 @@ class ActionShow(Action):
 
     def calculate_confidence_indicator(self, indicator_slot):
         if indicator_slot is not None:
-
-            for indicator in indicators_check.keys():
+            for indicator in indicators_and_synonyms.keys():
                 difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                      self.stemming(indicator)).ratio()
                 if (difference > self.indicator_confidence["confidence"]):
                     self.indicator_confidence["confidence"] = difference
-                    self.indicator_confidence["value"] = indicators_check[indicator]
+                    self.indicator_confidence["value"] = indicators_and_synonyms[indicator]
 
-            for indicator in indicators:
-                difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
-                                                     self.stemming(indicator)).ratio()
-                if (difference > self.indicator_confidence["confidence"]):
-                    self.indicator_confidence["confidence"] = difference
-                    self.indicator_confidence["value"] = indicator
         if (self.debug):
             print(str(self.indicator_confidence["confidence"]))
             print(str(self.indicator_confidence["value"]))
@@ -372,7 +372,7 @@ class ActionShow(Action):
         else:
             date = self.getDate(date_slot, response_indicator, dispatcher)
             if (not date):
-                return [SlotSet("var_Date", None)]
+                date = self.previous_date
 
         if (geographic_location_code and date):  # If all params where found.
             dispatcher.utter_message("Aquí tienes la información:")
