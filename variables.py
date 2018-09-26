@@ -269,7 +269,7 @@ indicators_check = {
     "muertos": "Defunciones",
     "los muertos": "Defunciones",
     "Matrimonios entre conyuges de diferente sexo": "Matrimonios. Entre cónyuges de diferente sexo",
-    "matrimonios": "Matrimonios. Entre cónyuges de diferente sexoo",
+    "matrimonios": "Matrimonios. Entre cónyuges de diferente sexo",
     "los matrimonios": "Matrimonios. Entre cónyuges de diferente sexo",
     "Migraciones saldo migratorio": "Migraciones. Saldo migratorio",
     "migraciones": "Migraciones. Saldo migratorio",

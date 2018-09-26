@@ -139,7 +139,7 @@ class ActionShow(Action):
                     date_slot) + ", indicator_slot: " + str(indicator_slot))
 
             if self.location_confidence['confidence'] > 0.7 and self.indicator_confidence[
-                'confidence'] > 0.7 and indicator_slot != None and location_slot != None:
+                'confidence'] > 0.7 and indicator_slot != None and location_slot != None and self.indicator_confidence["value"] in indicators:
                 indicator = self.indicator_confidence["value"]
                 response_indicator = requests.get(URL + indicators[indicator]).json()
                 if (self.location_confidence['confidence'] > 0.9 and self.indicator_confidence[
@@ -408,6 +408,10 @@ class ActionShow(Action):
 
                 self.you_can_also_ask(indicator, response_indicator, dispatcher)
                 self.get_similar_indicators(indicator, dispatcher)
+        else:
+            self.dont_understand_message(dispatcher)
+            return [SlotSet("var_What", None), SlotSet("var_Loc", None),
+                    SlotSet("var_Date", date_slot)]
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
