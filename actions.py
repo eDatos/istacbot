@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import datetime
 import difflib
+import json
 import locale
 import re
 
@@ -20,7 +21,16 @@ import messages
 import properties
 from custom_stopwords import stopwords_custom
 from variables import indicators, indicators_check, locations_check, hombres_indicadores, mujeres_indicadores, \
-    indicators_with_sex, indicators_synonyms
+    indicators_with_sex
+
+indicators_synonyms = {}
+
+with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
+    nlu_train = json.load(json_data)
+
+    for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
+        indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
+
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.indicators_api_url
