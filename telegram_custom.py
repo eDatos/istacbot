@@ -172,18 +172,18 @@ class TelegramInput(HttpInputComponent):
                         return "success"
                 sender_id = message.chat.id
                 try:
+                    save_log(text, sender_id, messages.user)
                     if text == '_restart' or text == '/restart':
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
                         on_new_message(UserMessage('/start', out_channel,
                                                    sender_id))
                     elif text == '/start':
-                            on_new_message(UserMessage("hola", out_channel,
-                                                       sender_id))
+                        on_new_message(UserMessage("hola", out_channel,
+                                                   sender_id))
                     else:
                         on_new_message(UserMessage(text, out_channel,
                                                    sender_id))
-                    save_log(text, sender_id, messages.user)
                 except Exception as e:
                     logger.error("Exception when trying to handle "
                                  "message.{0}".format(e))
@@ -197,16 +197,16 @@ class TelegramInput(HttpInputComponent):
         return telegram_webhook
 
 def save_log(text, sender_id, user):
-    message_match = re.match("^(ERROR: )?(.*)", text)
+    message_match = re.match("^(ERROR_LUGAR: |ERROR_FECHA: |ERROR_ENTENDER: |ERROR_DUDA: )?(.*)", text)
     type_message = ""
 
     if (message_match[1]):
         text = message_match[2]
-        type_message=messages.error_log
+        type_message=message_match[1].replace(": ", "")
     try:
         with open(get_log_filename(), 'a', newline='') as csvfile:
             log = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_ALL)
-            log.writerow([sender_id, user, text, type_message, str(datetime.datetime.now())])
+            log.writerow([sender_id, user, type_message, str(datetime.datetime.now()), text])
     except Exception as e:
         logger.error("Error al guardar log. {}".format(e))
         return ""
