@@ -46,6 +46,8 @@ with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
             indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
             for synonym in synonym_entity["synonyms"]:
                 indicators_and_synonyms[synonym] = synonym_entity["value"]
+
+# Todos los sinónimos son su propio sinónimo.
 for indicator in indicators:
     indicators_and_synonyms[indicator] = indicator
 
