@@ -362,18 +362,19 @@ class ActionShow(Action):
 
     def show_information(self, dispatcher, date_slot, location_slot, indicator, response_indicator):
         date = None
-        if (indicator):
-            if (location_slot != None):
-                geographic_location_code, geographic_location_name = self.getGeographical(location_slot,
-                                                                                          response_indicator,
-                                                                                          dispatcher)
-            if (geographic_location_code is None):
-                location_slot = None
-            else:
-                date = self.getDate(date_slot, response_indicator, dispatcher)
-                if (not date):
-                    return [SlotSet("var_Date", None)]
-        if (geographic_location_code and date and indicator):  # If all params where found.
+
+        if (location_slot != None):
+            geographic_location_code, geographic_location_name = self.getGeographical(location_slot,
+                                                                                      response_indicator,
+                                                                                      dispatcher)
+        if (geographic_location_code is None):
+            location_slot = None
+        else:
+            date = self.getDate(date_slot, response_indicator, dispatcher)
+            if (not date):
+                return [SlotSet("var_Date", None)]
+
+        if (geographic_location_code and date):  # If all params where found.
             dispatcher.utter_message("Aquí tienes la información:")
 
             DBDate = date
