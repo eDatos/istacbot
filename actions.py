@@ -240,7 +240,7 @@ class ActionShow(Action):
         if len(indicators_sorted) > 0:
             indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
 
-        # Añadidos otros indicadores con el mismo sinónimos
+        # Añadidos otros indicadores con el mismo sinónimo
         indicators_same_synonym = []
         for indicator in indicators_synonyms:
             for synonym in indicators_synonyms[indicator]:
