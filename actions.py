@@ -433,10 +433,6 @@ class ActionShow(Action):
 
                 self.you_can_also_ask(indicator, response_indicator, dispatcher)
                 self.get_similar_indicators(indicator, dispatcher)
-        else:
-            self.dont_understand_message(dispatcher)
-            return [SlotSet("var_What", None), SlotSet("var_Loc", None),
-                    SlotSet("var_Date", date_slot)]
 
         return [SlotSet("var_What", self.indicator_confidence["value"]),
                 SlotSet("var_Loc", self.location_confidence["value"]),
