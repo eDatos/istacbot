@@ -254,7 +254,7 @@ class ActionShow(Action):
         indicators_same_synonym = []
         for indicator in indicators_synonyms:
             for synonym in indicators_synonyms[indicator]:
-                if (self.message == synonym and indicator_slot != indicator):
+                if (synonym in indicators_synonyms[indicator_slot] and indicator_slot != indicator):
                     indicators_same_synonym.append(indicator)
 
         indicators_sorted = indicators_same_synonym + indicators_sorted
