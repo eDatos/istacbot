@@ -23,8 +23,8 @@ from custom_stopwords import stopwords_custom
 from variables import indicators, locations_check, hombres_indicadores, mujeres_indicadores, \
     indicators_with_sex
 
-indicators_synonyms = {}
-indicators_and_synonyms = {}
+synonyms_indexed_by_indicator = {}
+indicators_indexed_by_synonym = {}
 
 MAX_LENGTH_TELEGRAM_MESSAGE = 4096
 URL = properties.indicators_api_url
@@ -42,15 +42,15 @@ for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 def initializeSynonyms():
     with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
         nlu_train = json.load(json_data)
-        for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
-            if (synonym_entity["value"] in indicators):
-                indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
-                for synonym in synonym_entity["synonyms"]:
-                    indicators_and_synonyms[synonym] = synonym_entity["value"]
+        for entity_synonyms in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
+            if (entity_synonyms["value"] in indicators):
+                synonyms_indexed_by_indicator[entity_synonyms["value"]] = entity_synonyms["synonyms"]
+                for synonym in entity_synonyms["synonyms"]:
+                    indicators_indexed_by_synonym[synonym] = entity_synonyms["value"]
 
     # Todos los sinónimos son su propio sinónimo.
     for indicator in indicators:
-        indicators_and_synonyms[indicator] = indicator
+        indicators_indexed_by_synonym[indicator] = indicator
 
 initializeSynonyms()
 
@@ -264,9 +264,9 @@ class ActionShow(Action):
 
         # Añadidos otros indicadores con el mismo sinónimo
         indicators_same_synonym = []
-        for indicator in indicators_synonyms:
-            for synonym in indicators_synonyms[indicator]:
-                if (synonym in indicators_synonyms[indicator_slot] and indicator_slot != indicator):
+        for indicator in synonyms_indexed_by_indicator:
+            for synonym in synonyms_indexed_by_indicator[indicator]:
+                if (synonym in synonyms_indexed_by_indicator[indicator_slot] and indicator_slot != indicator):
                     indicators_same_synonym.append(indicator)
 
         indicators_sorted = indicators_same_synonym + indicators_sorted
@@ -354,12 +354,12 @@ class ActionShow(Action):
 
     def calculate_confidence_indicator(self, indicator_slot):
         if indicator_slot is not None:
-            for indicator in indicators_and_synonyms.keys():
+            for indicator in indicators_indexed_by_synonym.keys():
                 difference = difflib.SequenceMatcher(None, self.stemming(indicator_slot),
                                                      self.stemming(indicator)).ratio()
                 if (difference > self.indicator_confidence["confidence"]):
                     self.indicator_confidence["confidence"] = difference
-                    self.indicator_confidence["value"] = indicators_and_synonyms[indicator]
+                    self.indicator_confidence["value"] = indicators_indexed_by_synonym[indicator]
 
         if (self.debug):
             print(str(self.indicator_confidence["confidence"]))
