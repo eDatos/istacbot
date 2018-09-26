@@ -39,17 +39,20 @@ spanish_stopwords = stopwords.words('spanish')
 remove_punctuation_marks = re.compile(r"\w+")
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
-with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
-    nlu_train = json.load(json_data)
-    for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
-        if (synonym_entity["value"] in indicators):
-            indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
-            for synonym in synonym_entity["synonyms"]:
-                indicators_and_synonyms[synonym] = synonym_entity["value"]
+def initializeSynonyms():
+    with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
+        nlu_train = json.load(json_data)
+        for synonym_entity in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
+            if (synonym_entity["value"] in indicators):
+                indicators_synonyms[synonym_entity["value"]] = synonym_entity["synonyms"]
+                for synonym in synonym_entity["synonyms"]:
+                    indicators_and_synonyms[synonym] = synonym_entity["value"]
 
-# Todos los sinónimos son su propio sinónimo.
-for indicator in indicators:
-    indicators_and_synonyms[indicator] = indicator
+    # Todos los sinónimos son su propio sinónimo.
+    for indicator in indicators:
+        indicators_and_synonyms[indicator] = indicator
+
+initializeSynonyms()
 
 class ActionShow(Action):
     restart_index = 0
