@@ -40,7 +40,7 @@ remove_punctuation_marks = re.compile(r"\w+")
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
 def initializeSynonyms():
-    with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
+    with open(properties.dataset_path + '/rasa_dataset_training.json', mode="r", encoding="utf-8") as json_data:
         nlu_train = json.load(json_data)
         for entity_synonyms in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
             if (entity_synonyms["value"] in indicators):
