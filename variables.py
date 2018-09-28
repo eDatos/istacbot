@@ -156,7 +156,7 @@ indicators = {
     'Población extranjera. Mujeres': 'POBLACION_EXTRANJERA_MUJERES',
     'Índice de precios industriales': 'IPRI',
     'Índice de producción industrial': 'IPI',
-    'Índice de precios de consumo. General': 'IPC',
+    'Índice de precios de consumo (IPC). General': 'IPC',
     'Alumnado no universitario. Enseñanzas de régimen general': 'ALUMNADO_NO_UNIVERSITARIO_REGIMEN_GENERAL',
     'Alumnado no universitario. Educación primaria': 'ALUMNADO_NO_UNIVERSITARIO_REGIMEN_GENERAL_PRIMARIA',
     'Alumnado no universitario. Educación secundaria obligatoria (E.S.O)': 'ALUMNADO_NO_UNIVERSITARIO_REGIMEN_GENERAL_ESO',
