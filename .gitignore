@@ -6,3 +6,4 @@ __pycache__/
 credentials.py
 *.csv
 /data/chatito/generated
+/data/rasa_dataset_testing.json
