@@ -49,7 +49,8 @@ def initializeSynonyms():
                     indicators_indexed_by_synonym[synonym] = entity_synonyms["value"]
 
     # Todos los sinónimos son su propio sinónimo.
-    for indicator in indicators:
+    for indicator in indicators.keys():
+        print(indicator)
         indicators_indexed_by_synonym[indicator] = indicator
 
 initializeSynonyms()
@@ -97,8 +98,6 @@ class ActionShow(Action):
         if self.restart_index != tracker.idx_after_latest_restart():
             self.restart_index = tracker.idx_after_latest_restart()
             self.reset()
-
-        self.message = tracker.latest_message.text.strip()
 
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
@@ -262,12 +261,17 @@ class ActionShow(Action):
         if len(indicators_sorted) > 0:
             indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
 
+        if (len(indicators_sorted) > NUMBER_SIMILAR_INDICATORS):
+            indicators_sorted = indicators_sorted[:NUMBER_SIMILAR_INDICATORS]
+
+
         # Añadidos otros indicadores con el mismo sinónimo
         indicators_same_synonym = []
-        for indicator in synonyms_indexed_by_indicator:
-            for synonym in synonyms_indexed_by_indicator[indicator]:
-                if (synonym in synonyms_indexed_by_indicator[indicator_slot] and indicator_slot != indicator):
-                    indicators_same_synonym.append(indicator)
+        for indicator in synonyms_indexed_by_indicator.keys():
+            if (indicator not in indicators_sorted):
+                for synonym in synonyms_indexed_by_indicator[indicator]:
+                    if (indicator_slot in synonyms_indexed_by_indicator and synonym in synonyms_indexed_by_indicator[indicator_slot] and indicator_slot != indicator):
+                        indicators_same_synonym.append(indicator)
 
         indicators_sorted = indicators_same_synonym + indicators_sorted
 
