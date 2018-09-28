@@ -1,0 +1,10 @@
+%[inform]('training': '30000')
+    @[var_Loc] @[var_What] @[var_Date]
+    @[var_Loc] @[var_Date] @[var_What]
+    @[var_Date] @[var_Loc] @[var_What]
+    @[var_Date] @[var_What] @[var_Loc]
+    ~[prephrase?] @[var_What] @[var_Loc]  @[var_Date]
+    ~[prephrase?] @[var_What] @[var_Date] @[var_Loc]
+    ~[prephrase?] @[var_What] @[var_Loc]
+    ~[prephrase?] @[var_What] @[var_Date]
+    ~[saludo] ~[prephrase?] @[var_What] @[var_Loc]
