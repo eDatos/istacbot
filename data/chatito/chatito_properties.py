@@ -19,5 +19,5 @@ partials = {
     "entidad-Mujeres.chatito": 7,
     "entidad-Hombres.chatito": 7,
     "entidad-ListadoIndicadores.chatito": 3,
-    "entidad-Inform.chatito": 1
+    "entidad-Informar.chatito": 1
 }
