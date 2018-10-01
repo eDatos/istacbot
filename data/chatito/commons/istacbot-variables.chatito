@@ -1,0 +1,1009 @@
+~[listado_indicadores]
+    datos
+    datos darme
+    datos consultar
+    comandos
+    listame
+    muestrame
+    enseñame
+    datos conocer
+    datos usar
+    buscar
+    puedo preguntar
+
+~[ayuda]
+    hacer
+    ayuda
+    ayudame
+    funcionas
+    empezar
+    empieza
+    ayuda
+    opciones
+    enseñame
+    puedo hacer
+
+~[mujeres]
+    mujeres
+
+~[hombres]
+    hombres
+
+~[saludo]
+    hola
+    hey
+    buenas
+    buenos dias
+    buenas tardes
+    buenas noches
+    tal
+    tal
+    alo
+    alooo
+    holaaa
+
+~[prephrase]
+    interesa
+    datos
+    darme
+    consultar
+    conocer
+    informacion
+
+@[var_What]
+    sociedades mercantiles creadas
+    poblacion 65 años
+    coste laboral trabajador
+    vivienda libre precio metro cuadrado
+    migraciones saldo migratorio
+    nacimientos
+    defunciones
+    poblacion
+    poblacion parada mujeres
+    tasa actividad hombres
+    empleo registrado agricultura
+    ibi tipo gravamen urbanos
+    poblacion inactiva
+    accidentes trabajo baja
+    accidentes trabajo baja jornadas trabajadas
+    parque vehiculos cada 1.000 habitantes turismos
+    matriculacion vehiculos turismos
+    poblacion activa mujeres
+    nacimientos mujeres
+    afiliaciones seguridad social empleos asalariados
+    tasa bruta mortalidad
+    ibi tipo gravamen rusticos
+    paro registrado hombres
+    poblacion mujeres 0 14 años
+    tasa empleo
+    presupuesto liquidado ingresos habitante cabildos
+    presupuesto liquidado ingresos fiscales habitante ayuntamientos
+    indice produccion industrial
+    presupuesto liquidado ingresos habitante ayuntamientos
+    trafico aereo comercial movimiento mercancias
+    afiliaciones seguridad social agricultura
+    irpf base imponible declarante
+    poblacion activa hombres
+    superficie cultivada cultivos leñosos
+    trafico aereo comercial movimiento pasajeros
+    poblacion turistica equivalente alojamientos turisticos
+    gasto turistico
+    matrimonios conyuges diferente sexo
+    poblacion parada hombres
+    presupuesto liquidado gastos habitante ayuntamientos
+    tasa bruta mortalidad mujeres
+    comercio exterior exportaciones valor productos agricolas
+    visados obra viviendas obra nueva
+    defunciones mujeres
+    poblacion inactiva hombres
+    poblacion hombres 65 años
+    indice volumen encadenado pib variaciones reales
+    afiliaciones seguridad social
+    comercio exterior importaciones peso productos agricolas
+    poblacion extranjera
+    sociedades mercantiles amplian capital capital suscrito
+    alumnado universitario educacion infantil
+    venta mayor cemento
+    vivienda protegida precio metro cuadrado
+    policia local efectivos cada 1.000 habitantes
+    empleo registrado autonomos
+    ibi cuota liquida rusticos
+    superficie cultivada
+    alumnado universitario centros publicos enseñanzas regimen general
+    empleo registrado servicios
+    tasa actividad
+    parque vehiculos cada 1.000 habitantes
+    licitacion oficial construccion edificacion
+    tasa paro
+    ibi cuota liquida urbanos
+    presupuesto liquidado gastos habitante cabildos
+    tasa paro hombres
+    plazas ofertadas alojamientos turisticos
+    indice precios consumo general
+    afiliaciones seguridad social construccion
+    alojamientos turisticos abiertos
+    empleo registrado cada 1.000 habitantes ayuntamientos
+    comercio exterior importaciones peso
+    comercio exterior importaciones valor productos agricolas
+    comercio exterior tasa cobertura
+    afiliaciones seguridad social mujeres
+    empleo registrado ayuntamientos
+    empleo registrado cabildos
+    poblacion extranjera hombres
+    hipotecas constituidas importe
+    comercio exterior exportaciones valor
+    alumnado universitario enseñanzas regimen general
+    superficie cultivada regadio
+    pernoctaciones alojamientos turisticos
+    empleo registrado hosteleria
+    empleo registrado comercio
+    migraciones saldo migratorio mujeres
+    poblacion inactiva mujeres
+    indice precios industriales
+    parque vehiculos turismos
+    migraciones saldo migratorio hombres
+    tasa paro mujeres
+    poblacion parada
+    poblacion mujeres 15 64 años
+    gasto medio turista dia
+    pib precios corrientes
+    alumnado universitario centros privados concertados enseñanzas regimen general
+    hipotecas constituidas
+    poblacion ocupada hombres
+    empresas inscritas seguridad social industria
+    energia electrica
+    indice precios consumo ipc subyacente
+    tasa bruta mortalidad hombres
+    comercio exterior exportaciones peso productos agricolas
+    sociedades mercantiles amplian capital
+    poblacion 65 años
+    empleo registrado
+    policia local efectivos
+    afiliaciones seguridad social industria
+    nacimientos hombres
+    viajeros entrados alojamientos turisticos
+    poblacion 0 14 años
+    coste laboral hora efectiva trabajo
+    visados obra viviendas
+    trafico aereo comercial movimiento aeronaves
+    alumnado universitario educacion primaria
+    empleo registrado asalariados
+    poblacion ocupada
+    empleo registrado industria
+    poblacion hombres 0 14 años
+    afiliaciones seguridad social empleos autonomos hombres
+    poblacion mujeres 65 años
+    defunciones hombres
+    matriculacion vehiculos
+    poblacion 0 14 años
+    comercio exterior deficit comercial
+    licitacion oficial construccion
+    poblacion extranjera mujeres
+    alumnado universitario educacion secundaria obligatoria e.s.o
+    paro registrado mujeres
+    cabezas ganado caprino
+    poblacion activa
+    indice cifra negocios servicios
+    poblacion mujeres
+    tasa ocupacion plazas
+    afiliaciones seguridad social empleos asalariados mujeres
+    paro registrado
+    cabezas ganado ovino
+    superficie
+    empresas inscritas seguridad social construccion
+    superficie cultivada cultivos herbaceos
+    poblacion ocupada mujeres
+    superficie cultivada secano
+    comercio exterior exportaciones peso
+    afiliaciones seguridad social hombres
+    afiliaciones seguridad social empleos autonomos mujeres
+    poblacion hombres 15 64 años
+    empleo registrado cada 1.000 habitantes cabildos
+    tasa empleo mujeres
+    afiliaciones seguridad social empleos autonomos
+    empresas inscritas seguridad social servicios
+    gasto medio turista
+    poblacion hombres
+    licitacion oficial construccion ingenieria civil
+    afiliaciones seguridad social empleos asalariados hombres
+    empresas inscritas seguridad social
+    empleo registrado construccion
+    hipotecas canceladas
+    empresas inscritas seguridad social agricultura
+    tasa actividad mujeres
+    poblacion edad media
+    parque vehiculos
+    poblacion 15 64 años
+    tasa empleo hombres
+    cabezas ganado porcino
+    cabezas ganado bovino
+    afiliaciones seguridad social servicios
+    indice ocupacion servicios
+    comercio exterior importaciones valor
+    alumnado universitario centros privados concertados enseñanzas regimen general
+    presupuesto liquidado ingresos fiscales habitante cabildos
+    sociedades mercantiles creadas capital suscrito
+    ~[Accidentes de trabajo con baja]
+    ~[Afiliaciones a la seguridad social]
+    ~[Alojamientos turisticos abiertos]
+    ~[Alumnado no universitario. Educacion infantil]
+    ~[Alumnado no universitario. Educacion primaria]
+    ~[Alumnado no universitario. Educación secundaria obligatoria]
+    ~[Cabezas de ganado. Bovino]
+    ~[Cabezas de ganado. Caprino]
+    ~[Cabezas de ganado. Ovino]
+    ~[Cabezas de ganado. Porcino]
+    ~[Comercio exterior. Exportaciones en peso]
+    ~[Comercio exterior. Importaciones en valor]
+    ~[Coste laboral. Por hora efectiva de trabajo]
+    ~[Coste laboral. Por trabajador y mes]
+    ~[Defunciones]
+    ~[Empleo registrado]
+    ~[Empleo registrado. Ayuntamientos]
+    ~[Empleo registrado. Cabildos]
+    ~[Empresas inscritas en la seguridad social]
+    ~[Empresas inscritas en la Seguridad Social. Agricultura]
+    ~[Empresas inscritas en la Seguridad Social. Construcción]
+    ~[Empresas inscritas en la Seguridad Social. Industria]
+    ~[Energía eléctrica. Disponible]
+    ~[Gasto medio por turista]
+    ~[Gasto medio por turista y día]
+    ~[Hipotecas canceladas]
+    ~[Hipotecas constituidas]
+    ~[Indice de cifra de negocios (IASS). Servicios]
+    ~[Indice de ocupación (IASS). Servicios]
+    ~[Indice de precios industriales (IPRI)]
+    ~[Indice de producción industrial (IPI)]
+    ~[Indice de volumen encadenado del PIB (variaciones reales)]
+    ~[IRPF. Base imponible por declarante]
+    ~[Licitacion oficial en construcción]
+    ~[Matriculación de vehículos]
+    ~[Matrimonios. Entre cónyuges de diferente sexo]
+    ~[Migraciones. Saldo migratorio]
+    ~[Nacimientos]
+    ~[Paro registrado]
+    ~[Parque de vehículos]
+    ~[Pernoctaciones en alojamientos turísticos]
+    ~[PIB a precios corrientes]
+    ~[Plazas ofertadas por alojamientos turísticos]
+    ~[Población]
+    ~[Población activa]
+    ~[Población extranjera]
+    ~[Población inactiva]
+    ~[Población ocupada]
+    ~[Población parada]
+    ~[Población turística equivalente en alojamientos turísticos]
+    ~[Población. Edad media]
+    ~[Policía local. Efectivos]
+    ~[Presupuesto liquidado. Gastos por habitante. Ayuntamientos]
+    ~[Presupuesto liquidado. Gastos por habitante. Cabildos]
+    ~[Presupuesto liquidado. Ingresos fiscales por habitante. Ayuntamientos]
+    ~[Presupuesto liquidado. Ingresos fiscales por habitante. Cabildos]
+    ~[Presupuesto liquidado. Ingresos por habitante. Ayuntamientos]
+    ~[Presupuesto liquidado. Ingresos por habitante. Cabildos]
+    ~[Sociedades mercantiles. Amplian capital]
+    ~[Sociedades mercantiles. Creadas]
+    ~[Superficie]
+    ~[Superficie cultivada]
+    ~[Tasa bruta de mortalidad]
+    ~[Tasa de actividad]
+    ~[Tasa de empleo]
+    ~[Tasa de ocupación por plazas]
+    ~[Tasa de paro]
+    ~[Turistas recibidos]
+    ~[Venta mayor de cemento]
+    ~[Viajeros entrados en alojamientos turísticos]
+    ~[IBI. Cuota liquida. Rusticos]
+    ~[IBI. Cuota liquida. Urbanos]
+    ~[Índice de precios de consumo (IPC). General]
+    ~[Licitación oficial en construcción. Edificación]
+    ~[Licitación oficial en construcción. Ingeniería civil]
+    ~[Población. De 65 o más años]
+    ~[Población. De 0 a 14 años]
+    ~[Población. Mujeres de 0 a 14 años]
+    ~[Policía Local. Efectivos por cada 1.000 habitantes]
+    ~[Población. Mujeres de 65 o más años]
+    ~[Tráfico aéreo comercial. Movimiento de mercancías]
+    ~[Visados de obra. Viviendas]
+    ~[Visados de obra. Viviendas de obra nueva]
+    ~[Vivienda libre. Precio del metro cuadrado]
+    ~[Vivienda protegida. Precio del metro cuadrado]
+    ~[Población. De 0 a 14 años (% sobre total)]
+    ~[Población. De 65 o más años (% sobre total)]
+
+~[Accidentes de trabajo con baja]
+    siniestros laborales
+    siniestralidad laboral
+    percance laboral
+
+~[Afiliaciones a la seguridad social]
+    afiliaciones seguridad social
+    altas seguridad social
+    inscritos seguridad social
+    seguridad social
+    afiliaciones ss
+    altas ss
+    inscritos ss
+    ss
+    afiliaciones
+    ocupados
+    trabajadores
+
+~[Alojamientos turisticos abiertos]
+    alojamientos abiertos
+    hoteles abiertos
+    hoteles
+    apartamentos
+    pensiones
+    apartahotel
+    casas rurales
+
+~[Alumnado no universitario. Educacion infantil]
+    educacion infantil
+
+~[Alumnado no universitario. Educacion primaria]
+    educacion primaria
+
+~[Alumnado no universitario. Educación secundaria obligatoria]
+    educación secundaria obligatoria
+    eso
+    e.s.o
+
+~[Cabezas de ganado. Bovino]
+    vacas
+    terneras
+    terneros
+    toros
+
+~[Cabezas de ganado. Caprino]
+    cabras
+    cabritos
+
+~[Cabezas de ganado. Ovino]
+    ovejas
+
+~[Cabezas de ganado. Porcino]
+    cochinos
+    cerdos
+    guarros
+    marranos
+
+~[Comercio exterior. Exportaciones en peso]
+    exportaciones
+
+~[Comercio exterior. Importaciones en valor]
+    importaciones
+
+~[Coste laboral. Por hora efectiva de trabajo]
+    salarios
+    seguridad social
+    cotizaciones
+    gastos labores
+
+~[Coste laboral. Por trabajador y mes]
+    salarios
+    seguridad social
+    cotizaciones
+    gastos labores
+
+~[Defunciones]
+    defunciones
+    muertes
+
+~[Empleo registrado]
+    puestos trabajo
+    empleos
+    empleo
+    trabajo
+    empleados
+
+~[Empleo registrado. Ayuntamientos]
+    empleo ayuntamientos
+
+~[Empleo registrado. Cabildos]
+    empleo cabildos
+
+~[Empresas inscritas en la seguridad social]
+    empresas inscritas seguridad social
+    empresas inscritas ss
+    sociedades
+    empresas
+    seguridad social
+
+~[Empresas inscritas en la Seguridad Social. Agricultura]
+    empresas agrarias
+    cooperativas
+    ganaderias
+
+~[Empresas inscritas en la Seguridad Social. Construcción]
+    constructoras
+
+~[Empresas inscritas en la Seguridad Social. Industria]
+    industrias
+
+~[Energía eléctrica. Disponible]
+    energia electrica
+    luz
+
+~[Gasto medio por turista]
+    gasto turista
+
+~[Gasto medio por turista y día]
+    gasto turista dia
+
+~[Hipotecas canceladas]
+    hipotecas canceladas
+    hipotecas
+
+~[Hipotecas constituidas]
+    hipotecas firmadas
+    nuevas hipotecas
+    hipotecas
+
+~[IBI. Cuota liquida. Rusticos]
+    ibi
+    impuesto bienes inmuebles
+    impuesto municipal
+    ibi campo
+
+~[IBI. Cuota liquida. Urbanos]
+    ibi
+    impuesto bienes inmuebles
+    impuesto municipal
+    ibi
+
+~[Índice de precios de consumo (IPC). General]
+    ipc
+    índice precios consumo
+    precios
+
+~[Indice de cifra de negocios (IASS). Servicios]
+    cifra negocios
+
+~[Indice de ocupación (IASS). Servicios]
+    empleo
+    puestos trabajo
+
+~[Indice de precios industriales (IPRI)]
+    indice precios industriales
+    ipri
+    precios industriales
+
+~[Indice de producción industrial (IPI)]
+    indice produccion industrial
+    ipi
+    produccion industrial
+    produccion
+
+~[Indice de volumen encadenado del PIB (variaciones reales)]
+    producto interior
+    producto interior bruto
+
+~[IRPF. Base imponible por declarante]
+    irpf
+    impuesto renta personas fisicas
+    impuesto renta
+    renta
+
+~[Licitacion oficial en construcción]
+    obras publicas
+    construccion publica
+
+~[Licitación oficial en construcción. Edificación]
+    obras públicas
+    construcción pública
+
+~[Licitación oficial en construcción. Ingeniería civil]
+    obras públicas
+    construcción pública
+
+~[Matriculación de vehículos]
+    vehiculos matriculados
+    coches matriculados
+    matriculas coches
+    matriculas vehiculos
+
+~[Matrimonios. Entre cónyuges de diferente sexo]
+    matrimonios
+    parejas
+
+~[Migraciones. Saldo migratorio]
+    migraciones
+
+~[Nacimientos]
+    nacimientos
+    natalidad
+    recien nacidos
+    partos
+
+~[Paro registrado]
+    personas paro
+    personas desempleadas
+    parados
+    paro
+    desempleados
+    desempleo
+    desocupados
+
+~[Parque de vehículos]
+    vehiculos circulacion
+    coches circulacion
+    coches
+    vehiculos
+
+~[Pernoctaciones en alojamientos turísticos]
+    noches hoteles
+    noches apartamentos
+    noches apartahoteles
+    pernoctaciones hoteles
+    pernoctaciones apartamentos
+    pernoctaciones apartahoteles
+
+~[PIB a precios corrientes]
+    pib
+    producto interno bruto
+
+~[Plazas ofertadas por alojamientos turísticos]
+    plazas ofertadas alojamientos turisticos
+    habitaciones alojamientos turisticos
+    plazas hoteles
+    habitaciones hoteles
+
+~[Población]
+    poblacion
+    habitantes
+    personas
+    habitantes
+
+~[Población activa]
+    activos
+
+~[Población extranjera]
+    inmigrantes
+    inmigracion
+    extranjeros
+
+~[Población inactiva]
+    inactivos
+    jubilados
+    estudiantes
+
+~[Población ocupada]
+    ocupados
+    trabajadores
+
+~[Población parada]
+    personas paro
+    personas desempleadas
+    parados
+    paro
+    desempleados
+    desempleo
+    desocupados
+
+~[Población turística equivalente en alojamientos turísticos]
+    turistas
+
+~[Población. De 0 a 14 años]
+    infancia
+    niños
+    menores
+
+~[Población. De 65 o más años]
+    vejez
+    viejos
+    ancianos
+    mayores
+    tercera edad
+
+~[Población. Edad media]
+    edad media poblacion
+    edad media
+    media edad
+
+~[Población. Mujeres de 0 a 14 años]
+    niñas
+    menores
+
+~[Población. Mujeres de 65 o más años]
+    viejas
+    ancianas
+
+~[Policía local. Efectivos]
+    policia
+
+~[Policía Local. Efectivos por cada 1.000 habitantes]
+    policía local
+    efectivos policía
+    efectivos policía habitantes
+
+~[Presupuesto liquidado. Gastos por habitante. Ayuntamientos]
+    presupuesto ayuntamiento
+    gastos ayuntamiento
+    gastos municipales
+
+~[Presupuesto liquidado. Gastos por habitante. Cabildos]
+    presupuesto cabildo
+    gastos cabildo
+    gastos insulares
+    presupuesto insular
+
+~[Presupuesto liquidado. Ingresos fiscales por habitante. Ayuntamientos]
+    impuestos municipales
+    recaudacion municipal
+    tributos municipales
+    impuestos ayuntamiento
+    recaudacion ayuntamiento
+    tributos ayuntamiento
+
+~[Presupuesto liquidado. Ingresos fiscales por habitante. Cabildos]
+    impuestos insulares
+    recaudacion insulares
+    tributos insulares
+    impuestos cabildo
+    recaudacion cabildo
+    tributos cabildo
+
+~[Presupuesto liquidado. Ingresos por habitante. Ayuntamientos]
+    presupuesto ayuntamiento
+    ingresos ayuntamiento
+    ingresos municipales
+
+~[Presupuesto liquidado. Ingresos por habitante. Cabildos]
+    presupuesto cabildo
+    ingresos cabildo
+    ingresos insulares
+
+~[Sociedades mercantiles. Amplian capital]
+    capital societario
+
+~[Sociedades mercantiles. Creadas]
+    sociedades mercantiles
+    sociedades
+    empresas
+    creacion empresas
+
+~[Superficie]
+    superficie
+    terreno
+    extension territorial
+    area
+    uso suelo
+
+~[Superficie cultivada]
+    superficie cultivada
+    terreno cultivado
+    area cultivada
+
+~[Tasa bruta de mortalidad]
+    mortalidad
+    defunciones
+    muertes
+
+~[Tasa de actividad]
+    actividad
+
+~[Tasa de empleo]
+    empleo
+    trabajadores
+    ocupacion
+
+~[Tasa de ocupación por plazas]
+    ocupacion alojamientos turisticos
+    ocupacion hotelera
+    tasa ocupacion hotelera
+
+~[Tasa de paro]
+    paro
+    desempleo
+
+~[Turistas recibidos]
+    turistas
+    turismo
+    extranjeros
+    veraneantes
+
+~[Venta mayor de cemento]
+    cemento
+    venta cemento
+
+~[Tráfico aéreo comercial. Movimiento de mercancías]
+    tráfico aéreo comercial
+    transporte mercancías
+    movimiento mercancías
+    transporte mercancías
+
+~[Visados de obra. Viviendas]
+    licencias obra
+
+~[Visados de obra. Viviendas de obra nueva]
+    licencias obra
+
+~[Vivienda libre. Precio del metro cuadrado]
+    precio vivienda
+
+~[Vivienda protegida. Precio del metro cuadrado]
+    precio vivienda
+
+~[Viajeros entrados en alojamientos turísticos]
+    visitantes alojamientos turisticos
+    personas hospedadas alojamientos turisticos
+    visitantes hoteles
+    huespedes hoteles
+    reservas hoteles
+
+~[Población. De 0 a 14 años (% sobre total)]
+    Poblacion 0 14 años total
+
+~[Población. De 65 o más años (% sobre total)]
+    Poblacion 65 años total
+
+@[var_Date]
+    hoy
+    1990q1
+    2015q1
+    1962q2
+    2018q3
+    2005q4
+    1984q4
+    1976q3
+    1972q3
+    1972q2
+    m01
+    m02
+    m03
+    m04
+    m05
+    m06
+    m07
+    m08
+    m09
+    m10
+    m11
+    m12
+    1990
+    2015
+    1962
+    2018
+    2005
+    1984
+    1976
+    1972
+    q1
+    q2
+    q3
+    q4
+    1990M01
+    2012M02
+    1945M03
+    2011M03
+    2006M12
+    1998M09
+    1977M05
+    1974M07
+    1979M08
+
+@[var_Loc]
+    35000
+    38000
+    38201
+    canarias
+    arrecife
+    haria
+    san bartolome
+    teguise
+    tias
+    tinajo
+    yaiza
+    antigua
+    betancuria
+    oliva
+    pajara
+    puerto rosario
+    tuineje
+    agaete
+    agüimes
+    artenara
+    arucas
+    firgas
+    galdar
+    ingenio
+    mogan
+    moya
+    palmas gran canaria
+    san bartolome tirajana
+    aldea san nicolas
+    santa brigida
+    santa lucia tirajana
+    santa maria guia gran canaria
+    tejeda
+    telde
+    teror
+    valsequillo gran canaria
+    valleseco
+    vega san mateo
+    adeje
+    arafo
+    arico
+    arona
+    buenavista norte
+    candelaria
+    fasnia
+    garachico
+    granadilla abona
+    guancha
+    guia isora
+    güimar
+    icod vinos
+    san cristobal laguna
+    matanza acentejo
+    orotava
+    puerto cruz
+    realejos
+    rosario
+    san juan rambla
+    san miguel abona
+    santa ursula
+    santiago teide
+    sauzal
+    silos
+    tacoronte
+    tanque
+    tegueste
+    victoria acentejo
+    vilaflor chasna
+    agulo
+    alajero
+    hermigua
+    san sebastian gomera
+    valle gran rey
+    vallehermoso
+    barlovento
+    breña alta
+    breña baja
+    fuencaliente palma
+    garafia
+    llanos aridane
+    puntagorda
+    puntallana
+    san andres sauces
+    santa cruz palma
+    tazacorte
+    tijarafe
+    villa mazo
+    frontera
+    valverde
+    pinar hierro
+    lanzarote
+    gran canaria
+    tenerife
+    gomera
+    palma
+    hierro
+    ceuta melilla
+    andalucia
+    aragon
+    principado asturias
+    illes balears
+    cantabria
+    castilla leon
+    castilla mancha
+    cataluña
+    comunitat valenciana
+    extremadura
+    galicia
+    comunidad madrid
+    madrid
+    region murcia
+    comunidad foral navarra
+    navarra
+    pais vasco
+    rioja
+    ceuta
+    melilla
+    albacete
+    alacant
+    alicante
+    almeria
+    araba
+    alava
+    asturias
+    avila
+    badajoz
+    illes balears
+    balears
+    islas baleares
+    baleares
+    barcelona
+    bizkaia
+    burgos
+    caceres
+    cadiz
+    cantabria
+    castello
+    castellon
+    ceuta
+    real
+    cordoba
+    coruña
+    coruña
+    cuenca
+    gipuzkoa
+    girona
+    gerona
+    granada
+    guadalajara
+    huelva
+    huesca
+    jaen
+    leon
+    lleida
+    lerida
+    lugo
+    madrid
+    malaga
+    melilla
+    murcia
+    navarra
+    ourense
+    palencia
+    palmas
+    pontevedra
+    rioja
+    salamanca
+    santa cruz tenerife
+    segovia
+    sevilla
+    soria
+    tarragona
+    teruel
+    toledo
+    valladolid
+    zamora
+    zaragoza
+    valència
+    valencia
+    lanzarote
+    lanzarote
+    lanzarote norte
+    lanzarote suroeste
+    fuerteventura
+    fuerteventura centro
+    fuerteventura norte
+    fuerteventura sur
+    gran canaria area metropolitana
+    gran canaria area metropolitana
+    gran canaria norte
+    gran canaria norte centro norte
+    gran canaria norte noroeste
+    gran canaria norte oeste
+    gran canaria sur
+    gran canaria sur sur
+    gran canaria sur sureste
+    tenerife area metropolitana
+    tenerife area metropolitana
+    tenerife norte
+    tenerife norte acentejo
+    tenerife norte daute
+    tenerife norte icod
+    tenerife norte valle orotava
+    tenerife sur
+    tenerife sur abona
+    tenerife sur suroeste
+    tenerife sur valle güimar
+    gomera
+    gomera norte
+    gomera sur
+    palma
+    palma capitalina
+    palma noreste
+    palma noroeste
+    palma valle aridane
+    hierro
+    hierro hierro
+    españa
+    ~[san cristobal la laguna]
+
+~[san cristobal la laguna]
+    laguna
+    san cristobal la laguna

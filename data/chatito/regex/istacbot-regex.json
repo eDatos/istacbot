@@ -1,0 +1,42 @@
+{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "zipcode",
+        "pattern": "[0-9]{5}"
+      },
+      {
+        "name": "year",
+        "pattern": "[0-9]{4}"
+      },
+      {
+        "name": "year_quarter",
+        "pattern": "[0-9]{4}q[1-4]"
+      },
+      {
+        "name": "year_month0_9",
+        "pattern": "[0-9]{4}m0[1-9]"
+      },
+      {
+        "name": "year_month10-12",
+        "pattern": "[0-9]{4}m(10|11|12)"
+      },
+      {
+        "name": "month0_9",
+        "pattern": "m0[1-9]"
+      },
+      {
+        "name": "month10-12",
+        "pattern": "m(10|11|12)"
+      },
+      {
+        "name": "quarter",
+        "pattern": "q[1-4]"
+      },
+      {
+        "name": "Saludo",
+        "pattern": "hey[^\\s]*"
+      }
+    ]
+  }
+}

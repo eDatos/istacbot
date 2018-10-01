@@ -40,16 +40,16 @@ remove_punctuation_marks = re.compile(r"\w+")
 for stopword in stopwords_custom: spanish_stopwords.append(stopword)
 
 def initializeSynonyms():
-    with open('./data/nlu_train.json', mode="r", encoding="utf-8") as json_data:
+    with open(properties.dataset_path + '/rasa_dataset_training.json', mode="r", encoding="utf-8") as json_data:
         nlu_train = json.load(json_data)
         for entity_synonyms in nlu_train["rasa_nlu_data"]["entity_synonyms"]:
-            if (entity_synonyms["value"] in indicators):
+            if (entity_synonyms["value"] in indicators and entity_synonyms["value"] not in synonyms_indexed_by_indicator.keys()):
                 synonyms_indexed_by_indicator[entity_synonyms["value"]] = entity_synonyms["synonyms"]
                 for synonym in entity_synonyms["synonyms"]:
                     indicators_indexed_by_synonym[synonym] = entity_synonyms["value"]
 
     # Todos los sinónimos son su propio sinónimo.
-    for indicator in indicators:
+    for indicator in indicators.keys():
         indicators_indexed_by_synonym[indicator] = indicator
 
 initializeSynonyms()
@@ -97,8 +97,6 @@ class ActionShow(Action):
         if self.restart_index != tracker.idx_after_latest_restart():
             self.restart_index = tracker.idx_after_latest_restart()
             self.reset()
-
-        self.message = tracker.latest_message.text.strip()
 
         if (tracker.latest_action_name not in self.actions_ignore and next(tracker.get_latest_entity_values("var_What"), None) == None and next(
             tracker.get_latest_entity_values("var_Loc"), None) == None
@@ -262,12 +260,18 @@ class ActionShow(Action):
         if len(indicators_sorted) > 0:
             indicators_sorted.pop(0) # Eliminamos el primer el elemento porque coincide con indicator_slot.
 
+        if (len(indicators_sorted) > NUMBER_SIMILAR_INDICATORS):
+            indicators_sorted = indicators_sorted[:NUMBER_SIMILAR_INDICATORS]
+
         # Añadidos otros indicadores con el mismo sinónimo
         indicators_same_synonym = []
-        for indicator in synonyms_indexed_by_indicator:
+        for indicator in synonyms_indexed_by_indicator.keys():
             for synonym in synonyms_indexed_by_indicator[indicator]:
-                if (synonym in synonyms_indexed_by_indicator[indicator_slot] and indicator_slot != indicator):
+                if (indicator_slot in synonyms_indexed_by_indicator and synonym in synonyms_indexed_by_indicator[
+                    indicator_slot] and indicator_slot != indicator and indicator not in indicators_same_synonym):
                     indicators_same_synonym.append(indicator)
+                    if (indicator in indicators_sorted):
+                        indicators_sorted.remove(indicator)
 
         indicators_sorted = indicators_same_synonym + indicators_sorted
 
