@@ -7,18 +7,17 @@
 # caracteres internacionales como "ñ".
 
 partials = {
-    "istacbot-partial-all.chatito": 1,
-    "istacbot-partial-date.chatito": 7,
-    "istacbot-partial-Despedida.chatito": 7,
-    "istacbot-partial-loc.chatito": 7,
-    "istacbot-partial-RespuestaNo.chatito": 7,
-    "istacbot-partial-RespuestaSi.chatito": 7,
-    "istacbot-partial-SaludoPixelPerfect.chatito": 7,
-    "istacbot-partial-what.chatito": 4,
-    "istacbot-partial-Saludo.chatito": 7,
-    "istacbot-partial-Ayuda.chatito": 4,
-    "istacbot-partial-Mujeres.chatito": 7,
-    "istacbot-partial-Hombres.chatito": 7,
-    "istacbot-partial-ListadoIndicadores.chatito": 3,
-    "istacbot-partial-inform.chatito": 1
+    "slot-date.chatito": 7,
+    "entidad-Despedida.chatito": 7,
+    "slot-loc.chatito": 7,
+    "entidad-RespuestaNo.chatito": 7,
+    "entidad-RespuestaSi.chatito": 7,
+    "entidad-SaludoPixelPerfect.chatito": 7,
+    "slot-what.chatito": 4,
+    "entidad-Saludo.chatito": 7,
+    "entidad-Ayuda.chatito": 4,
+    "entidad-Mujeres.chatito": 7,
+    "entidad-Hombres.chatito": 7,
+    "entidad-ListadoIndicadores.chatito": 3,
+    "entidad-Inform.chatito": 1
 }
