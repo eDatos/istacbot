@@ -1,6 +1,7 @@
 import os
 import shutil
 from data.chatito.chatito_properties import partials
+import properties
 
 COMMONS_DIRECTORY ='commons/'
 PARTIALS_DIRECTORY = 'partials/'
@@ -43,3 +44,5 @@ def _create_generated_path(partials_path, generated_path):
 def _create_training_dataset(chatito_path, output_path):
     generated_path = chatito_path + GENERATED_DIRECTORY
     os.system("npx chatito " + generated_path + " --format=rasa --outputPath=" + output_path)
+
+generate(properties.chatito_path, properties.dataset_path)
