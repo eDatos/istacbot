@@ -27,3 +27,4 @@ help = [
 ]
 saludo_pixelperfect = "Hola amo. ¿En qué puedo servirte hoy?"
 data_not_available = "dato no disponible"
+technical_issues="Ups, parece que hay algunos problemas técnicos que me impiden devolverte la información solicitada. Prueba nuevamente más tarde y disculpa el inconveniente"
