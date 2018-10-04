@@ -947,7 +947,6 @@
     navarra
     ourense
     palencia
-    palmas
     pontevedra
     rioja
     salamanca
@@ -1003,7 +1002,12 @@
     hierro hierro
     españa
     ~[san cristobal la laguna]
+    ~[palmas gran canaria]
 
 ~[san cristobal la laguna]
     laguna
     san cristobal la laguna
+
+~[palmas gran canaria]
+    palmas
+    palmas gran canaria

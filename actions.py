@@ -160,7 +160,15 @@ class ActionShow(Action):
             if self.location_confidence['confidence'] > 0.7 and self.indicator_confidence[
                 'confidence'] > 0.7 and indicator_slot != None and location_slot != None and self.indicator_confidence["value"] in indicators:
                 indicator = self.indicator_confidence["value"]
-                response_indicator = requests.get(URL + indicators[indicator]).json()
+                response_indicator = None
+                response = requests.get(URL + indicators[indicator])
+                if response.status_code != requests.codes.ok:
+                    self.technical_issues_message(dispatcher)
+                    return [SlotSet("var_What", None), SlotSet("var_Loc", None),
+                            SlotSet("var_Date", None)]
+                else:
+                    response_indicator = response.json()
+
                 if (self.location_confidence['confidence'] > 0.9 and self.indicator_confidence[
                     'confidence'] > 0.9 and response_indicator != None):
                     return self.show_information(dispatcher, date_slot, location_slot, indicator, response_indicator)
@@ -518,6 +526,9 @@ class ActionShow(Action):
 
     def date_get_year(self, date):
         return re.match(REGEX_HAS_YEAR, date)
+
+    def technical_issues_message(self, dispatcher):
+        dispatcher.utter_message(messages.technical_issues)
 
 class ActionAskHowCanHelp(Action):
     def name(self):
