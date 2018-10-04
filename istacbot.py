@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 import argparse
 import logging
 import re
-import generate_training_dataset
 
 import requests
 import spacy
@@ -74,7 +73,6 @@ def train_dialogue(domain_file="domain/istac_domain.yml",
 
 
 def train_nlu():
-    generate_training_dataset.generate(properties.chatito_path, properties.dataset_path)
     training_data = load_data(properties.dataset_path +'/rasa_dataset_training.json')
     trainer = Trainer(config.load("config/nlu_model_config_v1.yml"))
     trainer.train(training_data)
@@ -166,7 +164,6 @@ def remove_accents_and_lower(text):
     text = text.replace('ó', 'o')
     text = text.replace('ú', 'u')
     return text
-
 
 if __name__ == '__main__':
     utils.configure_colored_logging(loglevel="INFO")
