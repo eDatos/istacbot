@@ -7,4 +7,3 @@ credentials.py
 *.csv
 data/chatito/generated
 data/rasa_dataset_testing.json
-data/rasa_dataset_training.json
