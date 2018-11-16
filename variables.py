@@ -172,7 +172,8 @@ indicators = {
     'Comercio exterior. Exportaciones en valor. Productos agrícolas': 'COMERCIO_EXTERIOR_EXPORTACIONES_VALOR_AGRICOLAS',
     'Empleo registrado': 'EMPLEO_REGISTRADO',
     'Empleo registrado. Autónomos': 'EMPLEO_REGISTRADO_AUTONOMOS',
-    'Empleo registrado. Asalariados': 'EMPLEO_REGISTRADO_ASALARIADOS'
+    'Empleo registrado. Asalariados': 'EMPLEO_REGISTRADO_ASALARIADOS',
+    'Turistas recibidos': 'TURISTAS'
 }
 
 locations_check = {
