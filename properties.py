@@ -1,4 +1,4 @@
-indicators_api_url="https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/" # https://www3.gobiernodecanarias.org/istac/api/indicators/v1.0/indicators/
+indicators_api_url="https://datos.canarias.es/api/estadisticas/indicators/v1.0/indicators/" # https://datos.canarias.es/api/estadisticas/indicators/v1.0/indicators/
 default_geographical_location = "Canarias" # Localizacion por defecto en caso de que el usuario no proporcione ninguna. Ej. Canarias
 similar_indicators_quantity = 5 # Número de indicadores similares que se devuelve al usuario.
 locale = "es_ES.UTF-8" # Ej. es_ES.UTF-8
